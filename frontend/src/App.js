@@ -1,8 +1,7 @@
-import Footer from "./components/footer";
-import Navbar from "./components/navbar";
 import Dashboard from "./page/dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css"
 import Diagnosa from "./page/diagnosa";
 import Artikel from "./page/artikel";
 import RumahSakit from "./page/rumahSakit";
