@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.bg-kiri {
+  background-color: #222a9d;
+}
+
+.button-color {
+  background-color: #222a9d;
+}
+
+.button-color:hover {
+  background-color: #1825e7;
+}
+
+button {
+  border-radius: 8px;
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+.text-custom-color {
+  color: #222a9d;
+}
+
+.text-custom-color-kiri {
+  color: #52bfd7;
+}
