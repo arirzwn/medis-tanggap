@@ -7,6 +7,7 @@ import Artikel from './page/artikel';
 import RumahSakit from './page/rumahSakit';
 import LoginForm from './page/LoginPage/Login';
 import Register from './page/RegisterPage/Register';
+import DumyDashboard from './page/TestBerhasilLogin/DumyDashborad';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/rumah-sakit" element={<RumahSakit />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />{' '}
-        {/* Tambahkan rute ini */}
+        <Route path="dashboard" element={<DumyDashboard />} />
       </Routes>
     </BrowserRouter>
   );
