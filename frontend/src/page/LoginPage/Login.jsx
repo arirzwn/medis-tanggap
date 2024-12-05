@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './LoginForm.css'; // Tambahkan custom styling jika diperlukan
 import Button from '../../components/Button'; // Import the new Button component
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
+import axios from 'axios';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState('');
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -14,6 +19,28 @@ const LoginForm = () => {
 
   const navigateToRegister = () => {
     navigate('/register');
+  };
+
+  const Auth = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post('http://localhost:5000/login', {
+        email: email,
+        password: password,
+      });
+
+      navigate('/dashboard');
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.msg);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.msg,
+        });
+      }
+    }
   };
 
   return (
@@ -36,7 +63,7 @@ const LoginForm = () => {
         <p className="mb-4 text-muted font-weight-bold">
           Login to your account
         </p>
-        <form className="w-75">
+        <form className="w-75" onSubmit={Auth}>
           <div className="mb-3">
             {/* <label htmlFor="email" className="form-label font-weight-bold">
               Email
@@ -46,6 +73,8 @@ const LoginForm = () => {
               className="form-control"
               id="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-3 position-relative">
@@ -57,6 +86,8 @@ const LoginForm = () => {
               className="form-control"
               id="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               type="button"
