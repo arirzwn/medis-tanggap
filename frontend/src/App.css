@@ -1,0 +1,147 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav ul li{
+  margin-right: 15px;
+}
+
+.btn-brand{
+  background-color: #1800B0;
+  border-radius: 20px;
+  padding: 5px 25px;
+}
+
+.btn-sec3{
+  background-color: #1800B0;
+  padding: 5px 25px;
+}
+
+.btn-brand:hover, .btn-sec3:hover{
+  background-color: #4b39bb;
+}
+
+section h1{
+  font-size: 60px;
+}
+
+section h1 span{
+  color: #174AB5;
+}
+
+section button #btn{
+  text-align: center;
+  background-color: #52BFD7;
+  padding: 5px 2px;
+  border-radius: 100%;
+}
+
+#sec2 .container #li{
+  padding: 5px;
+  background-color: #52BFD7;
+  border-radius: 100%;
+}
+
+#sec2 .container ul li{
+  list-style: none;
+  margin-bottom: 10px;
+  left: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Membuat card turun ke baris berikutnya jika tidak muat */
+  gap: 20px; /* Jarak antar card */
+  justify-content: space-between; /* Distribusi antar card */
+}
+.card {
+  width: 18rem;
+  flex: 1 1 calc(33.333% - 20px); /* Membagi ruang hingga maksimum 3 card */
+  box-sizing: border-box; /* Pastikan padding tidak memengaruhi ukuran total */
+}
+
+.artikel-tagline{
+  height: 140px;
+  background-color: #1800B0;
+  border-radius: 20px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center
+}
+
+.artikel-img{
+  width: 498px;
+  height: 331px;
+  border-radius: 20px
+}
+
+.artikel-profil{
+  width: 38px;
+  height: 38px;
+  border-radius: 20px;
+  margin-top: 20px
+}
+
+.artikel-username{
+  margin-left: 10px;
+  margin-top: 28px;
+  font-size: 16px
+}
+
+.hari{
+  margin-top: 28px;
+  font-size: 16px
+}
+
+.artikel-mini-img{
+  width: 252px;
+  height: 201px;
+  border-radius: 20px
+}
+
+.artikel-mini-profil{
+  margin-top: 18px;
+  width: 35px;
+  height: 35px;
+  border-radius: 20px
+}
+
+.artikel-mini-username{
+  margin-left: 20px;
+  margin-top: 18px;
+  font-size: 15px
+}
+
+.artikel-mini-hari{
+  margin-left: 20px;
+  margin-top: -7px;
+  font-size: 13px
+}
+
+.artikel-detail-img{
+  width: 672px;
+  height: 427px;
+  border-radius: 20px
+}
+
+.artikel-detail-profil{
+  width: 38px;
+  height: 38px;
+  border-radius: 20px;
+  margin-top: 20px
+}
+
+.artikel-detail-username{
+  margin-left: 10px;
+  margin-top: 28px;
+  font-size: 16px
+}
+
+.artikel-detail-hari{
+  margin-top: 28px;
+  font-size: 16px
+}
