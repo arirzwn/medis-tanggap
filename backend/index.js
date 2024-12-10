@@ -4,16 +4,20 @@ import db from './config/Database.js';
 import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import Symptom from './models/SymptomModel.js'; 
+import Result from './models/ResultModel.js'; 
 
-dotenv.config();
+dotenv.config(); 
+
 const app = express();
 
+// Menghubungkan ke database dan memastikan koneksi
 try {
   await db.authenticate();
   console.log('Database Connected...');
-  //   await Users.sync();
+  await db.sync(); // Menambahkan ini agar tabel otomatis dibuat jika belum ada
 } catch (error) {
-  console.log(error);
+  console.log('Database connection error:', error);
 }
 
 const corsOptions = {

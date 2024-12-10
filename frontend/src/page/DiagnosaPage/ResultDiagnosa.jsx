@@ -4,6 +4,34 @@ import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 
 const ResultDiagnosa = () => {
+  const { state } = useLocation();
+  const [result, setResult] = useState(null);
+  const resultId = state?.resultId; // Ambil resultId dari state
+  const selectedSymptoms = state?.selectedSymptoms || []; // Gejala yang dipilih
+
+  // Fetch hasil berdasarkan resultId
+  useEffect(() => {
+    const fetchResult = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/results/${resultId}`
+        );
+        if (!response.ok) {
+          throw new Error('Terjadi kesalahan pada server');
+        }
+        const data = await response.json();
+        setResult(data);
+      } catch (error) {
+        console.error('Error fetching result:', error);
+        setResult(null); // Agar tampil pesan error jika gagal mengambil data
+      }
+    };
+
+    if (resultId) {
+      fetchResult();
+    }
+  }, [resultId]);
+
   return (
     <div>
       <Navbar />
