@@ -21,15 +21,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
-
         <Route path="/artikel" element={<Artikel />} />
-        <Route path="/artikel-detail" element={<Detail />} />
-
+        <Route path="/artikel-detail/:id" element={<Detail />} />
         <Route path="/rumah-sakit" element={<RumahSakit />} />
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
-
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />{' '}
         <Route path="dashboard" element={<DumyDashboard />} />

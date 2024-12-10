@@ -4,18 +4,17 @@ import db from './config/Database.js';
 import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import Symptom from './models/SymptomModel.js'; 
-import Result from './models/ResultModel.js'; 
+import articleRoutes from './routes/ArticlesRoutes.js';
 
-dotenv.config(); 
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Menghubungkan ke database dan memastikan koneksi
 try {
   await db.authenticate();
   console.log('Database Connected...');
-  await db.sync(); // Menambahkan ini agar tabel otomatis dibuat jika belum ada
 } catch (error) {
   console.log('Database connection error:', error);
 }
@@ -29,5 +28,8 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);
+app.use('/api', articleRoutes);
 
-app.listen(5000, () => console.log('Server running at port 5000'));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
