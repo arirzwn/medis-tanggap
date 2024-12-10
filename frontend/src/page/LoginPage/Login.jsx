@@ -25,12 +25,23 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:5000/login', {
+      const response = await axios.post('http://localhost:5000/login', {
         email: email,
         password: password,
       });
 
-      navigate('/dashboard');
+      // const userName = response.data.name || 'User'; // Assuming the response contains the user's name
+
+      Swal.fire({
+        title: 'Login Success!',
+        // text: `Hallo, ${userName} !`,
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/dashboard');
+        }
+      });
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
@@ -65,9 +76,6 @@ const LoginForm = () => {
         </p>
         <form className="w-75" onSubmit={Auth}>
           <div className="mb-3">
-            {/* <label htmlFor="email" className="form-label font-weight-bold">
-              Email
-            </label> */}
             <input
               type="email"
               className="form-control"
@@ -78,9 +86,6 @@ const LoginForm = () => {
             />
           </div>
           <div className="mb-3 position-relative">
-            {/* <label htmlFor="password" className="form-label font-weight-bold">
-              Password
-            </label> */}
             <input
               type={showPassword ? 'text' : 'password'}
               className="form-control"
