@@ -1,7 +1,7 @@
-import React from "react";
-import "./ResultDiagnosa.css";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import React from 'react';
+import './ResultDiagnosa.css';
+import Navbar from '../../components/navbar';
+import Footer from '../../components/footer';
 
 const ResultDiagnosa = () => {
   return (
@@ -19,7 +19,7 @@ const ResultDiagnosa = () => {
                 <h5 className="fw-bold">Diagnosa Penyakit</h5>
                 <p
                   className="text-white p-2 rounded"
-                  style={{ backgroundColor: "#47ABC1" }}
+                  style={{ backgroundColor: '#47ABC1' }}
                 >
                   Darah Tinggi Yang Berlebihan
                 </p>
@@ -28,7 +28,7 @@ const ResultDiagnosa = () => {
                 <h5 className="fw-bold">Cara Pencegahan</h5>
                 <div
                   className="text-white p-3 rounded"
-                  style={{ backgroundColor: "#47ABC1" }}
+                  style={{ backgroundColor: '#47ABC1' }}
                 >
                   <ul className="list-unstyled">
                     <li>
@@ -50,7 +50,7 @@ const ResultDiagnosa = () => {
                 <h5 className="fw-bold">Cara Pengobatan</h5>
                 <div
                   className="text-white p-3 rounded"
-                  style={{ backgroundColor: "#47ABC1" }}
+                  style={{ backgroundColor: '#47ABC1' }}
                 >
                   <ul className="list-unstyled">
                     <li>
