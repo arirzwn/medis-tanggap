@@ -13,6 +13,7 @@ import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
 import Kamar from './page/RumahSakitPage/kamar';
+import Clinic from './page/ClinicPage/Clinic';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
+
+        <Route path="/clinic" element={<Clinic />} />
+
 
         <Route path="/artikel" element={<Artikel />} />
         <Route path="/artikel-detail" element={<Detail />} />
