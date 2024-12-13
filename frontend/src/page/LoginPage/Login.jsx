@@ -39,7 +39,7 @@ const LoginForm = () => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/dashboard');
+          navigate('/klinik/klinik-dashboard');
         }
       });
     } catch (error) {
