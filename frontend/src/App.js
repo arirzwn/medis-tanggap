@@ -13,6 +13,11 @@ import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
 import Kamar from './page/RumahSakitPage/kamar';
+import KlinikDashboard from './klinikPage/klinikDashboard';
+import Rujukan from './klinikPage/rujukan';
+import Profil from './klinikPage/profil';
+import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
+import KlinikArtikel from './klinikPage/artikelKlinik';
 
 function App() {
   return (
@@ -29,10 +34,17 @@ function App() {
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
+        <Route path="/pengajuan" element={<Pengajuan />} />
 
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />{' '}
         <Route path="dashboard" element={<DumyDashboard />} />
+
+        <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
+        <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
+        <Route path="/klinik/klinik-profil" element={<Profil />} />
+        <Route path="/klinik/klinik-rujukan-riwayat" element={<Rujukan />} />
+        <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />  
       </Routes>
     </BrowserRouter>
   );
