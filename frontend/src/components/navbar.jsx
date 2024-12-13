@@ -1,36 +1,52 @@
-import Logo from '../images/logo.png';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Logo from "../images/logo.png"; // Pastikan path logo benar
 
 function Navbar() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // Function to toggle navbar visibility
+  const toggleNavbar = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src={Logo} alt="" />
+    <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary sticky-top">
+      <div className="container">
+        {/* Logo */}
+        <a className="navbar-brand" href="#">
+          <img src={Logo} alt="Logo" style={{ height: "40px" }} />
         </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                Dashboard
-              </a>
+        {/* Hamburger Menu */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={toggleNavbar}
+          aria-controls="navbarNav"
+          aria-expanded={isNavOpen}
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`} id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <a className="nav-link" href="/">Beranda</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/diagnosa">
-                Diagnosa
-              </a>
+            <li className="nav-item">
+              <a className="nav-link" href="/diagnosa">Diagnosa</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/artikel">
-                Artikel
-              </a>
+            <li className="nav-item">
+              <a className="nav-link" href="/artikel">Artikel</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/rumah-sakit">
-                Rumah Sakit
-              </a>
+            <li className="nav-item">
+              <a className="nav-link" href="/rumah-sakit">Rumah Sakit</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/pengajuan">Daftar Klinik</a>
             </li>
           </ul>
+          {/* Login Button */}
           <Link to="/login" className="btn btn-brand text-light">
             Login
           </Link>
@@ -41,3 +57,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
