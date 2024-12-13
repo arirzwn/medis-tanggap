@@ -30,6 +30,16 @@ export const getAllArticles = async (req, res) => {
   }
 };
 
+// Get articles for frontend
+export const getAllArticlesForFrontend = async (req, res) => {
+  try {
+    const articles = await Article.findAll();
+    res.status(200).json(articles);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Get a single article by ID
 export const getArticleById = async (req, res) => {
   try {

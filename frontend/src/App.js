@@ -13,6 +13,7 @@ import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
 import Kamar from './page/RumahSakitPage/kamar';
+import UpdateArticle from './page/UpdateArticle/UpdateArticle';
 
 function App() {
   return (
@@ -28,8 +29,9 @@ function App() {
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<Register />} />{' '}
-        <Route path="dashboard" element={<DumyDashboard />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<DumyDashboard />} />
+        <Route path="/update-article/:id" element={<UpdateArticle />} />
       </Routes>
     </BrowserRouter>
   );

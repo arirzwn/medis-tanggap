@@ -12,6 +12,9 @@ router.get('/articles', ArticleController.getAllArticles);
 // Get a single article by ID
 router.get('/articles/:id', ArticleController.getArticleById);
 
+// Get articles for frontend
+router.get('/frontend/articles', ArticleController.getAllArticlesForFrontend);
+
 // Update an article by ID
 router.put('/articles/:id', ArticleController.updateArticle);
 

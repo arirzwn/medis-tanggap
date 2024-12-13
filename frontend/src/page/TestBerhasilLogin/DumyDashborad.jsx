@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; // Perbaiki impor jwtDecode
+import { jwtDecode } from 'jwt-decode'; // Correct the import of jwtDecode
 import { useNavigate } from 'react-router-dom';
 
 const DumyDashboard = () => {
@@ -13,10 +13,12 @@ const DumyDashboard = () => {
   const [title, setTitle] = useState('');
   const [header, setHeader] = useState(''); // Tambahkan header
   const [content, setContent] = useState('');
+  const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     refreshToken();
+    fetchArticles();
   }, []);
 
   const refreshToken = async () => {
@@ -33,6 +35,32 @@ const DumyDashboard = () => {
         navigate('/login');
       }
     }
+  };
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/articles');
+      setArticles(response.data);
+    } catch (error) {
+      console.error('There was an error fetching the articles!', error);
+    }
+  };
+
+  const deleteArticle = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/articles/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setArticles(articles.filter((article) => article.id !== id));
+    } catch (error) {
+      console.error('There was an error deleting the article!', error);
+    }
+  };
+
+  const updateArticle = (id) => {
+    navigate(`/update-article/${id}`);
   };
 
   const Logout = async () => {
@@ -190,6 +218,37 @@ const DumyDashboard = () => {
                 Submit
               </button>
             </form>
+          </div>
+          <div className="articles-list">
+            <h2 className="h4 mb-3">Articles</h2>
+            <ul className="list-group">
+              {articles.map((article, index) => (
+                <li
+                  key={article.id}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <h5>
+                      {index + 1}. {article.title}
+                    </h5>
+                  </div>
+                  <div>
+                    <button
+                      className="btn btn-warning me-2"
+                      onClick={() => updateArticle(article.id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteArticle(article.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
