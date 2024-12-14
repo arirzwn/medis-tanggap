@@ -58,10 +58,9 @@
   .main-content {
     margin-left: 0 !important; /* Sidebar overlay, konten tetap utuh */
   }
-<<<<<<< HEAD
-  
+
   .menu-toggle {
-    display: none; /* Sembunyikan di layar besar */
+    display: block; /* Tampilkan di layar kecil */
     position: fixed;
     top: 15px;
     left: 15px;
@@ -75,30 +74,20 @@
     font-size: 20px;
   }
 
-  path{
+  path {
     min-width: 20px;
     min-height: 20px;
   }
-  
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .sidebar {
-      left: -250px;
-    }
-  
-    .sidebar.open {
-      left: 0;
-    }
-  
-    .main-content {
-      margin-left: 0;
-    }
-  
-    .menu-toggle {
-      display: block; /* Tampilkan di layar kecil */
-    }
+
+  .sidebar {
+    left: -250px;
   }
-  
-=======
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
 }
->>>>>>> d57713a392a4200d8d3e9121e9ea93740133c3f8
