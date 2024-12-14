@@ -86,7 +86,7 @@ function Navbar() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/pengajuan">
+              <a className="nav-link" href="/clinic">
                 Daftar Klinik
               </a>
             </li>
