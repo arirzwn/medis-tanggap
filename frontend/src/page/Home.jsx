@@ -22,7 +22,7 @@ function Home() {
                             has been the industry's standard dummy text ever since the 1500s,
                             when an unknown printer took a galley of type and scrambled it to
                             make a type specimen book</p>
-                            <button className="btn btn-brand text-light" onClick={() => { navigate("/diagnosa") }}>Diagnosa <span id="btn"><img src={Arrow} alt="" /></span></button>
+                            <button className="btn btn-brand text-light" onClick={() => { navigate("/diagnosa") }}>Diagnosa <span id="btn" className="img-circle"><img src={Arrow} className="img-arrow" alt="" /></span></button>
                         </div>
                         <div className="col-md-6 col-12">
                             <img src={Section1} alt="" className="img-fluid" />
@@ -39,9 +39,9 @@ function Home() {
                             <h2 className="fw-bold mb-4">APA ITU MEDIS TANGGAP ?</h2>
                             <p className="mb-4">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
                             <ul className="navbar-nav">
-                                <li><img id="li" src={Arrow} alt="" /> Fitur Diagnosa Penyakit Selama Kehamilan</li>
-                                <li><img id="li" src={Arrow} alt="" /> Fitur Cari Rumah Sakit</li>
-                                <li><img id="li" src={Arrow} alt="" /> Artikel Kesehatan</li>
+                                <li><img id="li" src={Arrow} className="img-arrow1" alt="" /> Fitur Diagnosa Penyakit Selama Kehamilan</li>
+                                <li><img id="li" src={Arrow} className="img-arrow1" alt="" /> Fitur Cari Rumah Sakit</li>
+                                <li><img id="li" src={Arrow} className="img-arrow1" alt="" /> Artikel Kesehatan</li>
                             </ul>
                         </div>
                     </div>
@@ -82,21 +82,21 @@ function Home() {
                 <section id="sec5" className="p-5">
                     <h1 className="text-center mb-5">Artikel <span>Medis Tanggap</span></h1>
                     <div className="d-flex flex-column flex-sm-row justify-content-around">
-                        <div className="card mb-4">
+                        <div className="card m-4">
                             <img src={Artikel} className="card-img-top" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Card title</h5>
                                 <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
-                        <div className="card mb-4">
+                        <div className="card m-4">
                             <img src={Artikel} className="card-img-top" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Card title</h5>
                                 <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
-                        <div className="card mb-4">
+                        <div className="card m-4">
                             <img src={Artikel} className="card-img-top" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">Card title</h5>

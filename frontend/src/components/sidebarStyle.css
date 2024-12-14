@@ -93,6 +93,11 @@ body {
     cursor: pointer;
     font-size: 20px;
   }
+
+  path{
+    min-width: 20px;
+    min-height: 20px;
+  }
   
   /* Responsiveness */
   @media (max-width: 768px) {

@@ -1,6 +1,7 @@
 import Home from './page/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import Diagnosa from './page/DiagnosaPage/Diagnosa';
 import Artikel from './page/artikel';
@@ -18,6 +19,9 @@ import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
+import AdminDashboard from './adminPage/adminDashboard';
+import PengajuanKlinik from './adminPage/pengajuan-klinik';
+import DaftarKlinik from './adminPage/daftar-klinik';
 
 function App() {
   return (
@@ -45,6 +49,11 @@ function App() {
         <Route path="/klinik/klinik-profil" element={<Profil />} />
         <Route path="/klinik/klinik-rujukan-riwayat" element={<Rujukan />} />
         <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />  
+        <Route path="/admin/admin-pengajuan-klinik" element={<PengajuanKlinik />} />  
+        <Route path="/admin/admin-daftar-klinik" element={<DaftarKlinik />} />  
+
+
+        <Route path="/admin/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );

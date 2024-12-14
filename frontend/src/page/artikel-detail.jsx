@@ -13,6 +13,7 @@ function Detail() {
             <img className="rounded mx-auto d-block mt-4 mb-4 artikel-detail-img" src={Artikel2} alt="" />
             </section>
             <section>
+            <div className="section-artikel-detail1">
                 <div className="row">
                     <div className="col-1" style={{width: "50px"}}>
                         <img className="artikel-detail-profil" src={Artikel1} alt="" />
@@ -33,14 +34,17 @@ function Detail() {
                         </h3>
                     </div>
                 </div>
-                    <div className="mt-3">
-                        <h2 className="fw-bolder fs-4 mb-4">Panduan Sederhana Menjaga Pola Makan Sehat untuk Hidup Lebih Berkualitas</h2>
+                </div>
+                    <div className="mt-1">
+                        <h2 className="fw-bolder fs-4 mb-3 ms-4">Panduan Sederhana Menjaga Pola Makan Sehat untuk Hidup Lebih Berkualitas</h2>
+                        <div className="section-artikel-detail">
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
                         <h2 className="fs-6 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum tempora necessitatibus amet, totam laboriosam nesciunt est libero nobis. Sint ipsum laboriosam unde quisquam ad mollitia, recusandae aliquid? Nobis, ipsa vitae.</h2>
+                    </div>
                     </div>
             </section>
         </div>
