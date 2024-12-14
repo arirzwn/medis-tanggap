@@ -17,8 +17,10 @@ import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
-import UpdateArticle from './page/UpdateArticle/UpdateArticle';
-import CreateArticle from './page/CreateArticle/CreateArticle';
+import BuatArtikel from './klinikPage/BuatArtikel';
+import UpdateArtikel from './klinikPage/UpdateArtikel';
+import DetailArtikel from './klinikPage/DetailArtikel';
+import BuatRujukan from './klinikPage/BuatRujukan';
 
 function App() {
   return (
@@ -35,14 +37,25 @@ function App() {
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/pengajuan" element={<Pengajuan />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<Register />} />{' '}
+        <Route path="/register" element={<Register />} />
+
         <Route path="/dashboard" element={<KlinikDashboard />} />
         <Route path="/dashboard/rujukan" element={<Rujukan />} />
         <Route path="/dashboard/profile" element={<Profil />} />
         <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/update-article/:id" element={<UpdateArticle />} />
-        <Route path="/create-article" element={<CreateArticle />} />
+        <Route
+          path="/dashboard/artikel/tambah-artikel"
+          element={<BuatArtikel />}
+        />
+        <Route
+          path="/dashboard/artikel/edit-artikel/:id"
+          element={<UpdateArtikel />}
+        />
+        <Route path="/dashboard/artikel/detail" element={<DetailArtikel />} />
+        <Route
+          path="/dashboard/rujukan/tambah-rujukan"
+          element={<BuatRujukan />}
+        />
       </Routes>
     </BrowserRouter>
   );

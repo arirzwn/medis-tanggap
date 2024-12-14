@@ -3,40 +3,36 @@ import Article from '../models/ArticleModel.js';
 // Create a new article
 export const createArticle = async (req, res) => {
   try {
-    const { author, title, header, date, description } = req.body;
-
-    console.log('Request Body:', req.body); // Tambahkan log untuk memeriksa data yang diterima
+    const { author, title, description, content } = req.body;
 
     const article = await Article.create({
       author,
       title,
-      header, // Tambahkan header
-      date,
       description,
+      content,
+      date: new Date(),
     });
-    res.status(201).json(article);
+
+    res.status(201).json({ msg: 'Article created successfully', article });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 
 // Get all articles
 export const getAllArticles = async (req, res) => {
   try {
-    const articles = await Article.findAll();
+    const articles = await Article.findAll({
+      order: [['date', 'DESC']],
+    });
+    console.log('Fetched articles:', articles); // Debug log
     res.status(200).json(articles);
   } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Get articles for frontend
-export const getAllArticlesForFrontend = async (req, res) => {
-  try {
-    const articles = await Article.findAll();
-    res.status(200).json(articles);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching articles:', error);
+    res.status(500).json({
+      message: 'Error fetching articles',
+      error: error.message,
+    });
   }
 };
 
@@ -44,36 +40,37 @@ export const getAllArticlesForFrontend = async (req, res) => {
 export const getArticleById = async (req, res) => {
   try {
     const article = await Article.findByPk(req.params.id);
-    if (!article) return res.status(404).json({ message: 'Article not found' });
-    res.status(200).json(article);
+    if (!article) return res.status(404).json({ msg: 'Article not found' });
+    res.json(article);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ msg: error.message });
   }
 };
 
 // Update an article by ID
 export const updateArticle = async (req, res) => {
   try {
-    const article = await Article.update(req.body, {
+    const article = await Article.findByPk(req.params.id);
+    if (!article) return res.status(404).json({ msg: 'Article not found' });
+    await Article.update(req.body, {
       where: { id: req.params.id },
     });
-    if (!article[0])
-      return res.status(404).json({ message: 'Article not found' });
-    res.status(200).json({ message: 'Article updated successfully' });
+    res.json({ msg: 'Article updated successfully' });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 
 // Delete an article by ID
 export const deleteArticle = async (req, res) => {
   try {
-    const result = await Article.destroy({
+    const article = await Article.findByPk(req.params.id);
+    if (!article) return res.status(404).json({ msg: 'Article not found' });
+    await Article.destroy({
       where: { id: req.params.id },
     });
-    if (!result) return res.status(404).json({ message: 'Article not found' });
-    res.status(200).json({ message: 'Article deleted successfully' });
+    res.json({ msg: 'Article deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };

@@ -8,6 +8,8 @@ import Artikel2 from '../images/artikel2.jpg';
 
 function Artikel() {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,16 +18,36 @@ function Artikel() {
 
   const fetchArticles = async () => {
     try {
+      setLoading(true);
       const response = await axios.get('http://localhost:5000/api/articles');
-      setArticles(response.data);
+      console.log('API Response:', response.data); // Debug log
+
+      if (response.data) {
+        const sortedArticles = response.data.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+        setArticles(sortedArticles);
+      }
     } catch (error) {
-      console.error('There was an error fetching the articles!', error);
+      console.error('Error details:', error.response || error);
+      setError('Failed to fetch articles');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const latestArticle =
-    articles.length > 0 ? articles[articles.length - 1] : null;
-  const otherArticles = articles.slice(0, articles.length - 1);
+  if (loading) return <div>Loading articles...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (articles.length === 0) return <div>No articles found</div>;
+
+  const latestArticle = articles.length > 0 ? articles[0] : null;
+  const otherArticles = articles.slice(1);
+
+  // Truncate text function
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.substr(0, maxLength) + '...';
+  };
 
   return (
     <>
@@ -47,7 +69,11 @@ function Artikel() {
                   to={`/artikel-detail/${latestArticle.id}`}
                   className="text-decoration-none text-dark"
                 >
-                  <img className="artikel-img" src={Artikel2} alt="" />
+                  <img
+                    className="artikel-img"
+                    src={latestArticle.image_url || Artikel2}
+                    alt={latestArticle.title}
+                  />
                 </Link>
               </div>
               <div className="col">
@@ -78,7 +104,9 @@ function Artikel() {
                       {latestArticle.title}
                     </Link>
                   </h2>
-                  <h2 className="fs-6">{latestArticle.description}</h2>
+                  <h2 className="fs-6">
+                    {truncateText(latestArticle.description, 200)}
+                  </h2>
                   <button
                     className="btn btn-brand text-light mt-3 fw-semibold"
                     onClick={() => {
@@ -96,27 +124,40 @@ function Artikel() {
           <h2 className="fw-bolder fs-4 mb-3 mt-5">Artikel Lainnya</h2>
           <div className="row">
             {otherArticles.map((article) => (
-              <div className="col" key={article.id}>
-                <img className="artikel-mini-img" src={Artikel2} alt="" />
-                <div className="row">
-                  <div className="col-1">
-                    <img
-                      className="artikel-mini-profil"
-                      src={Artikel1}
-                      alt=""
-                    />
+              <div className="col-md-4 mb-4" key={article.id}>
+                <Link
+                  to={`/artikel-detail/${article.id}`}
+                  className="text-decoration-none text-dark"
+                >
+                  <img
+                    className="artikel-mini-img"
+                    src={article.image_url || Artikel2}
+                    alt={article.title}
+                  />
+                  <div className="row">
+                    <div className="col-1">
+                      <img
+                        className="artikel-mini-profil"
+                        src={Artikel1}
+                        alt=""
+                      />
+                    </div>
+                    <div className="col">
+                      <h3 className="fw-bold artikel-mini-username">
+                        {article.author}
+                      </h3>
+                      <h3 className="artikel-mini-hari">
+                        {new Date(article.date).toLocaleDateString()}
+                      </h3>
+                    </div>
                   </div>
-                  <div className="col">
-                    <h3 className="fw-bold artikel-mini-username">
-                      {article.author}
-                    </h3>
-                    <h3 className="artikel-mini-hari">
-                      {new Date(article.date).toLocaleDateString()}
-                    </h3>
-                  </div>
-                </div>
-                <h2 className="fw-semibold fs-6 mb-3 mt-2">{article.title}</h2>
-                <h2 className="fw-lighter fs-6">{article.description}</h2>
+                  <h2 className="fw-semibold fs-6 mb-3 mt-2">
+                    {article.title}
+                  </h2>
+                  <h2 className="fw-lighter fs-6">
+                    {truncateText(article.description, 100)}
+                  </h2>
+                </Link>
               </div>
             ))}
           </div>

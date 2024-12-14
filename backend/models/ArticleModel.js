@@ -1,22 +1,16 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import db from '../config/Database.js';
 
+const { DataTypes } = Sequelize;
+
 const Article = db.define(
-  'article',
+  'articles',
   {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     author: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date: {
-      type: DataTypes.DATE,
-      defaultValue: Sequelize.NOW,
-    },
-    header: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -24,10 +18,27 @@ const Article = db.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
-    timestamps: false,
+    freezeTableName: true,
   }
 );
 
 export default Article;
+
+// Generate the table if it doesn't exist
+(async () => {
+  await db.sync();
+})();

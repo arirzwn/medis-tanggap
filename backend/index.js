@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import db from './config/Database.js';
-import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import articleRoutes from './routes/ArticlesRoutes.js';
+import ArticleRoute from './routes/ArticleRoutes.js';
+import router from './routes/index.js'; // Add this import
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ try {
   await db.authenticate();
   console.log('Database Connected...');
 } catch (error) {
-  console.log('Database connection error:', error);
+  console.error('Database connection error:', error);
 }
 
 const corsOptions = {
@@ -27,8 +27,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-app.use(router);
-app.use('/api', articleRoutes);
+app.use(router); // Add this line to use the main router
+app.use('/api', ArticleRoute); // Changed this line to use /api prefix
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

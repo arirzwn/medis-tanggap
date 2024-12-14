@@ -1,42 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SidebarKlinik from '../components/sidebarKlinik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNewspaper, faFileLines } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; // Correct the import of jwtDecode
-import { useNavigate } from 'react-router-dom';
 
 function KlinikDashboard() {
-  const [name, setName] = useState('');
-  const [token, setToken] = useState('');
+  const [userData, setUserData] = useState({
+    name: 'Loading...',
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    refreshToken();
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const storedUserData = localStorage.getItem('userData');
 
-  const refreshToken = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/token');
-      setToken(response.data.accessToken);
-      const decoded = jwtDecode(response.data.accessToken);
+        if (!token) {
+          navigate('/login');
+          return;
+        }
 
-      setName(decoded.name);
-    } catch (error) {
-      if (error.response) {
-        navigate('/login');
+        // Try to use stored user data first
+        if (storedUserData) {
+          setUserData(JSON.parse(storedUserData));
+        }
+
+        // Still fetch fresh data from server
+        const response = await axios.get('http://localhost:5000/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.data) {
+          setUserData(response.data);
+          localStorage.setItem('userData', JSON.stringify(response.data));
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('userData');
+          navigate('/login');
+        }
       }
-    }
-  };
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   return (
     <>
       <SidebarKlinik>
-        <div className="w-100 h-100">
+        <div className="h-100" style={{ minWidth: '1200px' }}>
           <div className="mb-4">
             <h3 className="text-primary fw-bold">Selamat Datang</h3>
-            <h5 className="text-muted">{name}</h5>
-            <h5 className="fw-bold">Statistik</h5>
+            <h5 className="text-muted">{userData.name}</h5>
+            <h2 className="fw-bold">Statistik</h2>
           </div>
           <div className="d-flex justify-content-between gap-5">
             <div
