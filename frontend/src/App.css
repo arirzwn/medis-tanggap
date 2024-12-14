@@ -1,50 +1,51 @@
-*{
+/* Global styles */
+* { 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-nav ul li{
+nav ul li {
   margin-right: 15px;
 }
 
-.btn-brand{
+.btn-brand {
   background-color: #1800B0;
   border-radius: 20px;
   padding: 5px 25px;
 }
 
-.btn-sec3{
+.btn-sec3 {
   background-color: #1800B0;
   padding: 5px 25px;
 }
 
-.btn-brand:hover, .btn-sec3:hover{
+.btn-brand:hover, .btn-sec3:hover {
   background-color: #4b39bb;
 }
 
-section h1{
+section h1 {
   font-size: 60px;
 }
 
-section h1 span{
+section h1 span {
   color: #174AB5;
 }
 
-section button #btn{
+section button #btn {
   text-align: center;
   background-color: #52BFD7;
   padding: 5px 2px;
   border-radius: 100%;
 }
 
-#sec2 .container #li{
+#sec2 .container #li {
   padding: 5px;
   background-color: #52BFD7;
   border-radius: 100%;
 }
 
-#sec2 .container ul li{
+#sec2 .container ul li {
   list-style: none;
   margin-bottom: 10px;
   left: 0;
@@ -56,13 +57,14 @@ section button #btn{
   gap: 20px; /* Jarak antar card */
   justify-content: space-between; /* Distribusi antar card */
 }
-.card {
+
+#sec5 .card {
   width: 18rem;
   flex: 1 1 calc(33.333% - 20px); /* Membagi ruang hingga maksimum 3 card */
   box-sizing: border-box; /* Pastikan padding tidak memengaruhi ukuran total */
 }
 
-.artikel-tagline{
+.artikel-tagline {
   height: 140px;
   background-color: #1800B0;
   border-radius: 20px;
@@ -70,78 +72,178 @@ section button #btn{
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center
+  text-align: center;
 }
 
-.artikel-img{
+.artikel-img {
   width: 498px;
   height: 331px;
-  border-radius: 20px
+  border-radius: 20px;
 }
 
-.artikel-profil{
+.artikel-profil {
   width: 38px;
   height: 38px;
   border-radius: 20px;
-  margin-top: 20px
+  margin-top: 20px;
 }
 
-.artikel-username{
+.artikel-username {
   margin-left: 10px;
   margin-top: 28px;
-  font-size: 16px
+  font-size: 16px;
 }
 
-.hari{
+.hari {
   margin-top: 28px;
-  font-size: 16px
+  font-size: 16px;
 }
 
-.artikel-mini-img{
+.artikel-mini-img {
   width: 252px;
   height: 201px;
-  border-radius: 20px
+  border-radius: 20px;
 }
 
-.artikel-mini-profil{
+.artikel-mini-profil {
   margin-top: 18px;
   width: 35px;
   height: 35px;
-  border-radius: 20px
+  border-radius: 20px;
 }
 
-.artikel-mini-username{
+.artikel-mini-username {
   margin-left: 20px;
   margin-top: 18px;
-  font-size: 15px
+  font-size: 15px;
 }
 
-.artikel-mini-hari{
+.artikel-mini-hari {
   margin-left: 20px;
   margin-top: -7px;
-  font-size: 13px
+  font-size: 13px;
 }
 
-.artikel-detail-img{
+.artikel-detail-img {
   width: 672px;
   height: 427px;
-  border-radius: 20px
+  border-radius: 20px;
 }
 
-.artikel-detail-profil{
+.artikel-detail-profil {
   width: 38px;
   height: 38px;
   border-radius: 20px;
-  margin-top: 20px
+  margin-top: 20px;
 }
 
-.artikel-detail-username{
+.artikel-detail-username {
   margin-left: 10px;
   margin-top: 28px;
-  font-size: 16px
+  font-size: 16px;
 }
 
-.artikel-detail-hari{
+.artikel-detail-hari {
   margin-top: 28px;
-  font-size: 16px
+  font-size: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 650px) {
+  /* General sections */
+  #sec1, #sec2, #sec3, #sec4, #sec5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  #sec1 .container, 
+  #sec2 .container, 
+  #sec3 .container,
+  #sec4 .container,
+  #sec5 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #sec1 .container .gbr img, 
+  #sec2 .container .gbr img, 
+  #sec3 .container .gbr img,
+  #sec4 .container .gbr img,
+  #sec5 .container .gbr img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Navbar */
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  section h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  section p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .btn-brand, .btn-sec3 {
+    width: 100%; /* Full width buttons */
+    text-align: center;
+    padding: 10px;
+  }
+
+  .flex-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #sec5 .card {
+    width: 100%;
+  }
+
+  #sec2 .container ul li {
+    text-align: left; /* Menjadikan teks di dalam li rata kiri */
+  }
+
+  /* Specific changes for sec4 */
+  #sec4 .container {
+    flex-direction: column-reverse; /* Menempatkan gambar di atas dan teks di bawah */
+    align-items: center;
+    text-align: center;
+  }
+
+  #sec4 .container .col-md-7,
+  #sec4 .container .col-md-5 {
+    width: 100%; /* Membuat kolom lebar penuh */
+    margin-bottom: 20px; /* Memberikan jarak antar elemen */
+  }
+
+  #sec4 .container .col-md-5 img {
+    width: 100%; /* Memastikan gambar responsif */
+    height: auto; /* Mempertahankan rasio gambar */
+  }
+
+  /* Ukuran font untuk sec4 */
+  #sec4 section h1 {
+    font-size: 28px; /* Ukuran font h1 lebih kecil */
+  }
+  
+  #sec4 section p {
+    font-size: 16px; /* Ukuran font paragraf lebih kecil */
+  }
 }

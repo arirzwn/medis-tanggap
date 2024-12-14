@@ -1,0 +1,66 @@
+.card:hover{
+    border: 1px solid #1800B0;
+}
+
+.card:hover .icon{
+    color: #1800B0;
+}
+
+.hover-button:hover {
+    background-color: #0056b3;  
+    border-color: #0056b3;  
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    display: block;
+}
+
+/* Button styling */
+.hover-button {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.hover-button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Tabel styling */
+.table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+@media (max-width: 768px) {
+    .btn-link {
+      font-size: 16px;
+    }
+  }
+  

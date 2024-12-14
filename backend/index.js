@@ -8,22 +8,20 @@ import Clinic from './models/ClinicModel.js';  // Model Clinic
 import Symptom from './models/SymptomModel.js';  // Model Symptom
 import Result from './models/ResultModel.js';  // Model Result
 import User from './models/UserModel.js';  // Model User
+import ArticleRoute from './routes/ArticleRoutes.js'; // Import ArticleRoute
 
 dotenv.config();  // Memuat variabel lingkungan dari file .env
 
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 
 try {
   await db.authenticate();
   console.log('Database Connected...');
-  
-
   await db.sync();  
   console.log('Database synchronized...');
-
 } catch (error) {
-  console.log('Database connection error:', error);
+  console.error('Database connection error:', error);
 }
 
 const corsOptions = {
@@ -31,11 +29,12 @@ const corsOptions = {
   credentials: true,  // Izinkan pengiriman cookie
 };
 
-
 app.use(cors(corsOptions)); 
 app.use(cookieParser());  
 app.use(express.json());  
-app.use(router);  
+app.use(router);  // Use the main router
+app.use('/api', ArticleRoute);  // Use /api prefix for ArticleRoute
 
-
-app.listen(5000, () => console.log('Server running at port 5000'));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

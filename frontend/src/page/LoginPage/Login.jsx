@@ -30,15 +30,21 @@ const LoginForm = () => {
         password: password,
       });
 
-      // const userName = response.data.name || 'User'; // Assuming the response contains the user's name
+      // Simpan token dengan nama yang konsisten
+      localStorage.setItem('accessToken', response.data.accessToken); // Ubah 'token' menjadi 'accessToken'
+      localStorage.setItem('userData', JSON.stringify(response.data.user));
+
+      // Dispatch event untuk memberitahu navbar
+      window.dispatchEvent(new Event('authChange'));
 
       Swal.fire({
         title: 'Login Success!',
-        // text: `Hallo, ${userName} !`,
+        text: `Welcome, ${response.data.user.name}!`,
         icon: 'success',
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
+          // Change this to match your dashboard route
           navigate('/dashboard');
         }
       });
