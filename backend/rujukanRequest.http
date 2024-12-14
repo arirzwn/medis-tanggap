@@ -1,0 +1,32 @@
+### Get all rujukan
+GET http://localhost:5000/api/rujukan
+Content-Type: application/json
+
+### Get rujukan by ID
+GET http://localhost:5000/api/rujukan/1
+Content-Type: application/json
+
+### Create new rujukan
+POST http://localhost:5000/api/rujukan
+Content-Type: application/json
+
+{
+    "name_patient": "John Doe",
+    "gender": "male",
+    "birthday_date": "1990-01-01",
+    "diagnosis": "Fever",
+    "description": "Patient shows symptoms of high fever and fatigue"
+}
+
+### Update rujukan
+PATCH http://localhost:5000/api/rujukan/1
+Content-Type: application/json
+
+{
+    "diagnosis": "Fever and Flu",
+    "description": "Patient shows symptoms of high fever, fatigue, and running nose"
+}
+
+### Delete rujukan
+DELETE http://localhost:5000/api/rujukan/1
+Content-Type: application/json

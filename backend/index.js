@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import ArticleRoute from './routes/ArticleRoutes.js';
 import router from './routes/index.js'; // Add this import
+import RujukanRoute from './routes/RujukanRoutes.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(router); // Add this line to use the main router
 app.use('/api', ArticleRoute); // Changed this line to use /api prefix
+app.use('/api', RujukanRoute); // Add this line before app.listen
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
