@@ -58,7 +58,7 @@ export const Login = async (req, res) => {
       { userId, name, phone, email },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: '20s',
+        expiresIn: '24h', // Changed from 20s to 24h
       }
     );
 
@@ -66,7 +66,7 @@ export const Login = async (req, res) => {
       { userId, name, phone, email },
       process.env.REFRESH_TOKEN_SECRET,
       {
-        expiresIn: '1d',
+        expiresIn: '7d', // Changed from 1d to 7d
       }
     );
 
@@ -85,7 +85,16 @@ export const Login = async (req, res) => {
       secure: true,
     });
 
-    res.json({ accessToken });
+    // Include user data in response
+    res.json({
+      accessToken,
+      user: {
+        id: userId,
+        name,
+        email,
+        phone,
+      },
+    });
   } catch (error) {
     res.status(404).json({ msg: 'Email tidak ditemukan' });
   }
