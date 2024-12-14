@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Add this import
 
 function Sidebar({ children }) {
   const navigate = useNavigate();
@@ -18,11 +19,27 @@ function Sidebar({ children }) {
   const isActive = (path) => location.pathname === path;
 
   const Logout = async () => {
-    try {
-      await axios.delete('http://localhost:5000/logout');
-      navigate('/');
-    } catch (error) {
-      console.log(error);
+    // Add SweetAlert confirmation
+    const result = await Swal.fire({
+      title: 'Konfirmasi Logout',
+      text: 'Apakah anda yakin ingin keluar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Logout!',
+      cancelButtonText: 'Batal',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.delete('http://localhost:5000/logout');
+        Swal.fire('Berhasil!', 'Anda telah berhasil logout.', 'success');
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+        Swal.fire('Error!', 'Terjadi kesalahan saat logout.', 'error');
+      }
     }
   };
 
@@ -68,23 +85,23 @@ function Sidebar({ children }) {
         <nav className="flex-grow-1 px-4 py-4">
           {[
             {
-              path: '/klinik/klinik-dashboard',
+              path: '/dashboard',
               icon: faHouse,
               label: 'Beranda',
             },
             {
-              path: '/klinik/klinik-rujukan',
+              path: '/dashboard/rujukan',
               icon: faFileLines,
               label: 'Rujukan',
             },
 
             {
-              path: '/Klinik/klinik-artikelKlinik',
+              path: '/dashboard/artikel',
               icon: faNewspaper,
               label: 'Artikel',
             },
             {
-              path: '/klinik/klinik-profil',
+              path: '/dashboard/profile',
               icon: faEnvelopesBulk,
               label: 'Profil',
             },

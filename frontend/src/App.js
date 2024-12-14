@@ -8,7 +8,6 @@ import Detail from './page/artikel-detail';
 import RumahSakit from './page/RumahSakitPage/rumahSakit';
 import LoginForm from './page/LoginPage/Login';
 import Register from './page/RegisterPage/Register';
-import DumyDashboard from './page/TestBerhasilLogin/DumyDashborad';
 import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
@@ -37,17 +36,11 @@ function App() {
         <Route path="/pengajuan" element={<Pengajuan />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />{' '}
-        <Route path="dashboard" element={<DumyDashboard />} />
-        <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
-        <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
-        <Route path="/klinik/klinik-profil" element={<Profil />} />
-        <Route path="/klinik/klinik-rujukan-riwayat" element={<Rujukan />} />
-        <Route
-          path="/klinik/klinik-artikelKlinik"
-          element={<KlinikArtikel />}
-        />
+        <Route path="/dashboard" element={<KlinikDashboard />} />
+        <Route path="/dashboard/rujukan" element={<Rujukan />} />
+        <Route path="/dashboard/profile" element={<Profil />} />
+        <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<DumyDashboard />} />
         <Route path="/update-article/:id" element={<UpdateArticle />} />
         <Route path="/create-article" element={<CreateArticle />} />
       </Routes>
