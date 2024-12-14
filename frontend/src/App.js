@@ -8,7 +8,6 @@ import Detail from './page/artikel-detail';
 import RumahSakit from './page/RumahSakitPage/rumahSakit';
 import LoginForm from './page/LoginPage/Login';
 import Register from './page/RegisterPage/Register';
-import DumyDashboard from './page/TestBerhasilLogin/DumyDashborad';
 import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
@@ -30,28 +29,34 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
-
         <Route path="/artikel" element={<Artikel />} />
-        <Route path="/artikel-detail" element={<Detail />} />
-
+        <Route path="/artikel-detail/:id" element={<Detail />} />
         <Route path="/rumah-sakit" element={<RumahSakit />} />
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/pengajuan" element={<Pengajuan />} />
-
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />
-        <Route path="dashboard" element={<DumyDashboard />} />
 
-        <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
-        <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
-        <Route path="/klinik/klinik-profil" element={<Profil />} />
-        <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />  
-        <Route path="/klinik/klinik-buat-artikel" element={<BuatArtikel/>} /> 
-        <Route path="/klinik/klinik-ubah-artikel" element={<UpdateArtikel/>} /> 
-        <Route path="/klinik/klinik-detail-artikel" element={<DetailArtikel/>} /> 
-        <Route path="/klinik/klinik-buat-rujukan" element={<BuatRujukan/>} /> 
+
+        <Route path="/dashboard" element={<KlinikDashboard />} />
+        <Route path="/dashboard/rujukan" element={<Rujukan />} />
+        <Route path="/dashboard/profile" element={<Profil />} />
+        <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
+        <Route
+          path="/dashboard/artikel/tambah-artikel"
+          element={<BuatArtikel />}
+        />
+        <Route
+          path="/dashboard/artikel/edit-artikel/:id"
+          element={<UpdateArtikel />}
+        />
+        <Route path="/dashboard/artikel/detail" element={<DetailArtikel />} />
+        <Route
+          path="/dashboard/rujukan/tambah-rujukan"
+          element={<BuatRujukan />}
+        />
       </Routes>
     </BrowserRouter>
   );
