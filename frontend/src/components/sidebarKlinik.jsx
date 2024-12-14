@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faNewspaper, faFileLines, faEnvelopesBulk, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faNewspaper, faFileLines, faEnvelopesBulk, faUser, faHospital } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
 
 function Sidebar({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const isActive = (path) => location.pathname === path;
 
+  const toggleNavbar = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
   const sidebarStyle = {
+    position: 'fixed', // Sidebar fixed
+    top: 0, // Mulai dari atas
+    left: 0, // Mulai dari sisi kiri
     width: '250px',
+    height: '100vh', // Tinggi penuh viewport
     borderTopRightRadius: '20px',
     borderBottomRightRadius: '20px',
     boxShadow: '5px 0px 10px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#ffffff', 
-    color: '#343a40', 
+    backgroundColor: '#ffffff',
+    color: '#343a40',
+    zIndex: 1000, // Pastikan sidebar di atas elemen lainnya
   };
+  
+  const mainStyle = {
+    marginLeft: '250px', // Tambahkan margin kiri agar konten tidak menutupi sidebar
+    padding: '20px',
+    backgroundColor: '#f8f9fa',
+    minHeight: '100vh', // Pastikan main mengisi layar penuh
+  };
+  
 
   const buttonStyle = (active) => ({
     textDecoration: 'none',
@@ -48,14 +66,14 @@ function Sidebar({ children }) {
           <a href="#" style={{ textDecoration: 'none' }}>
             <img src={Logo} alt="Logo" style={logoStyle} />
           </a>
+
         </div>
-        <nav className="flex-grow-1 px-4 py-4">
+        <nav className={`flex-grow-1 px-4 py-4 ${isNavOpen ? "show" : ""} id="navbarNav"`}>
           {[
             { path: '/klinik/klinik-dashboard', icon: faHouse, label: 'Beranda' },
             { path: '/klinik/klinik-rujukan', icon: faFileLines, label: 'Rujukan' },
-            { path: '/klinik/klinik-rujukan-riwayat', icon: faFileLines, label: 'Riwayat Rujukan' },
             { path: '/Klinik/klinik-artikelKlinik', icon: faNewspaper, label: 'Artikel' },
-            { path: '/klinik/klinik-profil', icon: faEnvelopesBulk, label: 'Profil' },
+            { path: '/klinik/klinik-profil', icon: faHospital, label: 'Profil' },
           ].map((item, index) => (
             <button
               key={index}
@@ -95,7 +113,7 @@ function Sidebar({ children }) {
         </div>
       </div>
 
-      <main className="flex-grow-1 p-4 bg-light">{children}</main>
+      <main style={mainStyle}>{children}</main>
     </div>
   );
 }

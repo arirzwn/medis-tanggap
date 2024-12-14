@@ -7,7 +7,7 @@ function KlinikDashboard() {
     return (
         <>
             <SidebarKlinik>
-                <div className="w-100 h-100">
+                <div className=" h-100" style={{minWidth: "1200px"}}>
                     <div className="mb-4">
                         <h3 className="text-primary">Selamat Datang</h3>
                         <h5 className="text-muted">Medis Tanggap</h5>

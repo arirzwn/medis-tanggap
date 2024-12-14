@@ -8,7 +8,7 @@ function Profil() {
   return (
     <>
       <SidebarKlinik>
-        <div className="w-100 h-100">
+      <div className=" h-100" style={{minWidth: "1200px"}}>
           {/* Header */}
           <div className="bg-light row align-items-center shadow-sm mb-5 p-3 w-100">
             <div className="col-md-3">

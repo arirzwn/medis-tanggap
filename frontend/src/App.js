@@ -18,6 +18,10 @@ import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
+import BuatArtikel from './klinikPage/BuatArtikel';
+import UpdateArtikel from './klinikPage/UpdateArtikel';
+import DetailArtikel from './klinikPage/DetailArtikel';
+import BuatRujukan from './klinikPage/BuatRujukan';
 
 function App() {
   return (
@@ -37,14 +41,17 @@ function App() {
         <Route path="/pengajuan" element={<Pengajuan />} />
 
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<Register />} />{' '}
+        <Route path="/register" element={<Register />} />
         <Route path="dashboard" element={<DumyDashboard />} />
 
         <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
         <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
         <Route path="/klinik/klinik-profil" element={<Profil />} />
-        <Route path="/klinik/klinik-rujukan-riwayat" element={<Rujukan />} />
         <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />  
+        <Route path="/klinik/klinik-buat-artikel" element={<BuatArtikel/>} /> 
+        <Route path="/klinik/klinik-ubah-artikel" element={<UpdateArtikel/>} /> 
+        <Route path="/klinik/klinik-detail-artikel" element={<DetailArtikel/>} /> 
+        <Route path="/klinik/klinik-buat-rujukan" element={<BuatRujukan/>} /> 
       </Routes>
     </BrowserRouter>
   );

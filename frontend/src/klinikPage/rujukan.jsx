@@ -1,15 +1,20 @@
 import React from "react";
 import Sidebar from '../components/sidebarKlinik';
 import "./klinikStyle.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function Rujukan() {
+    const navigate=useNavigate()
     return (
         <>
             <Sidebar>
+            <div className=" h-100" style={{minWidth: "1200px"}}>
+
+               
                 <div className="container-fluid">
                     <div className="d-flex justify-content-between p-3">
                         <h2>Data Rujukan</h2>
-                        <button className="btn btn-primary hover-button">
+                        <button onClick={()=>{navigate("/klinik/klinik-buat-rujukan")}} className="btn btn-primary hover-button">
                             Buat Rujukan
                         </button>
                     </div>
@@ -18,7 +23,7 @@ function Rujukan() {
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
+                                    <th>Nama Pasien</th>
                                     <th>Umur</th>
                                     <th>Telepon</th>
                                     <th>Kelamin</th>
@@ -53,6 +58,7 @@ function Rujukan() {
                             </tbody>
                         </table>
                     </div>
+                </div>
                 </div>
             </Sidebar>
         </>
