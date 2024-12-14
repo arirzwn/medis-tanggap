@@ -1,0 +1,87 @@
+/* Mengatur margin, padding, dan box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background utama untuk form */
+.wrap-clinic {
+  width: 100%;
+  height: 100vh;
+ background-color: #eef6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling untuk card form */
+.card {
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling tombol */
+button {
+  cursor: pointer;
+}
+
+button.btn-light {
+  background: #e7e7e7;
+  border: none;
+}
+
+button.btn-primary {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
+  color: #ffffff;
+}
+/* Area Drag and Drop */
+.upload-area {
+  position: relative;
+}
+
+.drag-drop {
+  border: 2px dashed #4a90e2;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.drag-drop:hover {
+  background-color: #e6f7ff;
+}
+
+.drag-area {
+  color: #4a90e2;
+  font-size: 14px;
+}
+
+.drag-area i {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #4a90e2;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .wrap-clinic {
+    padding: 20px;
+  }
+  .card {
+    width: 100%;
+  }
+}
