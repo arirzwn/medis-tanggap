@@ -44,21 +44,17 @@ function App() {
         <Route path="/pengajuan" element={<Pengajuan />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />
-        
-        {/* Klinik routes */}
-        <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
-        <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
-        <Route path="/klinik/klinik-profil" element={<Profil />} />
-        <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />
-        <Route path="/klinik/klinik-artikelKlinik/tambah-artikel" element={<BuatArtikel />} />
-        <Route path="/klinik/klinik-artikelKlinik/edit-artikel/:id" element={<UpdateArtikel />} />
-        <Route path="/klinik/klinik-artikelKlinik/detail/:id" element={<DetailArtikel />} />
-        <Route path="/klinik/klinik-rujukan/tambah-rujukan" element={<BuatRujukan />} />
-
-        {/* Admin routes */}
-        <Route path="/admin/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/admin-pengajuan-klinik" element={<PengajuanKlinik />} />
-        <Route path="/admin/admin-daftar-klinik" element={<DaftarKlinik />} />
+        <Route path="/dashboard" element={<KlinikDashboard />} />
+        <Route path="/dashboard/rujukan" element={<Rujukan />} />
+        <Route path="/dashboard/profile" element={<Profil />} />
+        <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
+        <Route path="/dashboard/artikel/tambah-artikel" element={<BuatArtikel />} />
+        <Route path="/dashboard/artikel/edit-artikel/:id" element={<UpdateArtikel />} />
+        <Route path="/dashboard/artikel/detail/:id" element={<DetailArtikel />} />
+        <Route path="/dashboard/rujukan/tambah-rujukan" element={<BuatRujukan />} />
+        <Route path="/dashboard-admin" element={<AdminDashboard />} />
+        <Route path="/dashboard-admin/pengajuan" element={<PengajuanKlinik />} />
+        <Route path="/dashboard-admin/daftar-klinik" element={<DaftarKlinik />} />
       </Routes>
     </BrowserRouter>
   );
