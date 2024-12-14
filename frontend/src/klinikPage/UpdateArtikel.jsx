@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SidebarKlinik from '../components/sidebarKlinik';
@@ -131,6 +132,7 @@ function UpdateArtikel() {
       </div>
     </SidebarKlinik>
   );
+
 }
 
 export default UpdateArtikel;

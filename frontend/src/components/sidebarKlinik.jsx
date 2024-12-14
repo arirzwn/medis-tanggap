@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -23,6 +24,7 @@ function Sidebar({ children }) {
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
+
 
   const handleLogout = async () => {
     // Show confirmation dialog
@@ -71,6 +73,7 @@ function Sidebar({ children }) {
     }
   };
 
+
   const sidebarStyle = {
     position: 'fixed', // Sidebar fixed
     top: 0, // Mulai dari atas
@@ -83,14 +86,22 @@ function Sidebar({ children }) {
     backgroundColor: '#ffffff',
     color: '#343a40',
     zIndex: 1000, // Pastikan sidebar di atas elemen lainnya
-  };
 
   const mainStyle = {
     marginLeft: '250px', // Tambahkan margin kiri agar konten tidak menutupi sidebar
     padding: '20px',
     backgroundColor: '#f8f9fa',
     minHeight: '100vh', // Pastikan main mengisi layar penuh
+
   };
+  
+  const mainStyle = {
+    marginLeft: '250px', // Tambahkan margin kiri agar konten tidak menutupi sidebar
+    padding: '20px',
+    backgroundColor: '#f8f9fa',
+    minHeight: '100vh', // Pastikan main mengisi layar penuh
+  };
+  
 
   const buttonStyle = (active) => ({
     textDecoration: 'none',
@@ -120,6 +131,7 @@ function Sidebar({ children }) {
         <div className="p-3 d-flex justify-content-center">
           <Link to="/" style={{ textDecoration: 'none' }}>
             <img src={Logo} alt="Logo" style={logoStyle} />
+
           </Link>
         </div>
         <nav
@@ -148,6 +160,7 @@ function Sidebar({ children }) {
               icon: faHospital,
               label: 'Profil',
             },
+
           ].map((item, index) => (
             <button
               key={index}

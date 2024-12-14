@@ -150,6 +150,7 @@ function KlinikArtikel() {
       </div>
     </Sidebar>
   );
+
 }
 
 export default KlinikArtikel;

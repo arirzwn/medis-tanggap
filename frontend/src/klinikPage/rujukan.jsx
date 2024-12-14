@@ -66,6 +66,7 @@ function Rujukan() {
       </Sidebar>
     </>
   );
+
 }
 
 export default Rujukan;

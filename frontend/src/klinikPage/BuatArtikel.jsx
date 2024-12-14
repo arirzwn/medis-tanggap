@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarKlinik from '../components/sidebarKlinik';
@@ -113,6 +114,7 @@ function BuatArtikel() {
       </div>
     </SidebarKlinik>
   );
+
 }
 
 export default BuatArtikel;

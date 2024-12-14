@@ -99,6 +99,7 @@ function KlinikDashboard() {
       </SidebarKlinik>
     </>
   );
+
 }
 
 export default KlinikDashboard;
