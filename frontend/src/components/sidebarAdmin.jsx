@@ -1,7 +1,14 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faNewspaper, faFileLines, faEnvelopesBulk, faUser, faHospital } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHouse,
+  faNewspaper,
+  faFileLines,
+  faEnvelopesBulk,
+  faUser,
+  faHospital,
+} from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
 
 function SidebarAdmin({ children }) {
@@ -15,15 +22,15 @@ function SidebarAdmin({ children }) {
     borderTopRightRadius: '20px',
     borderBottomRightRadius: '20px',
     boxShadow: '5px 0px 10px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#ffffff', 
-    color: '#343a40', 
+    backgroundColor: '#ffffff',
+    color: '#343a40',
   };
 
   const buttonStyle = (active) => ({
     textDecoration: 'none',
-    color: active ? '#007bff' : '#343a40', 
+    color: active ? '#007bff' : '#343a40',
     fontWeight: active ? 'bold' : 'normal',
-    backgroundColor: active ? '#e8f4ff' : '#f8f9fa', 
+    backgroundColor: active ? '#e8f4ff' : '#f8f9fa',
     border: 'none',
     padding: '10px 15px',
     borderRadius: '8px',
@@ -32,7 +39,7 @@ function SidebarAdmin({ children }) {
     display: 'flex',
     alignItems: 'center',
     transition: 'background-color 0.3s',
-    marginBottom: '10px', 
+    marginBottom: '10px',
   });
 
   const iconStyle = {
@@ -45,7 +52,7 @@ function SidebarAdmin({ children }) {
   const logoStyle = {
     width: '150px',
     height: 'auto',
-    marginBottom: '20px', 
+    marginBottom: '20px',
   };
 
   return (
@@ -58,9 +65,17 @@ function SidebarAdmin({ children }) {
         </div>
         <nav className="flex-grow-1 px-4 py-4">
           {[
-            { path: '/admin/admin-dashboard', icon: faHouse, label: 'Beranda' },
-            { path: '/admin/admin-pengajuan-klinik', icon: faFileLines, label: 'Daftar Pengajuan Klinik' },
-            { path: '/admin/admin-daftar-klinik', icon: faHospital, label: 'Daftar Klinik' },
+            { path: '/dashboard-admin', icon: faHouse, label: 'Beranda' },
+            {
+              path: '/dashboard-admin/pengajuan',
+              icon: faFileLines,
+              label: 'Pengajuan Klinik',
+            },
+            {
+              path: '/dashboard-admin/daftar-klinik',
+              icon: faHospital,
+              label: 'Daftar Klinik',
+            },
           ].map((item, index) => (
             <button
               key={index}
