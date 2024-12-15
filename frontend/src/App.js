@@ -48,13 +48,25 @@ function App() {
         <Route path="/dashboard/rujukan" element={<Rujukan />} />
         <Route path="/dashboard/profile" element={<Profil />} />
         <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
-        <Route path="/dashboard/artikel/tambah-artikel" element={<BuatArtikel />} />
-        <Route path="/dashboard/artikel/edit-artikel/:id" element={<UpdateArtikel />} />
-        <Route path="/dashboard/artikel/detail/:id" element={<DetailArtikel />} />
-        <Route path="/dashboard/rujukan/tambah-rujukan" element={<BuatRujukan />} />
-        <Route path="/dashboard-admin" element={<AdminDashboard />} />
-        <Route path="/dashboard-admin/pengajuan" element={<PengajuanKlinik />} />
-        <Route path="/dashboard-admin/daftar-klinik" element={<DaftarKlinik />} />
+        <Route
+          path="/dashboard/artikel/tambah-artikel"
+          element={<BuatArtikel />}
+        />
+        <Route
+          path="/dashboard/artikel/edit-artikel/:id"
+          element={<UpdateArtikel />}
+        />
+        <Route
+          path="/dashboard/artikel/detail/:id"
+          element={<DetailArtikel />}
+        />
+        <Route
+          path="/dashboard/rujukan/tambah-rujukan"
+          element={<BuatRujukan />}
+        />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/pengajuan" element={<PengajuanKlinik />} />
+        <Route path="/admin/daftar-klinik" element={<DaftarKlinik />} />
       </Routes>
     </BrowserRouter>
   );

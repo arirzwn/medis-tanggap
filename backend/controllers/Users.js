@@ -53,20 +53,21 @@ export const Login = async (req, res) => {
     const name = user[0].name;
     const phone = user[0].phone;
     const email = user[0].email;
+    const role = user[0].role;
 
     const accessToken = jwt.sign(
-      { userId, name, phone, email },
+      { userId, name, phone, email, role },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: '24h', // Changed from 20s to 24h
+        expiresIn: '24h',
       }
     );
 
     const refreshToken = jwt.sign(
-      { userId, name, phone, email },
+      { userId, name, phone, email, role },
       process.env.REFRESH_TOKEN_SECRET,
       {
-        expiresIn: '7d', // Changed from 1d to 7d
+        expiresIn: '7d',
       }
     );
 
@@ -93,6 +94,7 @@ export const Login = async (req, res) => {
         name,
         email,
         phone,
+        role,
       },
     });
   } catch (error) {

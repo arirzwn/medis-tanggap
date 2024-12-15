@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHouse,
@@ -55,6 +57,48 @@ function SidebarAdmin({ children }) {
     marginBottom: '20px',
   };
 
+  const handleLogout = async () => {
+    // Show confirmation dialog first
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out of your account',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!',
+      cancelButtonText: 'Cancel',
+    });
+
+    // If user confirms logout
+    if (result.isConfirmed) {
+      try {
+        await axios.delete('http://localhost:5000/logout', {
+          withCredentials: true,
+        });
+
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('userData');
+        window.dispatchEvent(new Event('authChange'));
+
+        Swal.fire(
+          'Logged Out!',
+          'You have been successfully logged out.',
+          'success'
+        ).then(() => {
+          navigate('/login');
+        });
+      } catch (error) {
+        console.error('Logout error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Logout Failed',
+          text: 'An error occurred during logout',
+        });
+      }
+    }
+  };
+
   return (
     <div className="d-flex vh-100">
       <div className="d-flex flex-column" style={sidebarStyle}>
@@ -65,14 +109,14 @@ function SidebarAdmin({ children }) {
         </div>
         <nav className="flex-grow-1 px-4 py-4">
           {[
-            { path: '/dashboard-admin', icon: faHouse, label: 'Beranda' },
+            { path: '/admin/dashboard', icon: faHouse, label: 'Dashboard' },
             {
-              path: '/dashboard-admin/pengajuan',
+              path: '/admin/pengajuan',
               icon: faFileLines,
               label: 'Pengajuan Klinik',
             },
             {
-              path: '/dashboard-admin/daftar-klinik',
+              path: '/admin/daftar-klinik',
               icon: faHospital,
               label: 'Daftar Klinik',
             },
@@ -92,6 +136,7 @@ function SidebarAdmin({ children }) {
           <button
             className="btn btn-link d-flex align-items-center text-danger w-100 text-start"
             style={{ textDecoration: 'none' }}
+            onClick={handleLogout}
           >
             <svg
               aria-hidden="true"
