@@ -14,34 +14,36 @@ function KlinikDashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const accessToken = localStorage.getItem('accessToken');
         const storedUserData = localStorage.getItem('userData');
 
-        if (!token) {
+        if (!accessToken) {
           navigate('/login');
           return;
         }
 
-        // Try to use stored user data first
         if (storedUserData) {
-          setUserData(JSON.parse(storedUserData));
+          const userData = JSON.parse(storedUserData);
+          if (userData.role === 'admin') {
+            navigate('/admin/dashboard');
+            return;
+          }
+          setUserData(userData);
         }
 
-        // Still fetch fresh data from server
         const response = await axios.get('http://localhost:5000/me', {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         });
 
         if (response.data) {
           setUserData(response.data);
-          localStorage.setItem('userData', JSON.stringify(response.data));
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
         if (error.response?.status === 401 || error.response?.status === 403) {
-          localStorage.removeItem('token');
+          localStorage.removeItem('accessToken');
           localStorage.removeItem('userData');
           navigate('/login');
         }

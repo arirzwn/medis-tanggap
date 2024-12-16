@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getHospitals } from "./ApiHospital";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getHospitals } from './ApiHospital';
+import Navbar from '../../components/navbar';
+import Footer from '../../components/footer';
 
 const SelectHospital = () => {
   const { provinceId, cityId } = useParams();
   const [hospitals, setHospitals] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHospitals = async () => {
-      const data = await getHospitals(provinceId, cityId, 2);
-      setHospitals(data);
+      try {
+        setLoading(true);
+        const data = await getHospitals(provinceId, cityId, 2);
+        setHospitals(data);
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchHospitals();
   }, [provinceId, cityId]);
@@ -28,7 +36,12 @@ const SelectHospital = () => {
         <div className="title-hospital">
           <h2>Daftar Rumah Sakit</h2>
         </div>
-        {hospitals.length > 0 ? (
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Memuat data rumah sakit...</p>
+          </div>
+        ) : hospitals.length > 0 ? (
           <table className="hospital-table">
             <thead>
               <tr>
@@ -50,7 +63,7 @@ const SelectHospital = () => {
                   <td>
                     {hospital.available_beds && hospital.available_beds[0]
                       ? hospital.available_beds[0].info
-                      : "Informasi tidak tersedia"}
+                      : 'Informasi tidak tersedia'}
                   </td>
                   <td>
                     <button

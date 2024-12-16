@@ -25,7 +25,7 @@ router.get('/me', verifyToken, async (req, res) => {
       where: {
         email: req.email,
       },
-      attributes: ['id', 'name', 'email', 'phone'],
+      attributes: ['id', 'name', 'email', 'phone', 'role'], // Include role
     });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

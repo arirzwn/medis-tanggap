@@ -9,6 +9,8 @@ import Artikel2 from '../images/artikel2.jpg';
 function Detail() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchArticle();
@@ -16,17 +18,61 @@ function Detail() {
 
   const fetchArticle = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `http://localhost:5000/api/articles/${id}`
       );
       setArticle(response.data);
-      console.log('Article Data:', response.data); // Tambahkan log untuk memeriksa data yang diterima
     } catch (error) {
       console.error('There was an error fetching the article!', error);
+      setError('Failed to fetch article');
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (!article) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div
+          className="container d-flex justify-content-center align-items-center"
+          style={{ minHeight: '50vh' }}
+        >
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="container text-center mt-5">
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!article) {
+    return (
+      <>
+        <Navbar />
+        <div className="container text-center mt-5">
+          <h2>Article not found</h2>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
