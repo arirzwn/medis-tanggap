@@ -1,0 +1,331 @@
+/* Container utama */
+.province-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+  }
+  
+  /* Judul */
+  .province-container h1 {
+    color: #007bff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Grid Card */
+  .province-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Card styling */
+  .province-card {
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    padding: 15px;
+  }
+  
+  .province-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Gambar pada Card */
+  .province-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Nama Provinsi */
+  .province-card h3 {
+    color: #007bff;
+    margin: 10px 0;
+    font-size: 1.5rem;
+  }
+  
+  /* Tombol */
+  .province-card button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .province-card button:hover {
+    background-color: #0056b3;
+  }
+  /* Container Styling */
+.city-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    padding-bottom: 25rem;
+    max-width: 1200px;
+    /* background-color: #f9f9f9; */
+  }
+  
+  /* Heading Style */
+  .city-container h1 {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  /* Card Grid */
+  .city-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 kolom */
+    gap: 1.5rem; /* Spasi antar card */
+    width: 100%;
+  }
+  
+  /* Individual Card */
+  .city-card {
+    background-color: #ffffff;
+    border: 2px solid #007bff; /* Border biru */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Shadow biru */
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .city-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.4); /* Shadow lebih gelap saat hover */
+    border-color: #0056b3;
+  }
+  
+  /* City Name */
+  .city-card h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0.5rem 0;
+  }
+  
+  /* Button Style */
+  .city-card button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .city-card button:hover {
+    background-color: #0056b3; /* Biru lebih gelap */
+  }
+
+/* hospital */
+/* Gaya untuk Tabel */
+.wrap-hopital{
+    height: auto;
+    padding: 2rem;
+    padding-bottom: 27rem;
+}
+.title-hospital{
+    text-align: center;
+    color: #007bff;
+}
+.hospital-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .hospital-table th, .hospital-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .hospital-table th {
+    background-color: #007bff;  /* Biru */
+    color: white;
+  }
+  
+  .hospital-table tr:nth-child(even) {
+    background-color: #f5fbff;  /* Warna baris genap */
+  }
+  
+  .hospital-table tr:hover {
+    background-color: #d8f0ff; /* Warna ketika hover */
+  }
+  
+  /* Tombol Pilih */
+  .btn-action {
+    background-color: #007bff;  /* Biru */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-action:hover {
+    background-color: #0056b3;  /* Biru lebih gelap saat hover */
+  }
+  /* bad */
+  /* Gaya untuk Tabel Kapasitas Kasur */
+  .wrap-bed{
+    padding: 2rem;
+}  
+.bed-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    table-layout: fixed; /* Menjaga lebar kolom agar konsisten */
+  }
+  
+  .bed-table th, .bed-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .bed-table th {
+    background-color: #007bff;  /* Biru */
+    color: white;
+  }
+  
+  .bed-table tr:nth-child(even) {
+    background-color: #f2f2f2;  /* Warna baris genap */
+  }
+  
+  .bed-table tr:hover {
+    background-color: #ddd; /* Warna ketika hover */
+  }
+  .title-bed{
+    text-align: center;
+    color: #007bff;
+  }
+  
+  /* Responsif untuk layar lebih kecil dari 768px */
+  @media (max-width: 768px) {
+    /* .wrap-bed{
+        padding: 0rem;
+    }   */
+    .bed-table {
+      width: 100%;
+      display: block;
+      overflow-x: auto;  /* Membuat tabel scrollable pada layar kecil */
+    }
+  
+    .bed-table th, .bed-table td {
+      white-space: nowrap;  /* Mencegah teks memecah pada baris */
+      font-size: 12px;  /* Mengurangi ukuran font agar lebih sesuai di layar kecil */
+    }
+  
+    .bed-table th {
+      font-size: 14px;  /* Ukuran font untuk header sedikit lebih besar */
+    }
+  
+    .bed-table td {
+      font-size: 12px;  /* Ukuran font untuk sel data lebih kecil */
+    }
+  
+    /* Gaya untuk tombol aksi pada sel */
+    .btn-action {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  }
+
+  /* bad */
+  /* Responsif - Gaya untuk tabel pada layar kecil */
+  @media (max-width: 768px) {
+    .hospital-table {
+      width: 100%;
+      display: block;
+      overflow-x: auto;  /* Membuat tabel scrollable pada layar kecil */
+    }
+  
+    .hospital-table th, .hospital-table td {
+      white-space: nowrap;
+      font-size: 12px;
+    }
+  
+    .hospital-table th {
+      font-size: 14px;
+    }
+  
+    .hospital-table td {
+      font-size: 12px;
+    }
+  
+    .btn-action {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  }
+  
+/* hospital */
+
+
+
+
+
+
+  
+  /* Responsive Design */
+  @media screen and (max-width: 1024px) {
+    .city-cards {
+      grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .city-cards {
+      grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .city-cards {
+      grid-template-columns: 1fr; /* 1 kolom */
+    }
+  }
+  
+  
+  /* Responsif */
+  @media (max-width: 768px) {
+    .province-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .province-card h3 {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .province-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  

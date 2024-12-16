@@ -18,33 +18,44 @@ import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
+import SelectProvince from './page/hospital/SelectProvince';
+import SelectCity from './page/hospital/SelectCity';
+import SelectHospital from './page/hospital/SelectHospital';
+import SelectBed from './page/hospital/SelectBed';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Hospital selection flow */}
+        <Route path="/SelectProvince" element={<SelectProvince />} />
+        <Route path="/select-city/:provinceId" element={<SelectCity />} />
+        <Route
+          path="/select-hospital/:provinceId/:cityId"
+          element={<SelectHospital />}
+        />
+        <Route path="/select-bed/:hospitalId" element={<SelectBed />} />
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
-
         <Route path="/artikel" element={<Artikel />} />
         <Route path="/artikel-detail" element={<Detail />} />
-
         <Route path="/rumah-sakit" element={<RumahSakit />} />
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/pengajuan" element={<Pengajuan />} />
-
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />{' '}
         <Route path="dashboard" element={<DumyDashboard />} />
-
         <Route path="/klinik/klinik-dashboard" element={<KlinikDashboard />} />
         <Route path="/klinik/klinik-rujukan" element={<Rujukan />} />
         <Route path="/klinik/klinik-profil" element={<Profil />} />
         <Route path="/klinik/klinik-rujukan-riwayat" element={<Rujukan />} />
-        <Route path="/klinik/klinik-artikelKlinik" element={<KlinikArtikel />} />  
+        <Route
+          path="/klinik/klinik-artikelKlinik"
+          element={<KlinikArtikel />}
+        />
       </Routes>
     </BrowserRouter>
   );
