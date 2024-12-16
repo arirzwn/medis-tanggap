@@ -1,26 +1,101 @@
 import React, { useState } from "react";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import "./Clinic.css";
 
 const Clinic = () => {
+  const [clinicName, setClinicName] = useState("");
+  const [address, setAddress] = useState("");
   const [ktpFile, setKtpFile] = useState(null);
   const [izinFile, setIzinFile] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  // Fungsi untuk menangani file drop
   const handleDrop = (e, setFile) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file) {
       setFile(file);
     }
+    setIsDragging(false);
   };
 
-  // Fungsi untuk menangani perubahan input file
   const handleFileChange = (e, setFile) => {
     const file = e.target.files[0];
-    if (file) {
+    const allowedFormats = ["image/jpeg", "image/png", "application/pdf"];
+    if (file && allowedFormats.includes(file.type)) {
       setFile(file);
+    } else {
+      alert("Format file tidak didukung.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!clinicName || !address || !ktpFile || !izinFile) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Semua kolom wajib diisi!",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("clinic_name", clinicName);
+    formData.append("address", address);
+    formData.append("ktp_owner", ktpFile);
+    formData.append("operation_license", izinFile);
+
+    // Mengambil user_id dan token dari localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    const token = localStorage.getItem("accessToken");
+
+    if (!userData || !userData.id || !token) {
+      Swal.fire({
+        icon: "error",
+        title: "User tidak ditemukan",
+        text: "Pastikan Anda sudah login.",
+      });
+      return;
+    }
+
+    formData.append("user_id", userData.id); // Menambahkan user_id ke formData
+
+    try {
+      const response = await fetch("http://localhost:5000/api/add", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // Menggunakan token untuk otentikasi
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Klinik berhasil ditambahkan!",
+          text: data.message,
+        });
+        setClinicName("");
+        setAddress("");
+        setKtpFile(null);
+        setIzinFile(null);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal menambahkan klinik!",
+          text: data.message || "Terjadi kesalahan. Silakan coba lagi.",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Terjadi kesalahan",
+        text: "Silakan coba lagi.",
+      });
     }
   };
 
@@ -33,7 +108,7 @@ const Clinic = () => {
           style={{ width: "100%", maxWidth: "900px" }}
         >
           <h3 className="text-center mb-4">Form Pendaftaran Klinik</h3>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Nama Klinik */}
             <div className="mb-3">
               <label htmlFor="clinicName" className="form-label">
@@ -44,9 +119,10 @@ const Clinic = () => {
                 id="clinicName"
                 className="form-control"
                 placeholder="Masukkan nama klinik"
+                value={clinicName}
+                onChange={(e) => setClinicName(e.target.value)}
               />
             </div>
-
             {/* Alamat */}
             <div className="mb-3">
               <label htmlFor="alamat" className="form-label">
@@ -57,55 +133,64 @@ const Clinic = () => {
                 className="form-control"
                 placeholder="Masukkan alamat lengkap"
                 rows="3"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               ></textarea>
             </div>
-
-            {/* Upload Gambar KTP */}
-            <div
-              className="upload-area mb-3"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => handleDrop(e, setKtpFile)}
-            >
+            {/* KTP Upload */}
+            <div className="upload-area mb-3">
               <label htmlFor="ktpUpload" className="form-label">
                 Upload Gambar KTP Penanggung Jawab
               </label>
-              <div className="drag-drop">
-                <input
-                  type="file"
-                  id="ktpUpload"
-                  className="file-input"
-                  onChange={(e) => handleFileChange(e, setKtpFile)}
-                />
-                <div className="drag-area">
-                  {ktpFile
-                    ? `File Selected: ${ktpFile.name}`
-                    : "Drag and drop file here or click to upload"}
-                </div>
+              <div
+                className={`drag-area ${isDragging ? "drag-over" : ""}`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => handleDrop(e, setKtpFile)}
+              >
+                {ktpFile ? (
+                  <span className="file-name">{`File Selected: ${ktpFile.name}`}</span>
+                ) : (
+                  <span>Drag and drop file here or click to upload</span>
+                )}
               </div>
+              <input
+                type="file"
+                id="ktpUpload"
+                className="file-input"
+                onChange={(e) => handleFileChange(e, setKtpFile)}
+              />
             </div>
 
-            {/* Upload Gambar Surat Izin */}
-            <div
-              className="upload-area mb-3"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => handleDrop(e, setIzinFile)}
-            >
+            {/* Surat Izin Upload */}
+            <div className="upload-area mb-3">
               <label htmlFor="suratIzinUpload" className="form-label">
                 Upload Gambar Surat Izin Operasi
               </label>
-              <div className="drag-drop">
-                <input
-                  type="file"
-                  id="suratIzinUpload"
-                  className="file-input"
-                  onChange={(e) => handleFileChange(e, setIzinFile)}
-                />
-                <div className="drag-area">
-                  {izinFile
-                    ? `File Selected: ${izinFile.name}`
-                    : "Drag and drop file here or click to upload"}
-                </div>
+              <div
+                className={`drag-area ${isDragging ? "drag-over" : ""}`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => handleDrop(e, setIzinFile)}
+              >
+                {izinFile ? (
+                  <span className="file-name">{`File Selected: ${izinFile.name}`}</span>
+                ) : (
+                  <span>Drag and drop file here or click to upload</span>
+                )}
               </div>
+              <input
+                type="file"
+                id="suratIzinUpload"
+                className="file-input"
+                onChange={(e) => handleFileChange(e, setIzinFile)}
+              />
             </div>
 
             {/* Tombol Kirim */}

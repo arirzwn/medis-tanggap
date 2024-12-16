@@ -10,6 +10,7 @@ import Result from './models/ResultModel.js';  // Model Result
 import User from './models/UserModel.js';  // Model User
 import ArticleRoute from './routes/ArticleRoutes.js';  // Import ArticleRoute
 import RujukanRoute from './routes/RujukanRoutes.js';  // Import RujukanRoute
+import ClinicRoute from './routes/ClinicRoutes.js';  // Import ClinicRoute
 
 dotenv.config();  // Memuat variabel lingkungan dari file .env
 
@@ -36,6 +37,7 @@ app.use(express.json());
 app.use(router);  // Use the main router
 app.use('/api', ArticleRoute);  // Use /api prefix for ArticleRoute
 app.use('/api', RujukanRoute);  // Use /api prefix for RujukanRoute
+app.use('/api', ClinicRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
