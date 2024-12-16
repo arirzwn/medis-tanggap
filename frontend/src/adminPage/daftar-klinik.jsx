@@ -1,20 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Sidebar from '../components/sidebarAdmin';
-import "../klinikPage/klinikStyle.css";
+import Sidebar from "../components/sidebarAdmin";
+import "./responsive.css";
 
 function DaftarKlinik() {
-    // Fungsi untuk menangani Update artikel
-    const handleUpdate = (id) => {
-        console.log(`Update artikel dengan ID: ${id}`);
-        // Tambahkan logika Update di sini
-    };
-
     // Fungsi untuk menangani delete artikel
     const handleDelete = (id) => {
         console.log(`Delete artikel dengan ID: ${id}`);
         // Tambahkan logika delete di sini
     };
+
     return (
         <>
             <Sidebar>
@@ -22,6 +17,7 @@ function DaftarKlinik() {
                     <div className="d-flex justify-content-between p-3">
                         <h2>Daftar Data Klinik</h2>
                     </div>
+                    {/* Wrapper untuk scroll horizontal */}
                     <div className="table-responsive">
                         <table className="table table-striped table-bordered">
                             <thead>
@@ -42,19 +38,13 @@ function DaftarKlinik() {
                                     <td>example1@gmail.com</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
-                                        <button 
-                                            className="btn btn-warning btn-sm me-2" 
-                                            onClick={() => handleUpdate(1)}
-                                        >
-                                            Update
-                                        </button>
-                                        <button 
-                                            className="btn btn-danger btn-sm me-2" 
+                                        <button
+                                            className="btn btn-danger btn-sm me-2"
                                             onClick={() => handleDelete(1)}
                                         >
-                                            Delete
+                                            Hapus
                                         </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-klinik/${1}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>
@@ -66,19 +56,13 @@ function DaftarKlinik() {
                                     <td>example2@gmail.com</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
-                                        <button 
-                                            className="btn btn-warning btn-sm me-2" 
-                                            onClick={() => handleUpdate(1)}
+                                        <button
+                                            className="btn btn-danger btn-sm me-2"
+                                            onClick={() => handleDelete(2)}
                                         >
-                                            Update
+                                            Hapus
                                         </button>
-                                        <button 
-                                            className="btn btn-danger btn-sm me-2" 
-                                            onClick={() => handleDelete(1)}
-                                        >
-                                            Delete
-                                        </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-klinik/${2}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>
@@ -90,19 +74,13 @@ function DaftarKlinik() {
                                     <td>example3@gmail.com</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
-                                        <button 
-                                            className="btn btn-warning btn-sm me-2" 
-                                            onClick={() => handleUpdate(1)}
+                                        <button
+                                            className="btn btn-danger btn-sm me-2"
+                                            onClick={() => handleDelete(3)}
                                         >
-                                            Update
+                                            Hapus
                                         </button>
-                                        <button 
-                                            className="btn btn-danger btn-sm me-2" 
-                                            onClick={() => handleDelete(1)}
-                                        >
-                                            Delete
-                                        </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-klinik/${3}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>
@@ -111,7 +89,7 @@ function DaftarKlinik() {
                         </table>
                     </div>
                 </div>
-            </Sidebar>
+                </Sidebar>
         </>
     );
 }
