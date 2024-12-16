@@ -36,18 +36,22 @@ function Artikel() {
     }
   };
 
-  if (loading) return <div>Loading articles...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (articles.length === 0) return <div>No articles found</div>;
-
-  const latestArticle = articles.length > 0 ? articles[0] : null;
-  const otherArticles = articles.slice(1);
+  const LoadingSpinner = () => (
+    <div className="d-flex justify-content-center py-5">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
 
   // Truncate text function
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) return text;
     return text.substr(0, maxLength) + '...';
   };
+
+  const latestArticle = articles.length > 0 ? articles[0] : null;
+  const otherArticles = articles.slice(1);
 
   return (
     <>
@@ -61,107 +65,120 @@ function Artikel() {
             </h3>
           </div>
         </section>
-        {latestArticle && (
-          <section>
-            <div className="row m-2" key={latestArticle.id}>
-              <div className="col">
-                <Link
-                  to={`/artikel-detail/${latestArticle.id}`}
-                  className="text-decoration-none text-dark"
-                >
-                  <img
-                    className="artikel-img"
-                    src={latestArticle.image_url || Artikel2}
-                    alt={latestArticle.title}
-                  />
-                </Link>
-              </div>
-              <div className="col">
-                <div className="row">
-                  <div className="col-1">
-                    <img className="artikel-profil" src={Artikel1} alt="" />
-                  </div>
-                  <div className="col-1" style={{ width: '110px' }}>
-                    <h3 className="fw-bolder artikel-username">
-                      {latestArticle.author}
-                    </h3>
-                  </div>
-                  <div className="col-1" style={{ width: '5px' }}>
-                    <h3 className="hari">~</h3>
-                  </div>
-                  <div className="col-4">
-                    <h3 className="hari">
-                      {new Date(latestArticle.date).toLocaleDateString()}
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <h2 className="fw-bolder fs-4">
-                    <Link
-                      to={`/artikel-detail/${latestArticle.id}`}
-                      className="text-decoration-none text-dark"
-                    >
-                      {latestArticle.title}
-                    </Link>
-                  </h2>
-                  <h2 className="fs-6">
-                    {truncateText(latestArticle.description, 200)}
-                  </h2>
-                  <button
-                    className="btn btn-brand text-light mt-3 fw-semibold"
-                    onClick={() => {
-                      navigate(`/artikel-detail/${latestArticle.id}`);
-                    }}
+
+        {/* Latest Article Section */}
+        {loading ? (
+          <LoadingSpinner />
+        ) : error ? (
+          <div className="alert alert-danger m-4" role="alert">
+            {error}
+          </div>
+        ) : articles.length === 0 ? (
+          <div className="text-center m-4">Tidak ada artikel tersedia</div>
+        ) : (
+          <>
+            <section>
+              <div className="row m-2" key={latestArticle.id}>
+                <div className="col">
+                  <Link
+                    to={`/artikel-detail/${latestArticle.id}`}
+                    className="text-decoration-none text-dark"
                   >
-                    Baca Sekarang
-                  </button>
+                    <img
+                      className="artikel-img"
+                      src={latestArticle.image_url || Artikel2}
+                      alt={latestArticle.title}
+                    />
+                  </Link>
                 </div>
-              </div>
-            </div>
-          </section>
-        )}
-        <section style={{ margin: '18px' }}>
-          <h2 className="fw-bolder fs-4 mb-3 mt-5">Artikel Lainnya</h2>
-          <div className="row">
-            {otherArticles.map((article) => (
-              <div className="col-md-4 mb-4" key={article.id}>
-                <Link
-                  to={`/artikel-detail/${article.id}`}
-                  className="text-decoration-none text-dark"
-                >
-                  <img
-                    className="artikel-mini-img"
-                    src={article.image_url || Artikel2}
-                    alt={article.title}
-                  />
+                <div className="col">
                   <div className="row">
                     <div className="col-1">
-                      <img
-                        className="artikel-mini-profil"
-                        src={Artikel1}
-                        alt=""
-                      />
+                      <img className="artikel-profil" src={Artikel1} alt="" />
                     </div>
-                    <div className="col">
-                      <h3 className="fw-bold artikel-mini-username">
-                        {article.author}
+                    <div className="col-1" style={{ width: '110px' }}>
+                      <h3 className="fw-bolder artikel-username">
+                        {latestArticle.author}
                       </h3>
-                      <h3 className="artikel-mini-hari">
-                        {new Date(article.date).toLocaleDateString()}
+                    </div>
+                    <div className="col-1" style={{ width: '5px' }}>
+                      <h3 className="hari">~</h3>
+                    </div>
+                    <div className="col-4">
+                      <h3 className="hari">
+                        {new Date(latestArticle.date).toLocaleDateString()}
                       </h3>
                     </div>
                   </div>
-                  <h2 className="fw-semibold fs-6 mb-3 mt-2">
-                    {article.title}
-                  </h2>
-                  <h2 className="fw-lighter fs-6">
-                    {truncateText(article.description, 100)}
-                  </h2>
-                </Link>
+                  <div className="mt-3">
+                    <h2 className="fw-bolder fs-4">
+                      <Link
+                        to={`/artikel-detail/${latestArticle.id}`}
+                        className="text-decoration-none text-dark"
+                      >
+                        {latestArticle.title}
+                      </Link>
+                    </h2>
+                    <h2 className="fs-6">
+                      {truncateText(latestArticle.description, 200)}
+                    </h2>
+                    <button
+                      className="btn btn-brand text-light mt-3 fw-semibold"
+                      onClick={() => {
+                        navigate(`/artikel-detail/${latestArticle.id}`);
+                      }}
+                    >
+                      Baca Sekarang
+                    </button>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
+
+            <section style={{ margin: '18px' }}>
+              <h2 className="fw-bolder fs-4 mb-3 mt-5">Artikel Lainnya</h2>
+              <div className="row">
+                {otherArticles.map((article) => (
+                  <div className="col-md-4 mb-4" key={article.id}>
+                    <Link
+                      to={`/artikel-detail/${article.id}`}
+                      className="text-decoration-none text-dark"
+                    >
+                      <img
+                        className="artikel-mini-img"
+                        src={article.image_url || Artikel2}
+                        alt={article.title}
+                      />
+                      <div className="row">
+                        <div className="col-1">
+                          <img
+                            className="artikel-mini-profil"
+                            src={Artikel1}
+                            alt=""
+                          />
+                        </div>
+                        <div className="col">
+                          <h3 className="fw-bold artikel-mini-username">
+                            {article.author}
+                          </h3>
+                          <h3 className="artikel-mini-hari">
+                            {new Date(article.date).toLocaleDateString()}
+                          </h3>
+                        </div>
+                      </div>
+                      <h2 className="fw-semibold fs-6 mb-3 mt-2">
+                        {article.title}
+                      </h2>
+                      <h2 className="fw-lighter fs-6">
+                        {truncateText(article.description, 100)}
+                      </h2>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
       </div>
       <Footer />
     </>

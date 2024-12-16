@@ -3,9 +3,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faFileLines, faHospital, faBars } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHouse,
+  faFileLines,
+  faHospital,
+  faBars,
+} from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
-import "./sidebarAdmin.css";
+import './sidebarAdmin.css';
 
 function SidebarAdmin({ children }) {
   const navigate = useNavigate();
@@ -129,7 +134,7 @@ function SidebarAdmin({ children }) {
       {/* Sidebar */}
       <div className="d-flex flex-column" style={sidebarStyle}>
         <div className="p-3 d-flex justify-content-center">
-          <a href="#" style={{ textDecoration: 'none' }}>
+          <a href="/" style={{ textDecoration: 'none' }}>
             <img src={Logo} alt="Logo" style={logoStyle} />
           </a>
         </div>
