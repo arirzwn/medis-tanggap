@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Sidebar from '../components/sidebarAdmin';
-import "../klinikPage/klinikStyle.css";
+import "./pengajuan-klinik.css";
 
 function PengajuanKlinik() {
     // Fungsi untuk menangani Accept artikel
@@ -28,8 +28,6 @@ function PengajuanKlinik() {
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Telepon</th>
-                                    <th>Email</th>
                                     <th>Alamat</th>
                                     <th>Diunggah</th>
                                     <th>Aksi</th>
@@ -39,8 +37,6 @@ function PengajuanKlinik() {
                                 <tr>
                                     <td>1</td>
                                     <td>Melati</td>
-                                    <td>0835678</td>
-                                    <td>example1@gmail.com</td>
                                     <td>Jl. Pembangunan no. 10</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
@@ -48,15 +44,15 @@ function PengajuanKlinik() {
                                             className="btn btn-success btn-sm me-2" 
                                             onClick={() => handleAccept(1)}
                                         >
-                                            Accept
+                                            Terima
                                         </button>
                                         <button 
                                             className="btn btn-danger btn-sm me-2" 
                                             onClick={() => handleDelete(1)}
                                         >
-                                            Delete
+                                            Hapus
                                         </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-pengajuan/${1}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>
@@ -64,24 +60,22 @@ function PengajuanKlinik() {
                                 <tr>
                                     <td>2</td>
                                     <td>Mawar</td>
-                                    <td>0835678</td>
-                                    <td>example2@gmail.com</td>
-                                    <td>Jl. Pembangunan no. 12</td>
+                                    <td>Jl. Pembangunan no. 10</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
                                         <button 
                                             className="btn btn-success btn-sm me-2" 
                                             onClick={() => handleAccept(1)}
                                         >
-                                            Accept
+                                            Terima
                                         </button>
                                         <button 
                                             className="btn btn-danger btn-sm me-2" 
                                             onClick={() => handleDelete(1)}
                                         >
-                                            Delete
+                                            Hapus
                                         </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-pengajuan/${1}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>
@@ -89,24 +83,22 @@ function PengajuanKlinik() {
                                 <tr>
                                     <td>3</td>
                                     <td>Kamboja</td>
-                                    <td>0835678</td>
-                                    <td>example3@gmail.com</td>
-                                    <td>Jl. Pembangunan no. 15</td>
+                                    <td>Jl. Pembangunan no. 10</td>
                                     <td>5 menit yang lalu</td>
                                     <td>
                                         <button 
                                             className="btn btn-success btn-sm me-2" 
                                             onClick={() => handleAccept(1)}
                                         >
-                                            Accept
+                                            Terima
                                         </button>
                                         <button 
                                             className="btn btn-danger btn-sm me-2" 
                                             onClick={() => handleDelete(1)}
                                         >
-                                            Delete
+                                            Hapus
                                         </button>
-                                        <Link to={`/detail-klinik/${1}`} className="btn btn-info btn-sm">
+                                        <Link to={`detail-pengajuan/${1}`} className="btn btn-info btn-sm">
                                             Detail
                                         </Link>
                                     </td>

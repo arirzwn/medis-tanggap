@@ -30,6 +30,8 @@ import BuatArtikel from './klinikPage/BuatArtikel';
 import UpdateArtikel from './klinikPage/UpdateArtikel';
 import DetailArtikel from './klinikPage/DetailArtikel';
 import BuatRujukan from './klinikPage/BuatRujukan';
+import DetailKlinik from './adminPage/detail-klinik';
+import DetailPengajuan from './adminPage/detail-pengajuan';
 
 
 function App() {
@@ -83,6 +85,14 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/pengajuan" element={<PengajuanKlinik />} />
         <Route path="/admin/daftar-klinik" element={<DaftarKlinik />} />
+        <Route
+          path="/admin/daftar-klinik/detail-klinik/:id"
+          element={<DetailKlinik />}
+        />
+        <Route
+          path="/admin/pengajuan/detail-pengajuan/:id"
+          element={<DetailPengajuan />}
+        />
       </Routes>
     </BrowserRouter>
   );

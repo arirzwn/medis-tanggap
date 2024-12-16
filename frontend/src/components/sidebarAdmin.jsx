@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHouse,
-  faNewspaper,
-  faFileLines,
-  faEnvelopesBulk,
-  faUser,
-  faHospital,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faFileLines, faHospital, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
+import "./sidebarAdmin.css";
 
 function SidebarAdmin({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 950);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 950);
+      if (window.innerWidth > 950) {
+        setSidebarOpen(true); // Pastikan sidebar terbuka di layar besar
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const isActive = (path) => location.pathname === path;
 
@@ -26,6 +37,10 @@ function SidebarAdmin({ children }) {
     boxShadow: '5px 0px 10px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
     color: '#343a40',
+    position: isMobile ? 'absolute' : 'relative',
+    zIndex: 10,
+    transition: 'transform 0.3s ease-in-out',
+    transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
   };
 
   const buttonStyle = (active) => ({
@@ -45,8 +60,8 @@ function SidebarAdmin({ children }) {
   });
 
   const iconStyle = {
-    minWidth: '20px', // Lebar minimum untuk ikon
-    marginRight: '15px', // Tambahkan margin kanan
+    minWidth: '20px',
+    marginRight: '15px',
     textAlign: 'center',
     display: 'inline-block',
   };
@@ -58,7 +73,6 @@ function SidebarAdmin({ children }) {
   };
 
   const handleLogout = async () => {
-    // Show confirmation dialog first
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'You will be logged out of your account',
@@ -70,7 +84,6 @@ function SidebarAdmin({ children }) {
       cancelButtonText: 'Cancel',
     });
 
-    // If user confirms logout
     if (result.isConfirmed) {
       try {
         await axios.delete('http://localhost:5000/logout', {
@@ -100,7 +113,20 @@ function SidebarAdmin({ children }) {
   };
 
   return (
-    <div className="d-flex vh-100">
+    <div className="d-flex custom-vh">
+      {/* Tombol hamburger */}
+      {isMobile && (
+        <div className="p-2" style={{ zIndex: 20 }}>
+          <button
+            className="btn btn-light"
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        </div>
+      )}
+
+      {/* Sidebar */}
       <div className="d-flex flex-column" style={sidebarStyle}>
         <div className="p-3 d-flex justify-content-center">
           <a href="#" style={{ textDecoration: 'none' }}>
@@ -138,23 +164,6 @@ function SidebarAdmin({ children }) {
             style={{ textDecoration: 'none' }}
             onClick={handleLogout}
           >
-            <svg
-              aria-hidden="true"
-              className="me-2"
-              width="20"
-              height="20"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              />
-            </svg>
             Logout
           </button>
         </div>
