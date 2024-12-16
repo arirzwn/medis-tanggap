@@ -30,16 +30,24 @@ const LoginForm = () => {
         password: password,
       });
 
-      // const userName = response.data.name || 'User'; // Assuming the response contains the user's name
+      localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('userData', JSON.stringify(response.data.user));
+
+      window.dispatchEvent(new Event('authChange'));
 
       Swal.fire({
         title: 'Login Success!',
-        // text: `Hallo, ${userName} !`,
+        text: `Welcome, ${response.data.user.name}!`,
         icon: 'success',
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/dashboard');
+          // Redirect based on user role
+          if (response.data.user.role === 'admin') {
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/dashboard');
+          }
         }
       });
     } catch (error) {

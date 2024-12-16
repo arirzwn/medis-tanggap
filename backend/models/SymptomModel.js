@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 import db from '../config/Database.js';
 
 const Symptom = db.define(
-  'Symptom',  // Nama model tidak jamak (Singular)
+  'symptom', // Nama model tidak jamak (Singular)
   {
     id: {
       type: DataTypes.INTEGER,
@@ -16,7 +16,7 @@ const Symptom = db.define(
     },
   },
   {
-    freezeTableName: false,  // Nama tabel akan menjadi jamak (symptoms)
+    freezeTableName: false, // Nama tabel akan menjadi jamak (symptoms)
   }
 );
 
