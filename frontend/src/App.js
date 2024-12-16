@@ -33,13 +33,12 @@ import BuatRujukan from './klinikPage/BuatRujukan';
 import DetailKlinik from './adminPage/detail-klinik';
 import DetailPengajuan from './adminPage/detail-pengajuan';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Hospital selection flow */}
-        <Route path="/SelectProvince" element={<SelectProvince />} />
+        <Route path="/rumah-sakit" element={<SelectProvince />} />
         <Route path="/select-city/:provinceId" element={<SelectCity />} />
         <Route
           path="/select-hospital/:provinceId/:cityId"
@@ -50,7 +49,7 @@ function App() {
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
 
-        <Route path="/clinic" element={<Clinic />} />
+        {/* <Route path="/clinic" element={<Clinic />} /> */}
         <Route path="/artikel" element={<Artikel />} />
         <Route path="/artikel-detail/:id" element={<Detail />} />
 
@@ -58,7 +57,7 @@ function App() {
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
-        <Route path="/pengajuan" element={<Pengajuan />} />
+        <Route path="/daftar-klinik" element={<Clinic />} />
         <Route path="/login" element={<LoginForm />} />
 
         <Route path="/register" element={<Register />} />

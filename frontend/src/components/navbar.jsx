@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Logo from "../images/logo.png"; // Pastikan path logo benar
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Logo from '../images/logo.png'; // Pastikan path logo benar
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -9,7 +9,7 @@ function Navbar() {
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem('accessToken');
       setIsAuthenticated(!!token);
     };
 
@@ -18,7 +18,7 @@ function Navbar() {
 
     // Listen untuk event storage
     const handleStorageChange = (e) => {
-      if (e.key === "accessToken") {
+      if (e.key === 'accessToken') {
         checkAuth();
       }
     };
@@ -28,13 +28,13 @@ function Navbar() {
       checkAuth();
     };
 
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("authChange", handleAuthChange);
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('authChange', handleAuthChange);
 
     // Cleanup
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("authChange", handleAuthChange);
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('authChange', handleAuthChange);
     };
   }, []);
 
@@ -48,7 +48,7 @@ function Navbar() {
       <div className="container">
         {/* Logo */}
         <a className="navbar-brand" href="#">
-          <img src={Logo} alt="Logo" style={{ height: "40px" }} />
+          <img src={Logo} alt="Logo" style={{ height: '40px' }} />
         </a>
         {/* Hamburger Menu */}
         <button
@@ -62,7 +62,7 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
+          className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
           id="navbarNav"
         >
           <ul className="navbar-nav ms-auto">
@@ -70,7 +70,7 @@ function Navbar() {
               <Link
                 to="/"
                 className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
+                  location.pathname === '/' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-home me-3"></i>Beranda
@@ -80,7 +80,7 @@ function Navbar() {
               <Link
                 to="/diagnosa"
                 className={`nav-link ${
-                  location.pathname === "/diagnosa" ? "active" : ""
+                  location.pathname === '/diagnosa' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-notes-medical me-3"></i>Diagnosa
@@ -90,7 +90,7 @@ function Navbar() {
               <Link
                 to="/artikel"
                 className={`nav-link ${
-                  location.pathname === "/artikel" ? "active" : ""
+                  location.pathname === '/artikel' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-newspaper me-3"></i>Artikel
@@ -100,7 +100,7 @@ function Navbar() {
               <Link
                 to="/rumah-sakit"
                 className={`nav-link ${
-                  location.pathname === "/rumah-sakit" ? "active" : ""
+                  location.pathname === '/rumah-sakit' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-hospital me-3"></i>Rumah Sakit
@@ -108,9 +108,9 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                to="/pengajuan"
+                to="/daftar-klinik"
                 className={`nav-link ${
-                  location.pathname === "/pengajuan" ? "active" : ""
+                  location.pathname === '/daftar-klinik' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-clipboard-list me-3"></i>Daftar Klinik
