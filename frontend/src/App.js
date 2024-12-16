@@ -19,6 +19,10 @@ import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
+import SelectProvince from './page/hospital/SelectProvince';
+import SelectCity from './page/hospital/SelectCity';
+import SelectHospital from './page/hospital/SelectHospital';
+import SelectBed from './page/hospital/SelectBed';
 import AdminDashboard from './adminPage/adminDashboard';
 import PengajuanKlinik from './adminPage/pengajuan-klinik';
 import DaftarKlinik from './adminPage/daftar-klinik';
@@ -27,22 +31,34 @@ import UpdateArtikel from './klinikPage/UpdateArtikel';
 import DetailArtikel from './klinikPage/DetailArtikel';
 import BuatRujukan from './klinikPage/BuatRujukan';
 
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Hospital selection flow */}
+        <Route path="/SelectProvince" element={<SelectProvince />} />
+        <Route path="/select-city/:provinceId" element={<SelectCity />} />
+        <Route
+          path="/select-hospital/:provinceId/:cityId"
+          element={<SelectHospital />}
+        />
+        <Route path="/select-bed/:hospitalId" element={<SelectBed />} />
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
+
         <Route path="/clinic" element={<Clinic />} />
         <Route path="/artikel" element={<Artikel />} />
         <Route path="/artikel-detail/:id" element={<Detail />} />
+
         <Route path="/rumah-sakit" element={<RumahSakit />} />
         <Route path="/provinsi" element={<Provinsi />} />
         <Route path="/rs" element={<Rs />} />
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/pengajuan" element={<Pengajuan />} />
         <Route path="/login" element={<LoginForm />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<KlinikDashboard />} />
         <Route path="/dashboard/rujukan" element={<Rujukan />} />
