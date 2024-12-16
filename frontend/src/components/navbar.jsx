@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../images/logo.png'; // Pastikan path logo benar
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Logo from "../images/logo.png"; // Pastikan path logo benar
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation(); // Mendapatkan lokasi path aktif saat ini
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       setIsAuthenticated(!!token);
     };
 
@@ -17,7 +18,7 @@ function Navbar() {
 
     // Listen untuk event storage
     const handleStorageChange = (e) => {
-      if (e.key === 'accessToken') {
+      if (e.key === "accessToken") {
         checkAuth();
       }
     };
@@ -27,13 +28,13 @@ function Navbar() {
       checkAuth();
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('authChange', handleAuthChange);
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authChange", handleAuthChange);
 
     // Cleanup
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('authChange', handleAuthChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authChange", handleAuthChange);
     };
   }, []);
 
@@ -47,7 +48,7 @@ function Navbar() {
       <div className="container">
         {/* Logo */}
         <a className="navbar-brand" href="#">
-          <img src={Logo} alt="Logo" style={{ height: '40px' }} />
+          <img src={Logo} alt="Logo" style={{ height: "40px" }} />
         </a>
         {/* Hamburger Menu */}
         <button
@@ -61,34 +62,59 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
+          className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
           id="navbarNav"
         >
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <a className="nav-link" href="/">
-                Beranda
-              </a>
+              <Link
+                to="/"
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                <i className="fas fa-home me-3"></i>Beranda
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/diagnosa">
-                Diagnosa
-              </a>
+              <Link
+                to="/diagnosa"
+                className={`nav-link ${
+                  location.pathname === "/diagnosa" ? "active" : ""
+                }`}
+              >
+                <i className="fas fa-notes-medical me-3"></i>Diagnosa
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/artikel">
-                Artikel
-              </a>
+              <Link
+                to="/artikel"
+                className={`nav-link ${
+                  location.pathname === "/artikel" ? "active" : ""
+                }`}
+              >
+                <i className="fas fa-newspaper me-3"></i>Artikel
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/rumah-sakit">
-                Rumah Sakit
-              </a>
+              <Link
+                to="/rumah-sakit"
+                className={`nav-link ${
+                  location.pathname === "/rumah-sakit" ? "active" : ""
+                }`}
+              >
+                <i className="fas fa-hospital me-3"></i>Rumah Sakit
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/clinic">
-                Daftar Klinik
-              </a>
+              <Link
+                to="/pengajuan"
+                className={`nav-link ${
+                  location.pathname === "/pengajuan" ? "active" : ""
+                }`}
+              >
+                <i className="fas fa-clipboard-list me-3"></i>Daftar Klinik
+              </Link>
             </li>
           </ul>
           {/* Conditional rendering of Login/Dashboard button */}

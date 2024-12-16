@@ -1,6 +1,7 @@
 import Home from './page/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import Diagnosa from './page/DiagnosaPage/Diagnosa';
 import Artikel from './page/artikel';
@@ -12,12 +13,15 @@ import ResultDiagnosa from './page/DiagnosaPage/ResultDiagnosa';
 import Provinsi from './page/RumahSakitPage/provinsi';
 import Rs from './page/RumahSakitPage/rs';
 import Kamar from './page/RumahSakitPage/kamar';
-import Clinic from './page/ClinicPage/Clinic'; // Conflict from clinic branch
-import KlinikDashboard from './klinikPage/klinikDashboard'; // Conflict from main branch
+import Clinic from './page/ClinicPage/Clinic';
+import KlinikDashboard from './klinikPage/klinikDashboard';
 import Rujukan from './klinikPage/rujukan';
 import Profil from './klinikPage/profil';
 import Pengajuan from './page/DaftarKlinikPage/DaftarKlinik';
 import KlinikArtikel from './klinikPage/artikelKlinik';
+import AdminDashboard from './adminPage/adminDashboard';
+import PengajuanKlinik from './adminPage/pengajuan-klinik';
+import DaftarKlinik from './adminPage/daftar-klinik';
 import BuatArtikel from './klinikPage/BuatArtikel';
 import UpdateArtikel from './klinikPage/UpdateArtikel';
 import DetailArtikel from './klinikPage/DetailArtikel';
@@ -30,8 +34,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/diagnosa" element={<Diagnosa />} />
         <Route path="/result-diagnosa" element={<ResultDiagnosa />} />
-        <Route path="/clinic" element={<Clinic />} />{' '}
-        {/* Conflict from clinic branch */}
+        <Route path="/clinic" element={<Clinic />} />
         <Route path="/artikel" element={<Artikel />} />
         <Route path="/artikel-detail/:id" element={<Detail />} />
         <Route path="/rumah-sakit" element={<RumahSakit />} />
@@ -41,8 +44,7 @@ function App() {
         <Route path="/pengajuan" element={<Pengajuan />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<KlinikDashboard />} />{' '}
-        {/* Conflict from main branch */}
+        <Route path="/dashboard" element={<KlinikDashboard />} />
         <Route path="/dashboard/rujukan" element={<Rujukan />} />
         <Route path="/dashboard/profile" element={<Profil />} />
         <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
@@ -62,6 +64,9 @@ function App() {
           path="/dashboard/rujukan/tambah-rujukan"
           element={<BuatRujukan />}
         />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/pengajuan" element={<PengajuanKlinik />} />
+        <Route path="/admin/daftar-klinik" element={<DaftarKlinik />} />
       </Routes>
     </BrowserRouter>
   );

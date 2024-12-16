@@ -58,4 +58,36 @@
   .main-content {
     margin-left: 0 !important; /* Sidebar overlay, konten tetap utuh */
   }
+
+  .menu-toggle {
+    display: block; /* Tampilkan di layar kecil */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  path {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  .sidebar {
+    left: -250px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
 }

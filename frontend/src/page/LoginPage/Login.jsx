@@ -30,11 +30,9 @@ const LoginForm = () => {
         password: password,
       });
 
-      // Simpan token dengan nama yang konsisten
-      localStorage.setItem('accessToken', response.data.accessToken); // Ubah 'token' menjadi 'accessToken'
+      localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('userData', JSON.stringify(response.data.user));
 
-      // Dispatch event untuk memberitahu navbar
       window.dispatchEvent(new Event('authChange'));
 
       Swal.fire({
@@ -44,8 +42,12 @@ const LoginForm = () => {
         confirmButtonText: 'OK',
       }).then((result) => {
         if (result.isConfirmed) {
-          // Change this to match your dashboard route
-          navigate('/dashboard');
+          // Redirect based on user role
+          if (response.data.user.role === 'admin') {
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/dashboard');
+          }
         }
       });
     } catch (error) {

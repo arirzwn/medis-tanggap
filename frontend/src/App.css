@@ -9,10 +9,20 @@ nav ul li {
   margin-right: 15px;
 }
 
-.btn-brand {
+.btn-brand, .btn-login{
   background-color: #1800B0;
+  color: white;
   border-radius: 20px;
   padding: 5px 25px;
+  margin-left: 15px;
+}
+
+.fas {
+  display: none;
+}
+
+.fas.fa-user{
+  display: inline-block;
 }
 
 .btn-sec3 {
@@ -20,8 +30,9 @@ nav ul li {
   padding: 5px 25px;
 }
 
-.btn-brand:hover, .btn-sec3:hover {
-  background-color: #4b39bb;
+.btn-brand:hover, .btn-sec3:hover, .btn-login:hover {
+  background-color: #120085;
+  color: white;
 }
 
 section h1 {
@@ -148,6 +159,92 @@ section button #btn {
   font-size: 16px;
 }
 
+.img-arrow{
+  width: 20px;
+}
+
+.img-arrow1{
+  width: 30px;
+  margin-right: 8px;
+}
+
+.img-circle{
+  margin-left: 8px;
+}
+
+.section-artikel-detail{
+  background-color: #e2e2e2a1;
+  border-radius: 20px;
+  padding: 5px 30px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+.section-artikel-detail1{
+  padding: 5px 30px;
+  margin-bottom: 10px;
+}
+
+.nav-link{
+  padding-left: 15px;
+}
+
+.nav-item .nav-link.active{
+  color: rgb(0, 123, 255);
+  font-weight: bold;
+}
+
+@media (max-width:950px) {
+  .fas{
+  display: inline-block;
+  min-width: 20px;}
+  
+  /* Navbar */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* Navbar Collapse */
+  .navbar-collapse {
+    display: flex;
+    flex-direction: column;
+    align-items: start;     /* Horizontal center */
+    text-align: start;      /* Pastikan teks berada di tengah */
+    position: fixed;
+    right: 0;
+    top: 66px;
+    width: 200px; 
+    height: 255px;
+    border-radius: 5px;
+    background-color: white;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-collapse.show {
+    transform: translateX(0);
+  }
+
+  
+.nav-item .nav-link.active {
+  text-decoration: none; 
+  color: rgb(0, 123, 255); 
+  font-weight: bold; 
+  background-color: rgb(232, 244, 255); 
+  border: medium; padding: 10px 0px; 
+  border-radius: 8px;
+  width: 200px; 
+  transition: background-color 0.3s; 
+  padding-left: 15px;
+}
+
+  .btn-login {
+    width: 165px;
+    color: white;
+    padding: 4px 16px;
+    margin-top: 5px;
+  }
+
+}
 /* Responsive styles */
 @media (max-width: 650px) {
   /* General sections */
@@ -180,17 +277,6 @@ section button #btn {
     height: auto;
   }
 
-  /* Navbar */
-  .navbar-toggler {
-    display: block;
-  }
-
-  .navbar-collapse {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
   section h1 {
     font-size: 28px;
     margin-bottom: 20px;
@@ -199,6 +285,14 @@ section button #btn {
   section p {
     font-size: 16px;
     margin-bottom: 20px;
+  }
+
+  .navbar-collapse{
+    width: 180px;
+  }
+
+  .btn-login{
+    width: 140px;
   }
 
   .btn-brand, .btn-sec3 {
