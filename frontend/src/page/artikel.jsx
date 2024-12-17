@@ -3,8 +3,27 @@ import Footer from '../components/footer';
 import Navbar from '../components/navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Artikel1 from '../images/artikel.png';
-import Artikel2 from '../images/artikel2.jpg';
+
+const DEFAULT_AVATAR =
+  'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+const DEFAULT_ARTICLE_IMAGE =
+  'https://via.placeholder.com/800x400?text=No+Image+Available';
+
+// Add custom styles at the top of the file
+const imgStyles = {
+  articleImg: {
+    width: '100%',
+    height: '400px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+  miniImg: {
+    width: '100%',
+    height: '200px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+};
 
 function Artikel() {
   const [articles, setArticles] = useState([]);
@@ -16,14 +35,27 @@ function Artikel() {
     fetchArticles();
   }, []);
 
+  const extractFirstImage = (content) => {
+    if (!content) return null;
+    const div = document.createElement('div');
+    div.innerHTML = content;
+    const img = div.querySelector('img');
+    return img ? img.src : null;
+  };
+
   const fetchArticles = async () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:5000/api/articles');
-      console.log('API Response:', response.data); // Debug log
+      console.log('API Response:', response.data);
 
       if (response.data) {
-        const sortedArticles = response.data.sort(
+        const processedArticles = response.data.map((article) => ({
+          ...article,
+          previewImage: extractFirstImage(article.content),
+        }));
+
+        const sortedArticles = processedArticles.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
         setArticles(sortedArticles);
@@ -44,10 +76,9 @@ function Artikel() {
     </div>
   );
 
-  // Truncate text function
   const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) return text;
-    return text.substr(0, maxLength) + '...';
+    if (!text) return '';
+    return text.length <= maxLength ? text : text.substr(0, maxLength) + '...';
   };
 
   const latestArticle = articles.length > 0 ? articles[0] : null;
@@ -66,7 +97,6 @@ function Artikel() {
           </div>
         </section>
 
-        {/* Latest Article Section */}
         {loading ? (
           <LoadingSpinner />
         ) : error ? (
@@ -78,61 +108,71 @@ function Artikel() {
         ) : (
           <>
             <section>
-              <div className="row m-2" key={latestArticle.id}>
-                <div className="col">
-                  <Link
-                    to={`/artikel-detail/${latestArticle.id}`}
-                    className="text-decoration-none text-dark"
-                  >
-                    <img
-                      className="artikel-img"
-                      src={latestArticle.image_url || Artikel2}
-                      alt={latestArticle.title}
-                    />
-                  </Link>
-                </div>
-                <div className="col">
-                  <div className="row">
-                    <div className="col-1">
-                      <img className="artikel-profil" src={Artikel1} alt="" />
-                    </div>
-                    <div className="col-1" style={{ width: '110px' }}>
-                      <h3 className="fw-bolder artikel-username">
-                        {latestArticle.author}
-                      </h3>
-                    </div>
-                    <div className="col-1" style={{ width: '5px' }}>
-                      <h3 className="hari">~</h3>
-                    </div>
-                    <div className="col-4">
-                      <h3 className="hari">
-                        {new Date(latestArticle.date).toLocaleDateString()}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <h2 className="fw-bolder fs-4">
-                      <Link
-                        to={`/artikel-detail/${latestArticle.id}`}
-                        className="text-decoration-none text-dark"
-                      >
-                        {latestArticle.title}
-                      </Link>
-                    </h2>
-                    <h2 className="fs-6">
-                      {truncateText(latestArticle.description, 200)}
-                    </h2>
-                    <button
-                      className="btn btn-brand text-light mt-3 fw-semibold"
-                      onClick={() => {
-                        navigate(`/artikel-detail/${latestArticle.id}`);
-                      }}
+              {latestArticle && (
+                <div className="row m-2" key={latestArticle.id}>
+                  <div className="col">
+                    <Link
+                      to={`/artikel-detail/${latestArticle.id}`}
+                      className="text-decoration-none text-dark"
                     >
-                      Baca Sekarang
-                    </button>
+                      {latestArticle.previewImage ? (
+                        <img
+                          style={imgStyles.articleImg}
+                          src={latestArticle.previewImage}
+                          alt={latestArticle.title}
+                        />
+                      ) : (
+                        <div
+                          style={imgStyles.articleImg}
+                          className="bg-light d-flex align-items-center justify-content-center"
+                        >
+                          <span className="text-muted">No image available</span>
+                        </div>
+                      )}
+                    </Link>
+                  </div>
+                  <div className="col">
+                    <div className="row align-items-center">
+                      <div className="col-auto">
+                        <img
+                          className="artikel-profil"
+                          src={DEFAULT_AVATAR}
+                          alt="Author"
+                        />
+                      </div>
+                      <div className="col">
+                        <h3 className="fw-bolder artikel-username mb-0">
+                          {latestArticle.author}
+                        </h3>
+                        <span className="text-muted">
+                          {new Date(latestArticle.date).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <h2 className="fw-bolder fs-4">
+                        <Link
+                          to={`/artikel-detail/${latestArticle.id}`}
+                          className="text-decoration-none text-dark"
+                        >
+                          {latestArticle.title}
+                        </Link>
+                      </h2>
+                      <h2 className="fs-6">
+                        {truncateText(latestArticle.description || '', 200)}
+                      </h2>
+                      <button
+                        className="btn btn-brand text-light mt-3 fw-semibold"
+                        onClick={() => {
+                          navigate(`/artikel-detail/${latestArticle.id}`);
+                        }}
+                      >
+                        Baca Sekarang
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </section>
 
             <section style={{ margin: '18px' }}>
@@ -144,33 +184,42 @@ function Artikel() {
                       to={`/artikel-detail/${article.id}`}
                       className="text-decoration-none text-dark"
                     >
-                      <img
-                        className="artikel-mini-img"
-                        src={article.image_url || Artikel2}
-                        alt={article.title}
-                      />
-                      <div className="row">
-                        <div className="col-1">
+                      {article.previewImage ? (
+                        <img
+                          style={imgStyles.miniImg}
+                          src={article.previewImage}
+                          alt={article.title}
+                        />
+                      ) : (
+                        <div
+                          style={imgStyles.miniImg}
+                          className="bg-light d-flex align-items-center justify-content-center"
+                        >
+                          <span className="text-muted">No image available</span>
+                        </div>
+                      )}
+                      <div className="row align-items-center">
+                        <div className="col-auto">
                           <img
                             className="artikel-mini-profil"
-                            src={Artikel1}
-                            alt=""
+                            src={DEFAULT_AVATAR}
+                            alt="Author"
                           />
                         </div>
                         <div className="col">
-                          <h3 className="fw-bold artikel-mini-username">
+                          <h3 className="fw-bold artikel-mini-username mb-0">
                             {article.author}
                           </h3>
-                          <h3 className="artikel-mini-hari">
+                          <span className="artikel-mini-hari">
                             {new Date(article.date).toLocaleDateString()}
-                          </h3>
+                          </span>
                         </div>
                       </div>
                       <h2 className="fw-semibold fs-6 mb-3 mt-2">
                         {article.title}
                       </h2>
                       <h2 className="fw-lighter fs-6">
-                        {truncateText(article.description, 100)}
+                        {truncateText(article.description || '', 100)}
                       </h2>
                     </Link>
                   </div>
