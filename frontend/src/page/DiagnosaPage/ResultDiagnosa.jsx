@@ -37,7 +37,7 @@ const ResultDiagnosa = () => {
     <div>
       <Navbar />
       <div className="wrap-result-diagnosa">
-        <div className="bg-image"></div>
+        <div className="bg-image">
         <div className="container py-5">
           <div className="d-flex justify-content-center align-items-center min-vh-100">
             <div className="wrap-output bg-white shadow p-4 rounded">
@@ -79,6 +79,7 @@ const ResultDiagnosa = () => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
       <Footer />
