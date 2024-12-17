@@ -37,7 +37,7 @@ function AdminDashboard() {
   }, [navigate]);
 
   if (!userData) {
-    return null; // or loading spinner
+    return null; 
   }
 
   return (
@@ -49,7 +49,7 @@ function AdminDashboard() {
             <h5 className="text-muted">Medis Tanggap</h5>
             <h2>Admin Dashboard</h2>
           </div>
-          <div className="d-flex justify-content-between gap-5">
+          <div className="d-flex gap-5">
             <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
               <FontAwesomeIcon
                 className="icon mb-3"

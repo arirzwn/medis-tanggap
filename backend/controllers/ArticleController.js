@@ -1,21 +1,48 @@
 import Article from '../models/ArticleModel.js';
+import { JSDOM } from 'jsdom';
 
 // Create a new article
 export const createArticle = async (req, res) => {
   try {
-    const { author, title, description, content } = req.body;
+    const { title, content, author } = req.body;
+
+    // Validate required fields
+    if (!title || !content || !author) {
+      return res.status(400).json({
+        message: 'Title, content, and author are required',
+      });
+    }
+
+    // Content size check
+    if (content.length > 16777215) {
+      return res.status(413).json({
+        message: 'Content too large. Maximum size is 16MB',
+      });
+    }
+
+    // Create virtual DOM to extract description
+    const dom = new JSDOM(content);
+    const plainText = dom.window.document.body.textContent || '';
+    const description = plainText.substring(0, 200).trim();
 
     const article = await Article.create({
-      author,
       title,
-      description,
       content,
+      author,
+      description,
       date: new Date(),
     });
 
-    res.status(201).json({ msg: 'Article created successfully', article });
+    res.status(201).json({
+      message: 'Article created successfully',
+      article,
+    });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    console.error('Create article error:', error);
+    res.status(500).json({
+      message: 'Server error while processing article',
+      error: error.message,
+    });
   }
 };
 
@@ -25,10 +52,9 @@ export const getAllArticles = async (req, res) => {
     const articles = await Article.findAll({
       order: [['date', 'DESC']],
     });
-    console.log('Fetched articles:', articles); // Debug log
-    res.status(200).json(articles);
+    res.json(articles);
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error('Get articles error:', error);
     res.status(500).json({
       message: 'Error fetching articles',
       error: error.message,

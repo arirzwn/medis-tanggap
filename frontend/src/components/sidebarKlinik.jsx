@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,6 +8,7 @@ import {
   faEnvelopesBulk,
   faUser,
   faHospital,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
 import axios from 'axios';
@@ -18,7 +19,24 @@ function Sidebar({ children }) {
   const location = useLocation();
   const [isNavOpen, setIsNavOpen] = useState(false);
 
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 950);
+
   const isActive = (path) => location.pathname === path;
+
+  useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 950);
+        if (window.innerWidth > 950) {
+          setSidebarOpen(true); // Pastikan sidebar terbuka di layar besar
+        }
+      };
+  
+      handleResize();
+      window.addEventListener('resize', handleResize);
+  
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -72,24 +90,23 @@ function Sidebar({ children }) {
   };
 
   const sidebarStyle = {
-    position: 'fixed', // Sidebar fixed
-    top: 0, // Mulai dari atas
-    left: 0, // Mulai dari sisi kiri
     width: '250px',
-    height: '100vh', // Tinggi penuh viewport
     borderTopRightRadius: '20px',
     borderBottomRightRadius: '20px',
     boxShadow: '5px 0px 10px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
     color: '#343a40',
-    zIndex: 1000, // Pastikan sidebar di atas elemen lainnya
+    position: isMobile ? 'absolute' : 'relative',
+    zIndex: 10,
+    transition: 'transform 0.3s ease-in-out',
+    transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
   };
 
   const mainStyle = {
-    marginLeft: '250px', // Tambahkan margin kiri agar konten tidak menutupi sidebar
+    marginLeft: '250px', 
     padding: '20px',
     backgroundColor: '#f8f9fa',
-    minHeight: '100vh', // Pastikan main mengisi layar penuh
+    minHeight: '100vh', 
   };
 
   const buttonStyle = (active) => ({
@@ -115,7 +132,17 @@ function Sidebar({ children }) {
   };
 
   return (
-    <div className="d-flex vh-100">
+    <div className="d-flex custom-vh">
+      {isMobile && (
+        <div className="p-2" style={{ zIndex: 20 }}>
+          <button
+            className="btn btn-light"
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        </div>
+      )}
       <div className="d-flex flex-column" style={sidebarStyle}>
         <div className="p-3 d-flex justify-content-center">
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -142,11 +169,6 @@ function Sidebar({ children }) {
               path: '/dashboard/artikel',
               icon: faNewspaper,
               label: 'Artikel',
-            },
-            {
-              path: '/dashboard/profile',
-              icon: faHospital,
-              label: 'Profil',
             },
           ].map((item, index) => (
             <button
@@ -188,7 +210,7 @@ function Sidebar({ children }) {
         </div>
       </div>
 
-      <main style={mainStyle}>{children}</main>
+      <main className="flex-grow-1 p-4 bg-light">{children}</main>
     </div>
   );
 }

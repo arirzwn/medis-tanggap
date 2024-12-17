@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/sidebarAdmin";
 import { Link } from "react-router-dom";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6"; // Import ikon mata
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6"; 
 import "./detail-klinik.css";
 
 function DetailKlinik() {

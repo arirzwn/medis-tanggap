@@ -3,6 +3,11 @@
   display: flex;
 }
 
+main {
+  overflow-x: auto; /* Tambahkan scroll horizontal */
+  max-width: 100%;
+}
+
 /* Sidebar */
 .sidebar {
   width: 250px;
@@ -53,6 +58,10 @@
   margin-top: 5px;
 }
 
+.custom-vh{
+  height: auto;
+}
+
 /* Responsif */
 @media (max-width: 768px) {
   .main-content {
@@ -89,5 +98,11 @@
 
   .main-content {
     margin-left: 0;
+  }
+}
+
+@media (min-width: 950px) {
+  .custom-vh {
+    height: 100vh;
   }
 }
