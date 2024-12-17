@@ -64,3 +64,34 @@
     }
   }
   
+  @media (max-width: 650px) {
+    .table th, 
+    .table td {
+        font-size: 0.8rem; 
+        padding: 0.4rem; 
+    }
+
+    .table-responsive {
+        overflow-x: scroll; 
+    }
+
+    .btn {
+        display: block; 
+        margin-bottom: 0.5rem; 
+        width: 100%; 
+    }
+
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+        white-space: nowrap; 
+    }
+
+    h2 {
+        font-size: 1.2rem; 
+    }
+
+    .d-flex {
+        flex-wrap: wrap; 
+    }
+}

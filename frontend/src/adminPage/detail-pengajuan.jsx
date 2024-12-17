@@ -6,29 +6,29 @@ import image_ktp from "../images/artikel.png";
 import image_surat from "../images/artikel2.jpg";
 
 function DetailPengajuan() {
-    const [showModal, setShowModal] = useState(false); // State untuk kontrol modal gambar
-    const [showReasonModal, setShowReasonModal] = useState(false); // State untuk kontrol modal alasan
-    const [reason, setReason] = useState(""); // State untuk menyimpan alasan yang dimasukkan
-    const [imageToShow, setImageToShow] = useState(null); // State untuk gambar yang akan ditampilkan di modal
+    const [showModal, setShowModal] = useState(false); 
+    const [showReasonModal, setShowReasonModal] = useState(false); 
+    const [reason, setReason] = useState(""); 
+    const [imageToShow, setImageToShow] = useState(null); 
 
     const detailData = {
         namaKlinik: "Klinik Sehat Selalu",
         alamat: "Jl. Sehat No. 123, Jakarta",
-        ktpPemilik: image_ktp, // Ganti dengan path gambar KTP
-        suratIzin: image_surat, // Ganti dengan path gambar Surat Izin
+        ktpPemilik: image_ktp, 
+        suratIzin: image_surat, 
         createdAt: "2024-12-15",
     };
 
     // Fungsi untuk menampilkan modal dengan gambar
     const handleImageClick = (image) => {
-        setImageToShow(image); // Set gambar yang dipilih
-        setShowModal(true); // Tampilkan modal
+        setImageToShow(image); 
+        setShowModal(true); 
     };
 
     // Fungsi untuk menutup modal gambar
     const closeModal = () => {
-        setShowModal(false); // Menutup modal gambar
-        setImageToShow(null); // Menghapus gambar yang ditampilkan
+        setShowModal(false); 
+        setImageToShow(null); 
     };
 
     // Fungsi untuk menangani penerimaan
@@ -38,18 +38,18 @@ function DetailPengajuan() {
 
     // Fungsi untuk menangani penolakan, menampilkan modal alasan
     const handleTolak = () => {
-        setShowReasonModal(true); // Menampilkan modal untuk alasan
+        setShowReasonModal(true); 
     };
 
     // Fungsi untuk menutup modal alasan
     const closeReasonModal = () => {
-        setShowReasonModal(false); // Menutup modal alasan
+        setShowReasonModal(false); 
     };
 
     // Fungsi untuk mengirim alasan penolakan
     const handleSubmitReason = () => {
         alert(`Pengajuan Ditolak. Alasan: ${reason}`);
-        setShowReasonModal(false); // Menutup modal setelah submit
+        setShowReasonModal(false); 
     };
 
     return (

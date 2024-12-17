@@ -59,7 +59,7 @@ const Register = () => {
       {/* Bagian kiri */}
       <div className="d-flex flex-column justify-content-center align-items-center w-50">
         <h2 className="mb-3 text-custom-color fw-bold">Medis Tanggap</h2>
-        <p className="mb-4 text-muted">Create your account</p>
+        <p className="mb-4 text-muted">Buat Akun</p>
         <form className="w-75" onSubmit={register}>
           <div className="mb-3">
             <input
@@ -106,7 +106,7 @@ const Register = () => {
               type="password"
               className="form-control"
               id="confirm-password"
-              placeholder="Confirm Password"
+              placeholder="Konfirmasi Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -115,20 +115,20 @@ const Register = () => {
             type="submit"
             className="btn button-color w-100 text-white  fw-bold hover:"
           >
-            Sign Up
+            Daftar
           </Button>
         </form>
       </div>
 
       {/* Bagian kanan */}
       <div className="bg-kanan  text-white d-flex flex-column justify-content-center align-items-center w-50">
-        <h1 className="mb-3 fw-bold font-welcome">Welcome to</h1>
+        <h1 className="mb-3 fw-bold font-welcome">Selamat Datang di</h1>
         <h1 className="mb-4 fw-bold">Medis Tanggap</h1>
         <button
           className="btn btn-info text-white fw-bold px-4 py-2"
           onClick={navigateToLogin}
         >
-          Sign In
+         Masuk
         </button>
       </div>
     </div>

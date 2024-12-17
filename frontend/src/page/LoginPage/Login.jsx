@@ -66,13 +66,13 @@ const LoginForm = () => {
     <div className="d-flex vh-100">
       {/* Bagian kiri */}
       <div className="bg-kiri text-white d-flex flex-column justify-content-center align-items-center w-50">
-        <h1 className="mb-3 fw-bold text-custom-color-kiri">Welcome to</h1>
+        <h1 className="mb-3 fw-bold text-custom-color-kiri">Selamat Datang di</h1>
         <h1 className="mb-4 fw-bold">Medis Tanggap</h1>
         <Button
           className="btn btn-info text-white fw-bold px-4 py-2"
           onClick={navigateToRegister}
         >
-          Register Account
+          Buat Akun
         </Button>
       </div>
 
@@ -80,7 +80,7 @@ const LoginForm = () => {
       <div className="d-flex flex-column justify-content-center align-items-center w-50">
         <h2 className="mb-3 text-custom-color fw-bold">Medis Tanggap</h2>
         <p className="mb-4 text-muted font-weight-bold">
-          Login to your account
+          Masuk ke Akun
         </p>
         <form className="w-75" onSubmit={Auth}>
           <div className="mb-3">
@@ -115,7 +115,7 @@ const LoginForm = () => {
             type="submit"
             className="btn button-color w-100 text-white  fw-bold hover:"
           >
-            Sign in
+            Masuk
           </Button>
         </form>
       </div>

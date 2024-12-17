@@ -4,6 +4,7 @@ import Sidebar from '../components/sidebarKlinik';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './klinikStyle.css';
+import '../adminPage/responsive.css'
 
 function KlinikArtikel() {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ function KlinikArtikel() {
 
   return (
     <Sidebar>
-      <div className="h-100" style={{ minWidth: '1200px' }}>
+      {/* <div className="h-100 " style={{ minWidth: '1200px' }}> */}
         <div className="container-fluid">
           <div className="d-flex justify-content-between p-3">
             <h2>Data Artikel</h2>
@@ -147,7 +148,7 @@ function KlinikArtikel() {
             </div>
           )}
         </div>
-      </div>
+      {/* </div> */}
     </Sidebar>
   );
 }
