@@ -11,16 +11,41 @@ const Rujukan = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    no_rujukan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    tanggal: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    rs_tujuan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    no_kartu: {
+      // NIK
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name_patient: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     gender: {
-      type: DataTypes.ENUM('male', 'female'),
+      type: DataTypes.ENUM('Laki-laki', 'Perempuan'),
       allowNull: false,
     },
     birthday_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     diagnosis: {
@@ -30,6 +55,10 @@ const Rujukan = db.define(
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    doctor: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
