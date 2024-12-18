@@ -2,8 +2,13 @@ import express from 'express';
 import { getUsers, Register, Login, Logout } from '../controllers/Users.js';
 import { verifyToken } from '../middleware/verifyToken.js';
 import { refreshToken } from '../controllers/RefreshToken.js';
-import { getSymptoms } from '../controllers/SymptomsController.js'; 
-import { getResults, createResult, getResultById } from '../controllers/ResultsController.js'; 
+import { getSymptoms } from '../controllers/SymptomsController.js';
+import {
+  getResults,
+  createResult,
+  getResultById,
+} from '../controllers/ResultsController.js';
+import Users from '../models/UserModel.js';
 
 const router = express.Router();
 
@@ -13,6 +18,24 @@ router.post('/users', Register);
 router.post('/login', Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
+
+router.get('/me', verifyToken, async (req, res) => {
+  try {
+    const user = await Users.findOne({
+      where: {
+        email: req.email,
+      },
+      attributes: ['id', 'name', 'email', 'phone', 'role'], // Include role
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error in /me endpoint:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 // Symptom Routes
 router.get('/symptoms', getSymptoms); // Route untuk mengambil data gejala

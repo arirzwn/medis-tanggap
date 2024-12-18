@@ -5,4 +5,12 @@ const db = new Sequelize('medis_tanggap', 'root', '', {
   dialect: 'mysql',
 });
 
+db.sync({ alter: true })
+  .then(() => {
+    console.log('Database & tables created or updated!');
+  })
+  .catch((error) => {
+    console.error('Unable to create or update tables, shutting down...', error);
+  });
+
 export default db;

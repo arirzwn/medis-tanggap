@@ -8,7 +8,7 @@ function Profil() {
   return (
     <>
       <SidebarKlinik>
-        <div className="w-100 h-100">
+      <div className=" h-100" style={{minWidth: "1200px"}}>
           {/* Header */}
           <div className="bg-light row align-items-center shadow-sm mb-5 p-3 w-100">
             <div className="col-md-3">
@@ -27,36 +27,6 @@ function Profil() {
                   <h6>+62 12345678</h6>
                   <h6>noreply@gmail.com</h6>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Konten Utama */}
-          <div className="bg-light row shadow-sm p-3 w-100 justify-content-between">
-            <div className="col-md-5 p-3">
-              <div>
-                <h4 className="fw-bold mt-3">Grup 1</h4>
-                <h6>Data 1</h6>
-                <h6>Data 2</h6>
-                <h6>Data 3</h6>
-              </div>
-            </div>
-            {/* Card Kedua */}
-            <div className="col-md-5 p-3 position-relative">
-              <button
-                className="btn position-absolute"
-                style={{
-                  top: "10px",
-                  right: "10px",
-                }}
-              >
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </button>
-              <div>
-                <h4 className="fw-bold mt-3">Grup 2</h4>
-                <h6>Data 1</h6>
-                <h6>Data 2</h6>
-                <h6>Data 3</h6>
               </div>
             </div>
           </div>

@@ -1,10 +1,42 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Logo from "../images/logo.png"; // Pastikan path logo benar
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Logo from '../images/logo.png'; // Pastikan path logo benar
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation(); // Mendapatkan lokasi path aktif saat ini
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('accessToken');
+      setIsAuthenticated(!!token);
+    };
+
+    // Check saat komponen dimount
+    checkAuth();
+
+    // Listen untuk event storage
+    const handleStorageChange = (e) => {
+      if (e.key === 'accessToken') {
+        checkAuth();
+      }
+    };
+
+    // Listen untuk custom event auth
+    const handleAuthChange = () => {
+      checkAuth();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('authChange', handleAuthChange);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('authChange', handleAuthChange);
+    };
+  }, []);
 
   // Function to toggle navbar visibility
   const toggleNavbar = () => {
@@ -16,7 +48,7 @@ function Navbar() {
       <div className="container">
         {/* Logo */}
         <a className="navbar-brand" href="#">
-          <img src={Logo} alt="Logo" style={{ height: "40px" }} />
+          <img src={Logo} alt="Logo" style={{ height: '40px' }} />
         </a>
         {/* Hamburger Menu */}
         <button
@@ -29,13 +61,16 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`} id="navbarNav">
-          <ul className={`navbar-nav ${isNavOpen ? "" : "ms-auto"}`}>
+        <div
+          className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
+          id="navbarNav"
+        >
+          <ul className={`navbar-nav ${isNavOpen ? '' : 'ms-auto'}`}>
             <li className="nav-item">
               <Link
                 to="/"
                 className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
+                  location.pathname === '/' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-home me-3"></i>Beranda
@@ -45,7 +80,7 @@ function Navbar() {
               <Link
                 to="/diagnosa"
                 className={`nav-link ${
-                  location.pathname === "/diagnosa" ? "active" : ""
+                  location.pathname === '/diagnosa' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-notes-medical me-3"></i>Diagnosa
@@ -55,7 +90,7 @@ function Navbar() {
               <Link
                 to="/artikel"
                 className={`nav-link ${
-                  location.pathname === "/artikel" ? "active" : ""
+                  location.pathname === '/artikel' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-newspaper me-3"></i>Artikel
@@ -65,7 +100,7 @@ function Navbar() {
               <Link
                 to="/rumah-sakit"
                 className={`nav-link ${
-                  location.pathname === "/rumah-sakit" ? "active" : ""
+                  location.pathname === '/rumah-sakit' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-hospital me-3"></i>Rumah Sakit
@@ -73,19 +108,27 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                to="/pengajuan"
+                to="/daftar-klinik"
                 className={`nav-link ${
-                  location.pathname === "/pengajuan" ? "active" : ""
+                  location.pathname === '/daftar-klinik' ? 'active' : ''
                 }`}
               >
                 <i className="fas fa-clipboard-list me-3"></i>Daftar Klinik
               </Link>
             </li>
           </ul>
-          {/* Login Button */}
-          <Link to="/login" className="btn btn-login fw-semibold">
-            <i className="fas fa-user me-2"></i>Login
-          </Link>
+          {/* Conditional rendering of Login/Dashboard button */}
+          {isAuthenticated ? (
+            <Link to="/dashboard" className="btn btn-login text-light">
+              <i className="fas fa-user me-3"></i>
+              Dashboard
+            </Link>
+          ) : (
+            <Link to="/login" className="btn btn-login text-light">
+              <i className="fas fa-user me-3"></i>
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

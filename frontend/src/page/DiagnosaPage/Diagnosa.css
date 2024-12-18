@@ -9,7 +9,7 @@
 }
 .bg-image {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../images/bg-diagnosa.jpg');
-    height: 140vh;
+    height: 148vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -149,11 +149,5 @@
   @media (min-height: 950px) and (min-width: 800px){
     .bg-image {
       height: 87vh;
-    }
-  }
-
-  @media (min-height: 100px) and (min-width: 1000px){
-    .bg-image {
-      height: 150vh;
     }
   }
