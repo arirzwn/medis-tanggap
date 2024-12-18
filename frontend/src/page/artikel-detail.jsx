@@ -3,8 +3,7 @@ import Footer from '../components/footer';
 import Navbar from '../components/navbar';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Artikel1 from '../images/artikel.png';
-import Artikel2 from '../images/artikel2.jpg';
+import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 
 function Detail() {
   const { id } = useParams();
@@ -77,39 +76,34 @@ function Detail() {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <section>
-          <h1 className="fw-bolder fs-3 text-center mt-4">{article.title}</h1>
-          <img
-            className="rounded mx-auto d-block mt-4 mb-4 artikel-detail-img"
-            src={Artikel2}
-            alt=""
-          />
-        </section>
-        <section>
-          <div className="row">
-            <div className="col-1" style={{ width: '50px' }}>
-              <img className="artikel-detail-profil" src={Artikel1} alt="" />
-            </div>
-            <div className="col-1" style={{ width: '110px' }}>
-              <h3 className="fw-bolder artikel-detail-username">
-                {article.author}
-              </h3>
-            </div>
-            <div className="col-1" style={{ width: '5px' }}>
-              <h3 className="artikel-detail-hari">~</h3>
-            </div>
-            <div className="col-4">
-              <h3 className="artikel-detail-hari">
-                {new Date(article.date).toLocaleDateString()}
-              </h3>
-            </div>
+      <div className="container py-5">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-10 col-lg-8">
+            <article>
+              <header className="mb-4">
+                <div className="d-flex align-items-center mb-3">
+                  <div>
+                    <span className="fw-bold">{article.author}</span>
+                    <span className="text-muted ms-2">•</span>
+                    <span className="text-muted ms-2">
+                      {new Date(article.date).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              </header>
+
+              <div
+                className="ql-editor article-content"
+                style={{
+                  padding: '0 20px',
+                  fontSize: '1.1rem',
+                  lineHeight: '1.8',
+                }}
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
+            </article>
           </div>
-          <div className="mt-3">
-            <h2 className="fw-bolder fs-4 mb-4">{article.title}</h2>
-            <h2 className="fs-6 mb-3">{article.description}</h2>
-          </div>
-        </section>
+        </div>
       </div>
       <Footer />
     </>
