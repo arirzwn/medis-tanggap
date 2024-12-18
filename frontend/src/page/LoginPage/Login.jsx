@@ -77,9 +77,11 @@ const LoginForm = () => {
       </div>
 
       {/* Bagian kanan */}
-      <div className="d-flex flex-column justify-content-center align-items-center w-50">
-        <h2 className="mb-3 text-custom-color fw-bold">Medis Tanggap</h2>
-        <p className="mb-4 text-muted font-weight-bold">
+      <div className="bg-kanan1 d-flex flex-column justify-content-center align-items-center w-50">
+      <h1 className="mb-3 fw-bold font-welcome h1-responsive">Selamat Datang di</h1>
+        <h2 className="mb-3 text-custom-color fw-bold text-center">Medis Tanggap</h2>
+        <div className="card-responsive2">
+        <p className="mb-4 text-muted font-weight-bold text-center">
           Masuk ke Akun
         </p>
         <form className="w-75" onSubmit={Auth}>
@@ -105,12 +107,23 @@ const LoginForm = () => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="btn btn-link position-absolute end-0 top-50 translate-middle-y"
+              className="btn btn-link position-absolute end-0 top-50 translate-middle-y eye-responsive"
               style={{ right: '10px' }}
             >
               {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
             </button>
           </div>
+          <p className="text-muted1">
+            Belum punya akun?{' '}
+            <span
+              onClick={navigateToRegister}
+              className="text-custom-color1"
+              style={{ cursor: 'pointer', fontWeight: 'bold' }}
+            >
+              Daftar sekarang
+            </span>
+            .
+          </p>
           <Button
             type="submit"
             className="btn button-color w-100 text-white  fw-bold hover:"
@@ -118,6 +131,7 @@ const LoginForm = () => {
             Masuk
           </Button>
         </form>
+        </div>
       </div>
     </div>
   );
