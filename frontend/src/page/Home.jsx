@@ -17,12 +17,9 @@ function Home() {
                 <section id="sec1" className="bg-dark-subtle h-100 p-5">
                     <div className="container d-flex align-items-center flex-column flex-md-row">
                         <div className="col-md-6 col-12 text-center text-md-start">
-                            <h1 className="fw-bold">Hello Welcome <br /> To <span>Medis Tanggap</span></h1>
-                            <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum 
-                            has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to
-                            make a type specimen book</p>
-                            <button className="btn btn-brand text-light" onClick={() => { navigate("/diagnosa") }}>Diagnosa <span id="btn" className="img-circle"><img src={Arrow} className="img-arrow" alt="" /></span></button>
+                            <h1 className="fw-bold">Selamat Datang <br /> Di <span>Medis Tanggap</span></h1>
+                            <p>Medis Tanggap memberikan solusi inovatif untuk meningkatkan akses layanan kesehatan bagi ibu hamil. Dengan teknologi modern, kami menyediakan diagnosis, informasi kesehatan, dan fitur rujukan rumah sakit secara cepat dan akurat. Kami hadir untuk memastikan Anda mendapatkan layanan medis yang tepat, kapan saja dan di mana saja.</p>
+                            {/* <button className="btn btn-brand text-light" onClick={() => { navigate("/diagnosa") }}>Diagnosa <span id="btn" className="img-circle"><img src={Arrow} className="img-arrow" alt="" /></span></button> */}
                         </div>
                         <div className="col-md-6 col-12">
                             <img src={Section1} alt="" className="img-fluid" />
@@ -37,7 +34,7 @@ function Home() {
                         </div>
                         <div className="col-md-6 col-12">
                             <h2 className="fw-bold mb-4">APA ITU MEDIS TANGGAP ?</h2>
-                            <p className="mb-4">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                            <p className="mb-4">Medis Tanggap adalah aplikasi yang memberikan solusi kesehatan dengan menyediakan fitur diagnosa penyakit, pencarian rumah sakit, serta akses artikel kesehatan untuk mendukung ibu hamil menjalani kehamilan dengan sehat dan aman.</p>
                             <ul className="navbar-nav">
                                 <li><img id="li" src={Arrow} className="img-arrow1" alt="" /> Fitur Diagnosa Penyakit Selama Kehamilan</li>
                                 <li><img id="li" src={Arrow} className="img-arrow1" alt="" /> Fitur Cari Rumah Sakit</li>
@@ -54,10 +51,7 @@ function Home() {
                         </div>
                         <div className="col-md-7 col-12">
                             <h1 className="fw-bold">Fitur <span>Diagnosa Penyakit</span><br /> Selama Kehamilan</h1>
-                            <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum 
-                            has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to
-                            make a type specimen book</p>
+                            <p>Membantu ibu hamil untuk mengenali gejala penyakit secara dini dan memberikan panduan langkah selanjutnya untuk menjaga kesehatan selama kehamilan.</p>
                             <button className="btn btn-sec3 text-light" onClick={() => { navigate("/diagnosa") }}>Diagnosa</button>
                         </div>
                     </div>
@@ -67,11 +61,8 @@ function Home() {
                     <div className="container d-flex align-items-center flex-column flex-md-row">
                         <div className="col-md-7 col-12 mb-4 mb-md-0">
                             <h1 className="fw-bold">Fitur <span>Cari Rumah Sakit</span><br /> Medis Tanggap</h1>
-                            <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum 
-                            has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to
-                            make a type specimen book</p>
-                            <button className="btn btn-sec3 text-light">Cari Sekarang</button>
+                            <p>Memberikan informasi real-time tentang ketersediaan kamar rumah sakit terdekat, sehingga mempermudah proses rujukan bagi pasien dalam kondisi darurat.</p>
+                            <button onClick={() => { navigate("/rumah-sakit") }} className="btn btn-sec3 text-light">Cari Sekarang</button>
                         </div>
                         <div className="col-md-5 col-12">
                             <img src={Map} alt="" className="img-fluid" />

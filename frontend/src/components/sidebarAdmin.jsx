@@ -23,7 +23,7 @@ function SidebarAdmin({ children }) {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 950);
       if (window.innerWidth > 950) {
-        setSidebarOpen(true); // Pastikan sidebar terbuka di layar besar
+        setSidebarOpen(true); 
       }
     };
 

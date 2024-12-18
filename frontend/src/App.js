@@ -26,7 +26,7 @@ import SelectBed from './page/hospital/SelectBed';
 import AdminDashboard from './adminPage/adminDashboard';
 import PengajuanKlinik from './adminPage/pengajuan-klinik';
 import DaftarKlinik from './adminPage/daftar-klinik';
-import BuatArtikel from './klinikPage/BuatArtikel';
+import InputArticle from './page/WhatYouSeePage/InputArticle';
 import UpdateArtikel from './klinikPage/UpdateArtikel';
 import DetailArtikel from './klinikPage/DetailArtikel';
 import BuatRujukan from './klinikPage/BuatRujukan';
@@ -67,11 +67,11 @@ function App() {
         <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
         <Route
           path="/dashboard/artikel/tambah-artikel"
-          element={<BuatArtikel />}
+          element={<InputArticle />}
         />
         <Route
           path="/dashboard/artikel/edit-artikel/:id"
-          element={<UpdateArtikel />}
+          element={<InputArticle />}
         />
         <Route
           path="/dashboard/artikel/detail/:id"

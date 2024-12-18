@@ -30,36 +30,6 @@ function Profil() {
               </div>
             </div>
           </div>
-
-          {/* Konten Utama */}
-          <div className="bg-light row shadow-sm p-3 w-100 justify-content-between">
-            <div className="col-md-5 p-3">
-              <div>
-                <h4 className="fw-bold mt-3">Grup 1</h4>
-                <h6>Data 1</h6>
-                <h6>Data 2</h6>
-                <h6>Data 3</h6>
-              </div>
-            </div>
-            {/* Card Kedua */}
-            <div className="col-md-5 p-3 position-relative">
-              <button
-                className="btn position-absolute"
-                style={{
-                  top: "10px",
-                  right: "10px",
-                }}
-              >
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </button>
-              <div>
-                <h4 className="fw-bold mt-3">Grup 2</h4>
-                <h6>Data 1</h6>
-                <h6>Data 2</h6>
-                <h6>Data 3</h6>
-              </div>
-            </div>
-          </div>
         </div>
       </SidebarKlinik>
     </>

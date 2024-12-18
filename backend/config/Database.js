@@ -5,6 +5,8 @@ const db = new Sequelize('medis_tanggap2', 'root', '', {
   dialect: 'mysql',
 });
 
+// Uncomment this block when you need to update database tables
+/*
 db.sync({ alter: true })
   .then(() => {
     console.log('Database & tables created or updated!');
@@ -12,5 +14,6 @@ db.sync({ alter: true })
   .catch((error) => {
     console.error('Unable to create or update tables, shutting down...', error);
   });
+*/
 
 export default db;

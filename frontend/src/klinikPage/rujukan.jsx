@@ -40,7 +40,7 @@ function Rujukan() {
   return (
     <>
       <Sidebar>
-        <div className="h-100" style={{ minWidth: '1200px' }}>
+        {/* <div className="h-100" style={{ minWidth: '1200px' }}> */}
           <div className="container-fluid">
             <div className="d-flex justify-content-between p-3">
               <h2>Data Rujukan</h2>
@@ -104,7 +104,7 @@ function Rujukan() {
               </table>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </Sidebar>
     </>
   );
