@@ -47,6 +47,23 @@
   border-bottom: 2px solid #007bff;
 }
 
+/* Untuk ukuran laptop (layar lebar 1024px ke atas) */
+@media (max-width: 1024px) {
+  .province-image {
+    width: 70%;
+    height: 270px; /* Tinggi gambar lebih kecil untuk HP */
+    padding-bottom: 1rem;
+  }
+}
+
+/* Untuk ukuran HP (layar lebar maksimal 768px) */
+@media (max-width: 768px) {
+  .province-image {
+    width: 85%;
+    height: 270px; /* Tinggi gambar lebih kecil untuk HP */
+  }
+}
+
 /* Nama Provinsi */
 .province-card h3 {
   color: #007bff;

@@ -4,7 +4,7 @@ import Sidebar from '../components/sidebarKlinik';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './klinikStyle.css';
-import '../adminPage/responsive.css'
+import '../adminPage/responsive.css';
 
 function KlinikArtikel() {
   const navigate = useNavigate();
@@ -60,94 +60,88 @@ function KlinikArtikel() {
   return (
     <Sidebar>
       {/* <div className="h-100 " style={{ minWidth: '1200px' }}> */}
-        <div className="container-fluid">
-          <div className="d-flex justify-content-between p-3">
-            <h2>Data Artikel</h2>
-            <Link
-              to="/dashboard/artikel/tambah-artikel"
-              className="btn btn-primary hover-button"
-            >
-              Buat Artikel
-            </Link>
+      <div className="container-fluid">
+        <div className="d-flex justify-content-between p-3">
+          <h2>Data Artikel</h2>
+          <Link
+            to="/dashboard/artikel/tambah-artikel"
+            className="btn btn-primary hover-button"
+          >
+            Buat Artikel
+          </Link>
+        </div>
+        {loading ? (
+          <div className="text-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
           </div>
-          {loading ? (
-            <div className="text-center">
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          ) : error ? (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          ) : (
-            <div className="table-responsive">
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Penulis</th>
-                    <th>Judul</th>
-                    <th>Deskripsi</th>
-                    <th>Waktu</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {articles.length > 0 ? (
-                    articles.map((article, index) => (
-                      <tr key={article.id}>
-                        <td>{index + 1}</td>
-                        <td>{article.author || 'N/A'}</td>
-                        <td>{article.title || 'N/A'}</td>
-                        <td>
-                          {article.description
-                            ? `${article.description.substring(0, 50)}...`
-                            : 'N/A'}
-                        </td>
-                        <td>
-                          {article.date
-                            ? new Date(article.date).toLocaleDateString()
-                            : 'N/A'}
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-warning btn-sm me-2"
-                            onClick={() =>
-                              navigate(
-                                `/dashboard/artikel/edit-artikel/${article.id}`
-                              )
-                            }
-                          >
-                            Ubah
-                          </button>
-                          <button
-                            className="btn btn-danger btn-sm me-2"
-                            onClick={() => handleDelete(article.id)}
-                          >
-                            Hapus
-                          </button>
-                          <Link
-                            to={`/dashboard/artikel/detail/${article.id}`}
-                            className="btn btn-info btn-sm"
-                          >
-                            Lihat Detail
-                          </Link>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="text-center">
-                        Tidak ada artikel yang tersedia
+        ) : error ? (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Penulis</th>
+                  <th>Judul</th>
+                  <th>Waktu</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {articles.length > 0 ? (
+                  articles.map((article, index) => (
+                    <tr key={article.id}>
+                      <td>{index + 1}</td>
+                      <td>{article.author || 'N/A'}</td>
+                      <td>{article.title || 'N/A'}</td>
+                      <td>
+                        {article.date
+                          ? new Date(article.date).toLocaleDateString()
+                          : 'N/A'}
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-warning btn-sm me-2"
+                          onClick={() =>
+                            navigate(
+                              `/dashboard/artikel/edit-artikel/${article.id}`
+                            )
+                          }
+                        >
+                          Ubah
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm me-2"
+                          onClick={() => handleDelete(article.id)}
+                        >
+                          Hapus
+                        </button>
+                        <Link
+                          to={`/dashboard/artikel/detail/${article.id}`}
+                          className="btn btn-info btn-sm"
+                        >
+                          Lihat Detail
+                        </Link>
                       </td>
                     </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center">
+                      Tidak ada artikel yang tersedia
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
       {/* </div> */}
     </Sidebar>
   );

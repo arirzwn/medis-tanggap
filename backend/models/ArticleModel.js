@@ -6,39 +6,40 @@ const { DataTypes } = Sequelize;
 const Article = db.define(
   'articles',
   {
-    author: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    content: {
+      type: DataTypes.TEXT('long'),
+      allowNull: false,
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    image_url: {
-      type: DataTypes.STRING,
       allowNull: true,
     },
     date: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,
+    timestamps: false,
   }
 );
 
 export default Article;
-
-// Generate the table if it doesn't exist
-(async () => {
-  await db.sync();
-})();
