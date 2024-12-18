@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, Register, Login, Logout } from '../controllers/Users.js';
+import { getUsers, Register, Login, Logout,getUsersByRoleClinic,deleteClinic,getClinicDetail  } from '../controllers/Users.js';
 import { verifyToken } from '../middleware/verifyToken.js';
 import { refreshToken } from '../controllers/RefreshToken.js';
 import { getSymptoms } from '../controllers/SymptomsController.js';
@@ -18,7 +18,9 @@ router.post('/users', Register);
 router.post('/login', Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
-
+router.get('/users/clinic', getUsersByRoleClinic);
+router.delete('/users/clinic/:id', deleteClinic);
+router.get('/users/clinic/:id', getClinicDetail);
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await Users.findOne({

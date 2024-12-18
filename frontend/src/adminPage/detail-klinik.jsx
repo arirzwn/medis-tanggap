@@ -1,89 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/sidebarAdmin";
-import { Link } from "react-router-dom";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6"; // Import ikon mata
+import { Link, useParams } from "react-router-dom";
 import "./detail-klinik.css";
 
 function DetailKlinik() {
-    const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const { id } = useParams(); // Mengambil id dari URL params
+  const [clinicDetail, setClinicDetail] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const detailData = {
-        nama: "Klinik Sehat Selalu",
-        telepon: "081234567890",
-        email: "kliniksehat@email.com",
-        password: "passwordRahasia", // Password asli
-        createdAt: "2024-12-15",
+  // Fetch data detail klinik berdasarkan ID
+  useEffect(() => {
+    const fetchClinicDetail = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/users/clinic/${id}`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          setClinicDetail(data.data); // Menyimpan data klinik yang ditemukan
+        } else {
+          setError(data.message); // Menyimpan pesan error jika tidak ditemukan
+        }
+      } catch (err) {
+        setError("Terjadi kesalahan dalam mengambil data");
+      } finally {
+        setLoading(false); // Mengubah loading menjadi false setelah data diambil
+      }
     };
 
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!isPasswordVisible);
-    };
+    fetchClinicDetail();
+  }, [id]);
 
-    const handleHapus = () => {
-        alert("Klinik Dihapus");
-    };
+  // Loading state
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-    return (
-        <>
-            <Sidebar>
-                <div className="container mt-4">
-                    <h2 className="mb-4">Detail Data Klinik</h2>
-                    <div className="card">
-                        <div className="card-body">
-                            <table className="table table-borderless table2">
-                                <tbody>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <td>{detailData.nama}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Telepon</th>
-                                        <td>{detailData.telepon}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{detailData.email}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Password</th>
-                                        <td className="position-relative">
-                                            <div className="d-flex align-items-center">
-                                                <span>
-                                                    {isPasswordVisible
-                                                        ? detailData.password
-                                                        : "******"}
-                                                </span>
-                                                <button
-                                                    type="button"
-                                                    onClick={togglePasswordVisibility}
-                                                    className="btn btn-link position-absolute end-0"
-                                                    style={{ textDecoration: "none", background: "transparent", right: '10px' }}
-                                                >
-                                                    {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Created At</th>
-                                        <td>{detailData.createdAt}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className="mt-4 mb-4">
-                        <button onClick={handleHapus} className="btn btn-danger me-2">
-                            Hapus
-                        </button>
-                        <Link to="/admin/daftar-klinik" className="btn btn-info">
-                            Kembali
-                        </Link>
-                    </div>
-                </div>
-            </Sidebar>
-        </>
-    );
+  // Error handling
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  return (
+    <Sidebar>
+      <div className="container mt-4">
+        <h2 className="mb-4">Detail Data Klinik</h2>
+        <div className="card">
+          <div className="card-body">
+            {clinicDetail ? (
+              <table className="table table-borderless table2">
+                <tbody>
+                  <tr>
+                    <th>Nama</th>
+                    <td>{clinicDetail.name}</td>
+                  </tr>
+                  <tr>
+                    <th>Telepon</th>
+                    <td>{clinicDetail.phone}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{clinicDetail.email}</td>
+                  </tr>
+                  <tr>
+                    <th>Created At</th>
+                    <td>
+                      {new Date(clinicDetail.createdAt).toLocaleString(
+                        "id-ID",
+                        { timeZone: "Asia/Jakarta", hour12: false }
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <p>Klinik tidak ditemukan</p>
+            )}
+          </div>
+        </div>
+        <div className="mt-4 mb-4">
+          <Link to="/admin/daftar-klinik" className="btn btn-info">
+            Kembali
+          </Link>
+        </div>
+      </div>
+    </Sidebar>
+  );
 }
 
 export default DetailKlinik;
