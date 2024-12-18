@@ -32,6 +32,8 @@ import DetailArtikel from './klinikPage/DetailArtikel';
 import BuatRujukan from './klinikPage/BuatRujukan';
 import DetailKlinik from './adminPage/detail-klinik';
 import DetailPengajuan from './adminPage/detail-pengajuan';
+import MyDocument from './page/MyDocument/MyDocument';
+import EditRujukan from './klinikPage/EditRujukan';
 
 function App() {
   return (
@@ -63,6 +65,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<KlinikDashboard />} />
         <Route path="/dashboard/rujukan" element={<Rujukan />} />
+        <Route path="/dashboard/rujukan/edit/:id" element={<EditRujukan />} />
+        <Route
+          path="/dashboard/rujukan/tambah-rujukan"
+          element={<BuatRujukan />}
+        />
         <Route path="/dashboard/profile" element={<Profil />} />
         <Route path="/dashboard/artikel" element={<KlinikArtikel />} />
         <Route
@@ -92,6 +99,8 @@ function App() {
           path="/admin/pengajuan/detail-pengajuan/:id"
           element={<DetailPengajuan />}
         />
+
+        <Route path="create-pdf" element={<MyDocument />} />
       </Routes>
     </BrowserRouter>
   );

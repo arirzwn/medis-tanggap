@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import SidebarKlinik from '../components/sidebarKlinik';
 
-// Configure axios defaults globally
-axios.defaults.baseURL = 'http://localhost:5000';
-axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.withCredentials = true;
-
-function BuatRujukan() {
+function EditRujukan() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     no_rujukan: '',
-    tanggal: new Date().toISOString().split('T')[0],
+    tanggal: '',
     rs_tujuan: '',
     no_kartu: '',
     name_patient: '',
-    gender: 'male',
+    gender: '',
     address: '',
     birthday_date: '',
     diagnosis: '',
@@ -25,42 +20,32 @@ function BuatRujukan() {
     doctor: '',
   });
 
-  // Function to generate rujukan number
-  const generateRujukanNumber = async () => {
-    try {
-      const response = await axios.get('/api/rujukan/count/today');
-      const { nextSequence } = response.data;
-
-      const date = new Date();
-      const year = date.getFullYear().toString();
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-
-      // Format sequence number to 4 digits
-      const sequence = nextSequence.toString().padStart(4, '0');
-
-      // Format: YYYYMMDD-XXXX
-      const rujukanNumber = `${year}${month}${day}-${sequence}`;
-
-      console.log('Generated rujukan number:', rujukanNumber); // Debug log
-
-      setFormData((prev) => ({
-        ...prev,
-        no_rujukan: rujukanNumber,
-      }));
-
-      setIsLoading(false);
-      return rujukanNumber;
-    } catch (error) {
-      console.error('Error generating rujukan number:', error);
-      setIsLoading(false);
-      throw error;
-    }
-  };
-
   useEffect(() => {
-    generateRujukanNumber();
-  }, []);
+    const getRujukanById = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/rujukan/${id}`
+        );
+        const data = response.data;
+
+        // Format the date to YYYY-MM-DD for the input field
+        const formattedBirthDate = data.birthday_date.split('T')[0];
+        const formattedTanggal = data.tanggal.split('T')[0];
+
+        setFormData({
+          ...data,
+          birthday_date: formattedBirthDate,
+          tanggal: formattedTanggal,
+          gender: data.gender === 'Laki-laki' ? 'male' : 'female',
+        });
+      } catch (error) {
+        console.error('Error fetching rujukan:', error);
+        alert('Gagal mengambil data rujukan');
+      }
+    };
+
+    getRujukanById();
+  }, [id]);
 
   const handleChange = (e) => {
     setFormData({
@@ -71,42 +56,21 @@ function BuatRujukan() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLoading) {
-      alert('Mohon tunggu, nomor rujukan sedang dibuat');
-      return;
-    }
-
     try {
-      // Format data before sending
       const dataToSubmit = {
-        no_rujukan: formData.no_rujukan.trim(),
-        tanggal: new Date().toISOString().split('T')[0],
-        rs_tujuan: formData.rs_tujuan.trim(),
-        no_kartu: formData.no_kartu.trim(),
-        name_patient: formData.name_patient.trim(),
+        ...formData,
         gender: formData.gender === 'male' ? 'Laki-laki' : 'Perempuan',
-        address: formData.address.trim(),
-        birthday_date: formData.birthday_date,
-        diagnosis: formData.diagnosis.trim(),
-        description: formData.description ? formData.description.trim() : null,
-        doctor: formData.doctor.trim(),
       };
 
-      // Log the data being sent
-      console.log('Submitting data:', dataToSubmit);
-
-      const response = await axios.post('/api/rujukan', dataToSubmit);
-
-      console.log('Server response:', response.data);
-      alert('Rujukan berhasil dibuat!');
+      await axios.patch(
+        `http://localhost:5000/api/rujukan/${id}`,
+        dataToSubmit
+      );
+      alert('Rujukan berhasil diperbarui!');
       navigate('/dashboard/rujukan');
     } catch (error) {
-      console.error('Submit error:', error.response?.data);
-      const errorMessage =
-        error.response?.data?.message ||
-        error.response?.data?.details?.[0] ||
-        'Gagal membuat rujukan. Silakan coba lagi.';
-      alert(errorMessage);
+      console.error('Error updating rujukan:', error);
+      alert('Gagal memperbarui rujukan');
     }
   };
 
@@ -115,13 +79,14 @@ function BuatRujukan() {
       <div className="h-100" style={{ minWidth: '1200px' }}>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <h3>Buat Rujukan</h3>
+            <h3>Edit Rujukan</h3>
           </div>
           <div className="mb-3">
             <label className="form-label">Nomor Rujukan</label>
             <input
               type="text"
               className="form-control"
+              name="no_rujukan"
               value={formData.no_rujukan}
               disabled
             />
@@ -233,10 +198,10 @@ function BuatRujukan() {
               className="form-control"
               id="description"
               name="description"
-              value={formData.description}
+              value={formData.description || ''}
               onChange={handleChange}
             />
-          </div>{' '}
+          </div>
           <div className="mb-3">
             <label htmlFor="doctor" className="form-label">
               Dokter Pemeriksa
@@ -250,12 +215,8 @@ function BuatRujukan() {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Memuat...' : 'Konfirmasi'}
+          <button type="submit" className="btn btn-warning">
+            Update Rujukan
           </button>
         </form>
       </div>
@@ -263,4 +224,4 @@ function BuatRujukan() {
   );
 }
 
-export default BuatRujukan;
+export default EditRujukan;
