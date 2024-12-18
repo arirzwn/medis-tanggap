@@ -65,7 +65,7 @@ function Navbar() {
           className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
           id="navbarNav"
         >
-          <ul className="navbar-nav ms-auto">
+          <ul className={`navbar-nav ${isNavOpen ? '' : 'ms-auto'}`}>
             <li className="nav-item">
               <Link
                 to="/"
@@ -119,11 +119,13 @@ function Navbar() {
           </ul>
           {/* Conditional rendering of Login/Dashboard button */}
           {isAuthenticated ? (
-            <Link to="/dashboard" className="btn btn-brand text-light">
+            <Link to="/dashboard" className="btn btn-login text-light">
+              <i className="fas fa-user me-3"></i>
               Dashboard
             </Link>
           ) : (
-            <Link to="/login" className="btn btn-brand text-light">
+            <Link to="/login" className="btn btn-login text-light">
+              <i className="fas fa-user me-3"></i>
               Login
             </Link>
           )}
