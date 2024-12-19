@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/footer';
 import Navbar from '../components/navbar';
 import { useNavigate } from 'react-router-dom';
@@ -8,75 +8,68 @@ import Section3 from '../images/section3.png';
 import Map from '../images/map.png';
 import Artikel from '../images/artikel.png';
 import Arrow from '../images/arrow.png';
+import axios from 'axios';
 
 function Home() {
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: 'Card 1',
-      text: 'Some quick example text to build on the card.',
-    },
-    {
-      id: 2,
-      title: 'Card 2',
-      text: 'Some quick example text to build on the card.',
-    },
-    {
-      id: 3,
-      title: 'Card 3',
-      text: 'Some quick example text to build on the card.',
-    },
-    {
-      id: 4,
-      title: 'Card 4',
-      text: 'Some quick example text to build on the card.',
-    },
-  ]);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const cardsContainerRef = useRef(null);
 
-  const handleScroll = () => {
-    const scrollPosition =
-      window.innerHeight + document.documentElement.scrollTop;
-    const bottomPosition = document.documentElement.offsetHeight;
+  const extractFirstImage = (content) => {
+    if (!content) return null;
+    const div = document.createElement('div');
+    div.innerHTML = content;
+    const img = div.querySelector('img');
+    return img ? img.src : null;
+  };
 
-    if (scrollPosition >= bottomPosition - 100) {
-      resetCards();
+  const fetchArticles = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('http://localhost:5000/api/articles');
+      if (response.data) {
+        const processedArticles = response.data
+          .map((article) => ({
+            ...article,
+            previewImage: extractFirstImage(article.content),
+          }))
+          .slice(0, 4); // Only get first 4 articles
+        setArticles(processedArticles);
+      }
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      setError('Failed to fetch articles');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const resetCards = () => {
-    setCards((prevCards) => [
-      ...prevCards,
-      {
-        id: 1,
-        title: 'Card 1',
-        text: 'Some quick example text to build on the card.',
-      },
-      {
-        id: 2,
-        title: 'Card 2',
-        text: 'Some quick example text to build on the card.',
-      },
-      {
-        id: 3,
-        title: 'Card 3',
-        text: 'Some quick example text to build on the card.',
-      },
-      {
-        id: 4,
-        title: 'Card 4',
-        text: 'Some quick example text to build on the card.',
-      },
-    ]);
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - cardsContainerRef.current.offsetLeft);
+    setScrollLeft(cardsContainerRef.current.scrollLeft);
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - cardsContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    cardsContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
 
   return (
     <>
@@ -233,20 +226,73 @@ function Home() {
         </section>
 
         <section id="sec5" className="p-5">
-          <h1 className="text-center mb-5">
-            Artikel <span>Medis Tanggap</span>
-          </h1>
-          <div className="wrapper d-flex">
-            <div className="cards-container">
-              {cards.map((card) => (
-                <div key={card.id} className="card m-4">
-                  <img src={Artikel} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">{card.title}</h5>
-                    <p className="card-text">{card.text}</p>
+          <h2 className="text-center mb-5 fw-bold">
+            Artikel <span style={{ color: '#174AB5' }}>Medis Tanggap</span>
+          </h2>
+          <div className="wrapper">
+            <div
+              ref={cardsContainerRef}
+              className="cards-container m-5 overflow-hidden"
+              style={{
+                cursor: isDragging ? 'grabbing' : 'grab',
+                userSelect: 'none',
+                overflowX: 'auto',
+                scrollBehavior: 'smooth',
+                display: 'flex',
+                gap: '1rem',
+              }}
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onMouseMove={handleMouseMove}
+            >
+              {loading ? (
+                <div className="d-flex justify-content-center w-100">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>
-              ))}
+              ) : error ? (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              ) : articles.length === 0 ? (
+                <div className="text-center">Tidak ada artikel tersedia</div>
+              ) : (
+                articles.map((article) => (
+                  <div key={article.id} className="card border-0">
+                    <img
+                      src={article.previewImage || Artikel}
+                      className="card-img-top"
+                      alt={article.title}
+                      onError={(e) => {
+                        e.target.src = Artikel; // Fallback image
+                      }}
+                      style={{
+                        height: '200px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{article.title}</h5>
+                      <p className="card-text">
+                        {article.description
+                          ? article.description.substring(0, 100) + '...'
+                          : ''}
+                      </p>
+                      <button
+                        className="btn text-light"
+                        style={{ background: '#0a192f' }}
+                        onClick={() =>
+                          navigate(`/artikel-detail/${article.id}`)
+                        }
+                      >
+                        Baca Selengkapnya
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>

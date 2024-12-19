@@ -1,32 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-html, body {
-  overflow-x: hidden; 
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+html,
+body {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 ::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 html::-webkit-scrollbar {
-  width: 0px; 
+  width: 0px;
 }
 
-* { 
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", serif;
+  font-family: 'Poppins', serif;
 }
 
 nav ul li {
   margin-right: 15px;
 }
 
-.btn-brand, .btn-login, .btn-info{
+.btn-brand,
+.btn-login,
+.btn-info {
   background-color: #0a192f;
   color: white;
   border-radius: 20px;
@@ -40,38 +43,46 @@ nav ul li {
 }
 
 #sec5::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 #sec5 .wrapper {
-  display: flex;
+  /* display: flex;
   justify-content: flex-start;
   white-space: nowrap;
-  overflow-x: auto; 
-  scrollbar-width: none; 
+  overflow-x: auto;
+  scrollbar-width: none;
   -ms-overflow-style: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; */
 }
 
 .cards-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap; 
-  overflow-x: auto; 
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
-  will-change: transform; 
+  gap: 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 .cards-container::-webkit-scrollbar {
-  display: none; 
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 300px;
+  margin-right: 1rem;
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none;
 }
 
 #sec5 .wrapper::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
-.fas.fa-user{
+.fas.fa-user {
   display: inline-block;
 }
 
@@ -80,7 +91,10 @@ nav ul li {
   padding: 5px 25px;
 }
 
-.btn-brand:hover, .btn-sec3:hover, .btn-login:hover, .btn-info:hover {
+.btn-brand:hover,
+.btn-sec3:hover,
+.btn-login:hover,
+.btn-info:hover {
   background-color: #153564;
   color: white;
 }
@@ -90,19 +104,19 @@ section h1 {
 }
 
 section h1 span {
-  color: #174AB5;
+  color: #174ab5;
 }
 
 section button #btn {
   text-align: center;
-  background-color: #52BFD7;
+  background-color: #52bfd7;
   padding: 5px 2px;
   border-radius: 100%;
 }
 
 #sec2 .container #li {
   padding: 5px;
-  background-color: #52BFD7;
+  background-color: #52bfd7;
   border-radius: 100%;
 }
 
@@ -114,14 +128,14 @@ section button #btn {
 
 .flex-container {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px; 
-  justify-content: space-between; 
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 #sec5 .card {
-  flex: 0 0 calc(33.33% - 2rem); 
-  max-width: calc(33.33% - 2rem); 
+  flex: 0 0 calc(33.33% - 2rem);
+  max-width: calc(33.33% - 2rem);
   box-sizing: border-box;
 }
 
@@ -209,53 +223,54 @@ section button #btn {
   font-size: 16px;
 }
 
-.img-arrow{
+.img-arrow {
   width: 20px;
 }
 
-.img-arrow1{
+.img-arrow1 {
   width: 30px;
   margin-right: 8px;
 }
 
-.img-circle{
+.img-circle {
   margin-left: 8px;
 }
 
-.section-artikel-detail{
+.section-artikel-detail {
   background-color: #e2e2e2a1;
   border-radius: 20px;
   padding: 5px 30px;
   padding-top: 20px;
   margin-bottom: 20px;
 }
-.section-artikel-detail1{
+.section-artikel-detail1 {
   padding: 5px 30px;
   margin-bottom: 10px;
 }
 
-.nav-link{
+.nav-link {
   padding-left: 15px;
 }
 
-.nav-item .nav-link.active{
+.nav-item .nav-link.active {
   color: #0a192f;
   font-weight: bold;
 }
 
-@media (max-width:950px) {
-  .fas{
-  display: inline-block;
-  min-width: 20px;}
-  
+@media (max-width: 950px) {
+  .fas {
+    display: inline-block;
+    min-width: 20px;
+  }
+
   /* Navbar */
   .navbar-toggler {
     display: block;
   }
 
   #sec5 .card {
-    flex: 0 0 calc(50% - 2rem); 
-    max-width: calc(50% - 2rem); 
+    flex: 0 0 calc(50% - 2rem);
+    max-width: calc(50% - 2rem);
     box-sizing: border-box;
   }
 
@@ -263,12 +278,12 @@ section button #btn {
   .navbar-collapse {
     display: flex;
     flex-direction: column;
-    align-items: start;     
-    text-align: start;      
+    align-items: start;
+    text-align: start;
     position: fixed;
     right: 0;
     top: 66px;
-    width: 200px; 
+    width: 200px;
     height: 255px;
     border-radius: 5px;
     background-color: white;
@@ -280,18 +295,18 @@ section button #btn {
     transform: translateX(0);
   }
 
-.nav-item .nav-link.active {
-  text-decoration: none; 
-  color: #0a192f; 
-  font-weight: bold; 
-  background-color: #1535644d; 
-  border: medium; 
-  padding: 10px 0px;
-  border-radius: 4px; 
-  width: 200px; 
-  transition: background-color 0.3s; 
-  padding-left: 15px;
-}
+  .nav-item .nav-link.active {
+    text-decoration: none;
+    color: #0a192f;
+    font-weight: bold;
+    background-color: #1535644d;
+    border: medium;
+    padding: 10px 0px;
+    border-radius: 4px;
+    width: 200px;
+    transition: background-color 0.3s;
+    padding-left: 15px;
+  }
 
   .btn-login {
     width: 165px;
@@ -299,12 +314,14 @@ section button #btn {
     padding: 4px 16px;
     margin-top: 5px;
   }
-
 }
 /* Responsive styles */
 @media (max-width: 650px) {
   /* General sections */
-  #sec1, #sec2, #sec3, #sec4 {
+  #sec1,
+  #sec2,
+  #sec3,
+  #sec4 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -315,29 +332,29 @@ section button #btn {
 
   #sec5 .wrapper {
     display: flex;
-    justify-content: flex-start; 
-    overflow-x: auto; 
-    scrollbar-width: thin; 
-    -ms-overflow-style: none; 
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
   }
 
   #sec5 .cards-container {
     display: flex;
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
+    flex-wrap: nowrap;
+    overflow-x: auto;
     scrollbar-width: thin;
     -ms-overflow-style: none;
   }
 
   #sec5 .cards-container::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
 
   /* Card layout adjustments */
   #sec5 .card {
-    flex: 0 0 100%; 
-    max-width: 100%; 
-    margin-right: 15px; 
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-right: 15px;
     box-sizing: border-box;
   }
 
@@ -345,8 +362,8 @@ section button #btn {
     display: none;
   }
 
-  #sec1 .container, 
-  #sec2 .container, 
+  #sec1 .container,
+  #sec2 .container,
   #sec3 .container,
   #sec4 .container {
     display: flex;
@@ -355,8 +372,8 @@ section button #btn {
     gap: 20px;
   }
 
-  #sec1 .container .gbr img, 
-  #sec2 .container .gbr img, 
+  #sec1 .container .gbr img,
+  #sec2 .container .gbr img,
   #sec3 .container .gbr img,
   #sec4 .container .gbr img {
     width: 100%;
@@ -373,16 +390,17 @@ section button #btn {
     margin-bottom: 20px;
   }
 
-  .navbar-collapse{
+  .navbar-collapse {
     width: 180px;
   }
 
-  .btn-login{
+  .btn-login {
     width: 150px !important;
   }
 
-  .btn-brand, .btn-sec3 {
-    width: 100%; 
+  .btn-brand,
+  .btn-sec3 {
+    width: 100%;
     text-align: center;
     padding: 10px;
   }
@@ -397,27 +415,27 @@ section button #btn {
   }
 
   #sec4 .container {
-    flex-direction: column-reverse; 
+    flex-direction: column-reverse;
     align-items: center;
     text-align: center;
   }
 
   #sec4 .container .col-md-7,
   #sec4 .container .col-md-5 {
-    width: 100%; 
-    margin-bottom: 20px; 
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   #sec4 .container .col-md-5 img {
-    width: 100%; 
-    height: auto; 
+    width: 100%;
+    height: auto;
   }
 
   /* Ukuran font untuk sec4 */
   #sec4 section h1 {
     font-size: 28px; /* Ukuran font h1 lebih kecil */
   }
-  
+
   #sec4 section p {
     font-size: 16px; /* Ukuran font paragraf lebih kecil */
   }
