@@ -52,7 +52,7 @@ function Footer() {
 
       <div class="footer-bottom">
         <p>
-          &copy; 2024 All rights reserved | Block is made with by
+          &copy; Semua hak dilindungi | Website dibuat oleh 
           <a href="#" class="footer-link ms-2">
             Medis Tanggap
           </a>

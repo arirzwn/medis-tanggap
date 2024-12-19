@@ -78,7 +78,9 @@ const SelectHospital = () => {
             </tbody>
           </table>
         ) : (
-          <p>Data rumah sakit tidak tersedia.</p>
+          <div className="no-hospital-message">
+          <p>Rumah sakit belum tersedia di lokasi ini. Kami akan segera memperbarui data.</p>
+        </div>
         )}
       </div>
 

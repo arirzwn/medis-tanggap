@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCities } from './ApiHospital';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'; // Ikon lokasi
 
 const SelectCity = () => {
   const { provinceId } = useParams();
@@ -26,8 +28,7 @@ const SelectCity = () => {
     fetchCities();
   }, [provinceId]);
 
-  const handleSelect = (e) => {
-    const cityId = e.target.value;
+  const handleSelect = (cityId) => {
     if (cityId) {
       navigate(`/select-hospital/${provinceId}/${cityId}`);
     }
@@ -49,13 +50,14 @@ const SelectCity = () => {
           ) : (
             <div className="city-cards">
               {cities.map((city) => (
-                <div key={city.id} className="city-card">
+                <div
+                  key={city.id}
+                  className="city-card"
+                  onClick={() => handleSelect(city.id)} // Menambahkan onClick ke div
+                  style={{ cursor: 'pointer' }} // Memberikan efek kursor pointer agar terlihat seperti link
+                >
+                  <FontAwesomeIcon icon={faLocationDot} className="city-icon" /> {/* Menambahkan ikon */}
                   <h3>{city.name}</h3>
-                  <button
-                    onClick={() => handleSelect({ target: { value: city.id } })}
-                  >
-                    Pilih
-                  </button>
                 </div>
               ))}
             </div>
