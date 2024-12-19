@@ -41,6 +41,7 @@ const upload = multer({
 }).fields([
   { name: 'ktp_owner', maxCount: 1 }, // Nama field untuk KTP
   { name: 'operation_license', maxCount: 1 }, // Nama field untuk Surat Izin
+  { name: 'images', maxCount: 1 }, // Nama field untuk Gambar (maksimal 5 file)
 ]);
 
 // Ekspor middleware untuk digunakan di router

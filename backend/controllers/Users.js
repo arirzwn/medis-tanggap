@@ -201,3 +201,52 @@ export const getClinicDetail = async (req, res) => {
     });
   }
 };
+
+
+export const updateUserData = async (req, res) => {
+  try {
+    const { name, email, phone } = req.body;
+
+    // Pastikan file yang di-upload ada (images)
+    if (!req.files || !req.files.images) {
+      return res.status(400).json({ message: 'Gambar harus di-upload' });
+    }
+
+    const imageFile = req.files.images[0]; // Mengakses file gambar pertama
+
+    // Dapatkan user ID dari parameter atau session (sesuaikan dengan aplikasi Anda)
+    const userId = req.params.id;
+
+    // Cari user berdasarkan ID
+    const user = await Users.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User tidak ditemukan' });
+    }
+
+    // Jika ada file baru yang di-upload, hapus file lama (jika ada)
+    if (imageFile && user.images) {
+      const oldImagePath = path.join('uploads', user.images);
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath); // Menghapus file lama
+      }
+    }
+
+    // Update data user
+    await user.update({
+      name,
+      email,
+      phone,
+      images: imageFile.filename, // Simpan nama file gambar yang baru
+    });
+
+    res.status(200).json({
+      message: 'Data user berhasil diperbarui',
+      data: user,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Gagal memperbarui data user', error: error.message });
+  }
+};
+
+
