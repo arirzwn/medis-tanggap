@@ -12,13 +12,13 @@ const initializeDatabase = async () => {
     await db.authenticate();
     console.log('Database connection established.');
 
-    // Only alter tables if needed, don't force drop
+    // Hapus sync() atau gunakan { force: false } untuk mencegah kehilangan data
     await db.sync({
-      alter: true,
+      force: false, // Ubah dari alter: true menjadi force: false
       logging: false,
     });
 
-    console.log('Database & tables synchronized successfully!');
+    console.log('Database connection verified successfully!');
   } catch (error) {
     console.error('Database initialization error:', error);
     throw error;

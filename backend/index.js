@@ -44,13 +44,7 @@ app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
   try {
     await db.authenticate();
     console.log('Database Connected...');
-
-    // Sync all models
-    await Users.sync();
-    await Clinic.sync();
-    await Rujukan.sync();
-
-    console.log('All models were synchronized successfully.');
+    // Hapus sync() di sini karena sudah ditangani di Database.js
   } catch (error) {
     console.error('Database initialization error:', error);
   }
