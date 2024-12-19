@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import SidebarKlinik from "../components/sidebarKlinik";
-import Logo from "../images/logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faFileLines } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import SidebarKlinik from '../components/sidebarKlinik';
+import Logo from '../images/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faFileLines } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function Profil() {
   const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name: '',
+    email: '',
+    phone: '',
   });
 
   const [image, setImage] = useState(null);
 
   // Ambil data user dari localStorage
-  const userId = JSON.parse(localStorage.getItem("userData"))?.id;
+  const userId = JSON.parse(localStorage.getItem('userData'))?.id;
 
   // Jika userId tidak ada, arahkan ke halaman login
   useEffect(() => {
     if (!userId) {
       // Redireksi ke halaman login jika tidak ada user ID
-      window.location.href = "/login";
+      window.location.href = '/login';
     } else {
       // Ambil data pengguna berdasarkan userId dari backend
       axios
@@ -30,31 +30,48 @@ function Profil() {
           setUserData(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching user data", error);
+          console.error('Error fetching user data', error);
         });
     }
   }, [userId]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", userData.name);
-    formData.append("email", userData.email);
-    formData.append("phone", userData.phone);
+    formData.append('name', userData.name);
+    formData.append('phone', userData.phone);
     if (image) {
-      formData.append("images", image);
+      formData.append('images', image);
     }
 
-    // Kirim data update ke backend
-    axios
-      .put(`http://localhost:5000/user/${userId}`, formData)
-      .then((response) => {
-        alert("Data berhasil diupdate!");
-      })
-      .catch((error) => {
-        console.error("Error updating user data", error);
-      });
+    try {
+      // Get token from localStorage - make sure it's the correct key
+      const token = localStorage.getItem('accessToken'); // Changed from 'token' to 'accessToken'
+
+      const response = await axios.put(
+        'http://localhost:5000/profile/update',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true, // Add this to handle cookies
+        }
+      );
+
+      if (response.data) {
+        alert('Profile updated successfully!');
+        setUserData(response.data.data);
+      }
+    } catch (error) {
+      console.error(
+        'Error updating profile:',
+        error.response?.data || error.message
+      );
+      alert(error.response?.data?.message || 'Failed to update profile');
+    }
   };
 
   const handleChange = (event) => {

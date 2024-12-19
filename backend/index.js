@@ -4,6 +4,7 @@ import db from './config/Database.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path'; // Mengimpor path untuk penanganan path file
+import { fileURLToPath } from 'url'; // Mengimpor fileURLToPath untuk mendapatkan __dirname
 import router from './routes/index.js'; // Mengimpor router untuk rute aplikasi
 
 // Import all models
@@ -21,6 +22,10 @@ dotenv.config(); // Memuat variabel lingkungan dari file .env
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Setup middleware in correct order
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -28,16 +33,16 @@ app.use(cookieParser());
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
 
 // Middleware setup
-app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database initialization
 (async () => {

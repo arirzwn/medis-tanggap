@@ -5,11 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './artikel.css';
 
-const DEFAULT_AVATAR =
-  'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-const DEFAULT_ARTICLE_IMAGE =
-  'https://via.placeholder.com/800x400?text=No+Image+Available';
-
 // Add custom styles at the top of the file
 const imgStyles = {
   articleImg: {
@@ -69,17 +64,39 @@ function Artikel() {
     }
   };
 
-  const LoadingSpinner = () => (
-    <div className="d-flex justify-content-center py-5">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
-
   const truncateText = (text, maxLength) => {
     if (!text) return '';
     return text.length <= maxLength ? text : text.substr(0, maxLength) + '...';
+  };
+
+  const renderAuthorImage = (article) => {
+    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      article.author
+    )}`;
+
+    // If the article has images field, use it
+    if (article.images) {
+      return (
+        <img
+          className="artikel-profil"
+          src={`http://localhost:5000/uploads/${article.images}`}
+          alt={article.author}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = fallbackImage;
+          }}
+        />
+      );
+    }
+
+    // If no image is available, use the fallback
+    return (
+      <img
+        className="artikel-profil"
+        src={fallbackImage}
+        alt={article.author}
+      />
+    );
   };
 
   const latestArticle = articles.length > 0 ? articles[0] : null;
@@ -141,11 +158,7 @@ function Artikel() {
                   <div className="col">
                     <div className="row align-items-center">
                       <div className="col-1">
-                        <img
-                          className="artikel-profil"
-                          src={DEFAULT_AVATAR}
-                          alt="Author"
-                        />
+                        {renderAuthorImage(latestArticle)}
                       </div>
                       <div className="col">
                         <h3 className="fw-costum artikel-username mb-0">
@@ -210,11 +223,7 @@ function Artikel() {
                         )}
                         <div className="row align-items-center">
                           <div className="col-1">
-                            <img
-                              className="artikel-mini-profil"
-                              src={DEFAULT_AVATAR}
-                              alt="Author"
-                            />
+                            {renderAuthorImage(article)}
                           </div>
                           <div className="col">
                             <h3 className="fw-bold artikel-mini-username mb-0">

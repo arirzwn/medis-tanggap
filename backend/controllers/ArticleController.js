@@ -1,5 +1,6 @@
 import Article from '../models/ArticleModel.js';
 import { JSDOM } from 'jsdom';
+import Users from '../models/UserModel.js';
 
 // Create a new article
 export const createArticle = async (req, res) => {
@@ -51,8 +52,24 @@ export const getAllArticles = async (req, res) => {
   try {
     const articles = await Article.findAll({
       order: [['date', 'DESC']],
+      include: [
+        {
+          model: Users,
+          attributes: ['images'],
+          as: 'user',
+        },
+      ],
     });
-    res.json(articles);
+
+    const processedArticles = articles.map((article) => {
+      const plainArticle = article.get({ plain: true });
+      return {
+        ...plainArticle,
+        authorImage: plainArticle.user?.images,
+      };
+    });
+
+    res.json(processedArticles);
   } catch (error) {
     console.error('Get articles error:', error);
     res.status(500).json({
@@ -65,11 +82,34 @@ export const getAllArticles = async (req, res) => {
 // Get a single article by ID
 export const getArticleById = async (req, res) => {
   try {
-    const article = await Article.findByPk(req.params.id);
-    if (!article) return res.status(404).json({ msg: 'Article not found' });
-    res.json(article);
+    const article = await Article.findOne({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: Users,
+          as: 'user',
+          attributes: ['images', 'name'],
+        },
+      ],
+    });
+
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+
+    const processedArticle = {
+      ...article.get({ plain: true }),
+      author: article.user?.name || article.author,
+      authorImage: article.user?.images || null,
+    };
+
+    res.json(processedArticle);
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    console.error('Error fetching article:', error);
+    res.status(500).json({
+      message: 'Error fetching article',
+      error: error.message,
+    });
   }
 };
 
@@ -98,5 +138,41 @@ export const deleteArticle = async (req, res) => {
     res.json({ msg: 'Article deleted successfully' });
   } catch (error) {
     res.status(400).json({ msg: error.message });
+  }
+};
+
+export const getArticles = async (req, res) => {
+  try {
+    const articles = await Article.findAll({
+      include: [
+        {
+          model: Users,
+          as: 'user',
+          attributes: ['images', 'name'],
+        },
+      ],
+      order: [['date', 'DESC']],
+    });
+
+    if (!articles) {
+      return res.status(404).json({ message: 'No articles found' });
+    }
+
+    const processedArticles = articles.map((article) => {
+      const plainArticle = article.get({ plain: true });
+      return {
+        ...plainArticle,
+        author: plainArticle.user?.name || plainArticle.author,
+        authorImage: plainArticle.user?.images || null,
+      };
+    });
+
+    res.json(processedArticles);
+  } catch (error) {
+    console.error('Error in getArticles:', error);
+    res.status(500).json({
+      message: 'Error fetching articles',
+      error: error.message,
+    });
   }
 };

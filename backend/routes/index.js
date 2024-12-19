@@ -1,9 +1,19 @@
 import express from 'express';
-import { getUsers, Register, Login, Logout,getUsersByRoleClinic,deleteClinic,getClinicDetail,updateUserData  } from '../controllers/Users.js';
+import {
+  getUsers,
+  Register,
+  Login,
+  Logout,
+  getUsersByRoleClinic,
+  deleteClinic,
+  getClinicDetail,
+  updateUserData,
+  updateProfile, // Add this import
+} from '../controllers/Users.js';
 import { verifyToken } from '../middleware/verifyToken.js';
 import { refreshToken } from '../controllers/RefreshToken.js';
 import { getSymptoms } from '../controllers/SymptomsController.js';
-import  upload  from '../middleware/multerConfig.js';
+import upload from '../middleware/multerConfig.js';
 import {
   getResults,
   createResult,
@@ -23,6 +33,7 @@ router.get('/users/clinic', getUsersByRoleClinic);
 router.delete('/users/clinic/:id', deleteClinic);
 router.get('/users/clinic/:id', getClinicDetail);
 router.put('/user/:id', upload, updateUserData);
+router.put('/profile/update', verifyToken, upload, updateProfile);
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await Users.findOne({
