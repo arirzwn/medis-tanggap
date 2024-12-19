@@ -1,4 +1,3 @@
-// SelectBed.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBedDetail } from "./ApiHospital";
@@ -8,14 +7,22 @@ import Footer from "../../components/footer";
 const SelectBed = () => {
   const { hospitalId } = useParams();
   const [beds, setBeds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBedDetails = async () => {
-      const data = await getBedDetail(hospitalId, 2); // Fetch non-COVID beds
-      if (data && Array.isArray(data.bedDetail)) {
-        setBeds(data.bedDetail);
-      } else {
-        setBeds([]);
+      try {
+        setLoading(true);
+        const data = await getBedDetail(hospitalId, 2); // Fetch non-COVID beds
+        if (data && Array.isArray(data.bedDetail)) {
+          setBeds(data.bedDetail);
+        } else {
+          setBeds([]);
+        }
+      } catch (error) {
+        console.error("Error fetching bed details:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBedDetails();
@@ -28,7 +35,12 @@ const SelectBed = () => {
         <div className="title-bed">
           <h1>Kapasitas Kasur</h1>
         </div>
-        {beds.length > 0 ? (
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Memuat data kapasitas kasur...</p>
+          </div>
+        ) : beds.length > 0 ? (
           <div className="table-responsive">
             <table className="bed-table">
               <thead>
@@ -41,7 +53,7 @@ const SelectBed = () => {
               <tbody>
                 {beds.map((bed, index) => {
                   const totalBeds =
-                    bed.stats.bed_available + bed.stats.bed_empty; // Calculate total beds
+                    bed.stats.bed_available + bed.stats.bed_empty; 
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
@@ -56,7 +68,9 @@ const SelectBed = () => {
             </table>
           </div>
         ) : (
-          <p>Data kapasitas kasur tidak tersedia atau belum dipilih.</p>
+          <div className="no-data-container">
+            <p>Maaf, informasi mengenai ketersediaan kasur tidak tersedia, kami akan segera memperbarui data</p>
+          </div>
         )}
       </div>
       <Footer />

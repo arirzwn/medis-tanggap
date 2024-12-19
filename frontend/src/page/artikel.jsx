@@ -99,7 +99,18 @@ function Artikel() {
         </section>
 
         {loading ? (
+
+          <div className="d-flex justify-content-center py-5">
+            <div
+              className="spinner-border"
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
           <LoadingSpinner />
+
         ) : error ? (
           <div className="alert alert-danger m-4" role="alert">
             {error}

@@ -169,7 +169,7 @@ function SidebarAdmin({ children }) {
             style={{ textDecoration: 'none' }}
             onClick={handleLogout}
           >
-            Logout
+            Keluar
           </button>
         </div>
       </div>

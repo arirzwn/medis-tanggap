@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarKlinik from '../components/sidebarKlinik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faNewspaper, faFileLines } from '@fortawesome/free-solid-svg-icons';
-import '../adminPage/adminDashboard.css'
+import { faNewspaper, faFileLines, faHospital } from '@fortawesome/free-solid-svg-icons';
+// import '../adminPage/adminDashboard.css'
 import axios from 'axios';
 import Logo from "../images/logo.png";
 
@@ -85,41 +85,27 @@ function KlinikDashboard() {
                     </div>
             <h2 className="fw-bold">Statistik</h2>
           </div>
-          <div className="d-flex justify-content-between gap-5">
-            <div
-              className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1"
-              style={{
-                backgroundColor: '#fff',
-                borderRadius: '15px',
-                width: '48%',
-              }}
-            >
-              <FontAwesomeIcon
-                className="icon mb-3"
-                style={{ width: '30px', height: '30px' }}
-                icon={faNewspaper}
-              />
-              <h5 className="card-title">10</h5>
-              <p className="card-text">Artikel terbaru</p>
-            </div>
-
-            <div
-              className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1"
-              style={{
-                backgroundColor: '#fff',
-                borderRadius: '15px',
-                width: '48%',
-              }}
-            >
-              <FontAwesomeIcon
-                className="icon mb-3"
-                style={{ width: '30px', height: '30px' }}
-                icon={faFileLines}
-              />
-              <h5 className="card-title">15</h5>
-              <p className="card-text">Rujukan yang diterima</p>
-            </div>
-          </div>
+          <div className="d-flex gap-5">
+                      <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
+                        <FontAwesomeIcon
+                          className="icon mb-3"
+                          style={{ width: '30px', height: '30px' }}
+                          icon={faFileLines}
+                        />
+                        <h5 className="card1-title">10</h5>
+                        <p className="card1-text">Artikel Terbaru</p>
+                      </div>
+          
+                      <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
+                        <FontAwesomeIcon
+                          className="icon mb-3"
+                          style={{ width: '30px', height: '30px' }}
+                          icon={faHospital}
+                        />
+                        <h5 className="card1-title">15</h5>
+                        <p className="card1-text">Rujukan Yang Diterima</p>
+                      </div>
+                    </div>
         </div>
       </SidebarKlinik>
     </>
