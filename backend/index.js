@@ -5,7 +5,13 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path'; // Mengimpor path untuk penanganan path file
 import router from './routes/index.js'; // Mengimpor router untuk rute aplikasi
+
+// Import all models
+import Users from './models/UserModel.js';
 import Clinic from './models/ClinicModel.js'; // Model Clinic
+import Rujukan from './models/RujukanModel.js';
+
+// Import routes
 import ArticleRoute from './routes/ArticleRoutes.js'; // Import ArticleRoute
 import RujukanRoute from './routes/RujukanRoutes.js'; // Import RujukanRoute
 import ClinicRoute from './routes/ClinicRoutes.js'; // Import ClinicRoute
@@ -38,10 +44,7 @@ app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
   try {
     await db.authenticate();
     console.log('Database Connected...');
-
-    // Force true will drop tables if they exist
-    await db.sync({ force: true });
-    console.log('Database synchronized successfully');
+    // Hapus sync() di sini karena sudah ditangani di Database.js
   } catch (error) {
     console.error('Database initialization error:', error);
   }
