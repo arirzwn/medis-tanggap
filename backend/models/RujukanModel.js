@@ -14,9 +14,13 @@ const Rujukan = db.define(
     no_rujukan: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        msg: 'Nomor rujukan sudah digunakan',
+      },
       validate: {
-        notEmpty: true,
+        notEmpty: {
+          msg: 'Nomor rujukan tidak boleh kosong',
+        },
       },
     },
     tanggal: {

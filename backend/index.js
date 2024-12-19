@@ -33,15 +33,19 @@ app.use(cors(corsOptions));
 // Middleware setup
 app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
-try {
-  await db.authenticate();
-  console.log('Database Connected...');
-  // Uncomment the following line when you need to update table structure
-  // await db.sync({ alter: true });
-  console.log('Database connected successfully');
-} catch (error) {
-  console.error('Database connection error:', error);
-}
+// Database initialization
+(async () => {
+  try {
+    await db.authenticate();
+    console.log('Database Connected...');
+
+    // Force true will drop tables if they exist
+    await db.sync({ force: true });
+    console.log('Database synchronized successfully');
+  } catch (error) {
+    console.error('Database initialization error:', error);
+  }
+})();
 
 // Routes
 app.use('/api', ArticleRoute);

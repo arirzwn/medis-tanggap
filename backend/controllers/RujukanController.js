@@ -27,10 +27,32 @@ export const getRujukanById = async (req, res) => {
   }
 };
 
+const generateRujukanNumber = async () => {
+  const today = new Date();
+  const dateStr = today.toISOString().split('T')[0].replace(/-/g, '');
+
+  const lastRujukan = await Rujukan.findOne({
+    where: {
+      createdAt: {
+        [Op.gte]: new Date(today.setHours(0, 0, 0, 0)),
+      },
+    },
+    order: [['createdAt', 'DESC']],
+  });
+
+  const sequence = lastRujukan
+    ? parseInt(lastRujukan.no_rujukan.split('-')[1]) + 1
+    : 1;
+  return `RJ${dateStr}-${String(sequence).padStart(4, '0')}`;
+};
+
 export const createRujukan = async (req, res) => {
   try {
     const data = req.body;
     console.log('Received data in controller:', data);
+
+    // Generate unique rujukan number
+    data.no_rujukan = await generateRujukanNumber();
 
     // Validate data structure
     const requiredFields = [

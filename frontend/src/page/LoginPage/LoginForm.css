@@ -5,11 +5,11 @@ body {
 }
 
 .bg-kiri {
-  background-color: #222a9d;
+  background-color: #0a192f;
 }
 
 .button-color {
-  background-color: #222a9d;
+  background-color: #0a192f;
 }
 
 .button-color:hover {
@@ -25,14 +25,14 @@ button {
 }
 
 .text-custom-color {
-  color: #222a9d;
+  color: #0a192f;
 }
 
 .text-custom-color-kiri {
   color: #52bfd7;
 }
 
-.card-responsive2{
+.card-responsive2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,16 +40,16 @@ button {
   width: 100%;
 }
 
-.text-muted1{
+.text-muted1 {
   display: none;
 }
 
-.h1-responsive{
+.h1-responsive {
   display: none;
 }
 
 @media (max-width: 650px) {
-  .bg-kiri h1{
+  .bg-kiri h1 {
     display: none;
     width: 0px;
   }
@@ -58,35 +58,35 @@ button {
     width: 0px !important;
   }
 
-  .h1-responsive{
+  .h1-responsive {
     display: block;
     font-weight: 800 !important;
   }
 
-  .bg-kanan1.w-50{
+  .bg-kanan1.w-50 {
     width: 100% !important;
-    background-color: #222a9d;
+    background-color: #0a192f;
   }
 
-  .btn.btn-info{
+  .btn.btn-info {
     display: none;
   }
 
-  .text-custom-color{
+  .text-custom-color {
     color: white;
     font-weight: 800 !important;
     font-size: 30px !important;
   }
 
-  .text-custom-color1{
+  .text-custom-color1 {
     color: #222a9d;
   }
 
-  .w-75{
+  .w-75 {
     width: 300px !important;
   }
 
-  .text-muted1{
+  .text-muted1 {
     font-size: 14px;
     display: block;
   }
@@ -112,5 +112,4 @@ button {
     right: -130px !important; /* Atur jarak dari kanan */
     cursor: pointer !important; /* Menambahkan kursor pointer untuk interaksi */
   }
-  
 }

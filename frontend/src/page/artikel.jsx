@@ -89,7 +89,10 @@ function Artikel() {
       <Navbar />
       <div className="container align-items-center">
         <section className="h-100 p-2 text-white">
-          <div className="artikel-tagline">
+          <div
+            className="artikel-tagline"
+            style={{ backgroundColor: '#0a192f' }}
+          >
             <h3 className="fw-bolder fst-italic fs-4 m-4">
               Kesehatan adalah aset berharga, jaga hari ini untuk hidup yang
               lebih baik esok.
@@ -162,7 +165,8 @@ function Artikel() {
                         {truncateText(latestArticle.description || '', 200)}
                       </h2>
                       <button
-                        className="btn btn-brand text-light mt-3 fw-semibold"
+                        className="btn text-light mt-3 fw-semibold"
+                        style={{ backgroundColor: '#0a192f' }}
                         onClick={() => {
                           navigate(`/artikel-detail/${latestArticle.id}`);
                         }}
