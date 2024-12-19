@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebarKlinik';
 import './klinikStyle.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import MyDocument from '../page/MyDocument/MyDocument';
+import { pdf } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
 
 function Rujukan() {
   const navigate = useNavigate();
@@ -37,47 +40,84 @@ function Rujukan() {
     return age;
   };
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('id-ID', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
+
+  const handleDownload = async (rujukan) => {
+    try {
+      if (!rujukan || !rujukan.no_rujukan) {
+        throw new Error('Invalid rujukan data');
+      }
+      const blob = await pdf(<MyDocument rujukanData={rujukan} />).toBlob();
+      saveAs(blob, `rujukan_${rujukan.no_rujukan}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Gagal mengunduh PDF. Silakan coba lagi.');
+    }
+  };
+
   return (
     <>
       <Sidebar>
-        {/* <div className="h-100" style={{ minWidth: '1200px' }}> */}
-          <div className="container-fluid">
-            <div className="d-flex justify-content-between p-3">
-              <h2>Data Rujukan</h2>
-              <button
-                onClick={() => {
-                  navigate('/dashboard/rujukan/tambah-rujukan');
-                }}
-                className="btn btn-primary hover-button"
-              >
-                Buat Rujukan
-              </button>
-            </div>
-            <div className="table-responsive">
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Pasien</th>
-                    <th>Umur</th>
-                    <th>Kelamin</th>
-                    <th>Diagnosa</th>
-                    <th>Keterangan</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rujukanData.map((rujukan, index) => (
-                    <tr key={rujukan.id}>
-                      <td>{index + 1}</td>
-                      <td>{rujukan.name_patient}</td>
-                      <td>{calculateAge(rujukan.birthday_date)}</td>
-                      <td>{rujukan.gender}</td>
-                      <td>{rujukan.diagnosis}</td>
-                      <td>{rujukan.description}</td>
-                      <td>
+        <div className="container-fluid">
+          <div className="d-flex justify-content-between p-3">
+            <h2>Data Rujukan</h2>
+            <button
+              onClick={() => {
+                navigate('/dashboard/rujukan/tambah-rujukan');
+              }}
+              className="btn btn-primary hover-button"
+            >
+              Buat Rujukan
+            </button>
+          </div>
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>No. Rujukan</th>
+                  <th>Tanggal</th>
+                  <th>RS Tujuan</th>
+
+                  <th>Nama Pasien</th>
+                  <th>Kelamin</th>
+                  <th>Diagnosa</th>
+                  <th>Keterangan</th>
+                  <th>Dokter</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rujukanData.map((rujukan, index) => (
+                  <tr key={rujukan.id}>
+                    <td>{index + 1}</td>
+                    <td>{rujukan.no_rujukan}</td>
+                    <td>{formatDate(rujukan.tanggal)}</td>
+                    <td>{rujukan.rs_tujuan}</td>
+
+                    <td>{rujukan.name_patient}</td>
+                    <td>{rujukan.gender}</td>
+                    <td>{rujukan.diagnosis}</td>
+                    <td>{rujukan.description}</td>
+                    <td>{rujukan.doctor}</td>
+                    <td>
+                      <div className="btn-group">
                         <button
-                          className="btn btn-danger btn-sm"
+                          className="btn btn-warning btn-sm me-1"
+                          onClick={() =>
+                            navigate(`/dashboard/rujukan/edit/${rujukan.id}`)
+                          }
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm me-1"
                           onClick={async () => {
                             if (
                               window.confirm(
@@ -91,20 +131,27 @@ function Rujukan() {
                                 getRujukanData();
                               } catch (error) {
                                 console.error('Error deleting rujukan:', error);
+                                alert('Gagal menghapus rujukan');
                               }
                             }
                           }}
                         >
                           Hapus
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() => handleDownload(rujukan)}
+                        >
+                          Download
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        {/* </div> */}
+        </div>
       </Sidebar>
     </>
   );
