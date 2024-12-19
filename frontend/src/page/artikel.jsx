@@ -3,6 +3,7 @@ import Footer from '../components/footer';
 import Navbar from '../components/navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './artikel.css';
 
 const DEFAULT_AVATAR =
   'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
@@ -12,13 +13,13 @@ const DEFAULT_ARTICLE_IMAGE =
 // Add custom styles at the top of the file
 const imgStyles = {
   articleImg: {
-    width: '100%',
+    width: '500px',
     height: '400px',
     objectFit: 'cover',
     borderRadius: '8px',
   },
   miniImg: {
-    width: '100%',
+    width: '300px',
     height: '200px',
     objectFit: 'cover',
     borderRadius: '8px',
@@ -90,7 +91,7 @@ function Artikel() {
       <div className="container align-items-center">
         <section className="h-100 p-2 text-white">
           <div className="artikel-tagline">
-            <h3 className="fw-bolder fst-italic fs-4 m-4">
+            <h3 className="fw-bolder fst-italic fs-4 m-4 costum-font-size2">
               Kesehatan adalah aset berharga, jaga hari ini untuk hidup yang
               lebih baik esok.
             </h3>
@@ -133,7 +134,7 @@ function Artikel() {
                   </div>
                   <div className="col">
                     <div className="row align-items-center">
-                      <div className="col-auto">
+                      <div className="col-1">
                         <img
                           className="artikel-profil"
                           src={DEFAULT_AVATAR}
@@ -141,7 +142,7 @@ function Artikel() {
                         />
                       </div>
                       <div className="col">
-                        <h3 className="fw-bolder artikel-username mb-0">
+                        <h3 className="fw-costum artikel-username mb-0">
                           {latestArticle.author}
                         </h3>
                         <span className="text-muted">
@@ -150,19 +151,19 @@ function Artikel() {
                       </div>
                     </div>
                     <div className="mt-3">
-                      <h2 className="fw-bolder fs-4">
+                      <h2 className="fs-4 costum-font-size">
                         <Link
                           to={`/artikel-detail/${latestArticle.id}`}
-                          className="text-decoration-none text-dark"
+                          className="text-decoration-none fw-costum"
                         >
                           {latestArticle.title}
                         </Link>
                       </h2>
-                      <h2 className="fs-6">
+                      <h2 className="fs-6 costum-font-size1">
                         {truncateText(latestArticle.description || '', 200)}
                       </h2>
                       <button
-                        className="btn btn-brand text-light mt-3 fw-semibold"
+                        className="btn btn-brand text-light mt-3 fw-semibold ms-0"
                         onClick={() => {
                           navigate(`/artikel-detail/${latestArticle.id}`);
                         }}
@@ -180,6 +181,7 @@ function Artikel() {
               <div className="row">
                 {otherArticles.map((article) => (
                   <div className="col-md-4 mb-4" key={article.id}>
+                  <div className="card-artikel">
                     <Link
                       to={`/artikel-detail/${article.id}`}
                       className="text-decoration-none text-dark"
@@ -199,7 +201,7 @@ function Artikel() {
                         </div>
                       )}
                       <div className="row align-items-center">
-                        <div className="col-auto">
+                        <div className="col-1">
                           <img
                             className="artikel-mini-profil"
                             src={DEFAULT_AVATAR}
@@ -215,7 +217,7 @@ function Artikel() {
                           </span>
                         </div>
                       </div>
-                      <h2 className="fw-semibold fs-6 mb-3 mt-2">
+                      <h2 className="fw-costum fs-6 mb-3 mt-2">
                         {article.title}
                       </h2>
                       <h2 className="fw-lighter fs-6">
@@ -223,6 +225,7 @@ function Artikel() {
                       </h2>
                     </Link>
                   </div>
+                </div>
                 ))}
               </div>
             </section>
