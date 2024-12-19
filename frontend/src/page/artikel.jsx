@@ -99,19 +99,14 @@ function Artikel() {
         </section>
 
         {loading ? (
-
           <div className="d-flex justify-content-center py-5">
-            <div
-              className="spinner-border"
-              role="status"
-            >
+            <div className="spinner-border" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
+        ) : // <LoadingSpinner />
 
-          <LoadingSpinner />
-
-        ) : error ? (
+        error ? (
           <div className="alert alert-danger m-4" role="alert">
             {error}
           </div>
@@ -192,51 +187,53 @@ function Artikel() {
               <div className="row">
                 {otherArticles.map((article) => (
                   <div className="col-md-4 mb-4" key={article.id}>
-                  <div className="card-artikel">
-                    <Link
-                      to={`/artikel-detail/${article.id}`}
-                      className="text-decoration-none text-dark"
-                    >
-                      {article.previewImage ? (
-                        <img
-                          style={imgStyles.miniImg}
-                          src={article.previewImage}
-                          alt={article.title}
-                        />
-                      ) : (
-                        <div
-                          style={imgStyles.miniImg}
-                          className="bg-light d-flex align-items-center justify-content-center"
-                        >
-                          <span className="text-muted">No image available</span>
-                        </div>
-                      )}
-                      <div className="row align-items-center">
-                        <div className="col-1">
+                    <div className="card-artikel">
+                      <Link
+                        to={`/artikel-detail/${article.id}`}
+                        className="text-decoration-none text-dark"
+                      >
+                        {article.previewImage ? (
                           <img
-                            className="artikel-mini-profil"
-                            src={DEFAULT_AVATAR}
-                            alt="Author"
+                            style={imgStyles.miniImg}
+                            src={article.previewImage}
+                            alt={article.title}
                           />
+                        ) : (
+                          <div
+                            style={imgStyles.miniImg}
+                            className="bg-light d-flex align-items-center justify-content-center"
+                          >
+                            <span className="text-muted">
+                              No image available
+                            </span>
+                          </div>
+                        )}
+                        <div className="row align-items-center">
+                          <div className="col-1">
+                            <img
+                              className="artikel-mini-profil"
+                              src={DEFAULT_AVATAR}
+                              alt="Author"
+                            />
+                          </div>
+                          <div className="col">
+                            <h3 className="fw-bold artikel-mini-username mb-0">
+                              {article.author}
+                            </h3>
+                            <span className="artikel-mini-hari">
+                              {new Date(article.date).toLocaleDateString()}
+                            </span>
+                          </div>
                         </div>
-                        <div className="col">
-                          <h3 className="fw-bold artikel-mini-username mb-0">
-                            {article.author}
-                          </h3>
-                          <span className="artikel-mini-hari">
-                            {new Date(article.date).toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-                      <h2 className="fw-costum fs-6 mb-3 mt-2">
-                        {article.title}
-                      </h2>
-                      <h2 className="fw-costum1 fs-6">
-                        {truncateText(article.description || '', 100)}
-                      </h2>
-                    </Link>
+                        <h2 className="fw-costum fs-6 mb-3 mt-2">
+                          {article.title}
+                        </h2>
+                        <h2 className="fw-costum1 fs-6">
+                          {truncateText(article.description || '', 100)}
+                        </h2>
+                      </Link>
+                    </div>
                   </div>
-                </div>
                 ))}
               </div>
             </section>
