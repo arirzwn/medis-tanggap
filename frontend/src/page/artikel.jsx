@@ -77,7 +77,7 @@ function Artikel() {
       <Navbar />
       <div className="container align-items-center">
         <section className="h-100 p-2 text-white artikel-tagline">
-          <div style={{ backgroundColor: '#0a192f' }}>
+          <div>
             <h3 className="fw-bolder fst-italic fs-4 m-4">
               Kesehatan adalah aset berharga, jaga hari ini untuk hidup yang lebih baik esok.
             </h3>
