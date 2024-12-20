@@ -24,7 +24,7 @@ export const getUser = async (req, res) => {
     // Query database untuk mendapatkan pengguna berdasarkan ID
     const user = await Users.findOne({
       where: { id }, // Kondisi pencarian berdasarkan ID
-      attributes: ['id', 'name', 'phone', 'email', 'role','images'], // Atribut yang ingin diambil
+      attributes: ['id', 'name', 'phone', 'email', 'role', 'images'], // Atribut yang ingin diambil
     });
 
     // Periksa apakah pengguna ditemukan
@@ -39,8 +39,6 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
-
 
 export const Register = async (req, res) => {
   const { name, email, phone, password, confirmPassword } = req.body;
@@ -178,12 +176,10 @@ export const getUsersByRoleClinic = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching clinic users:', error);
-    return res
-      .status(500)
-      .json({
-        message: 'Failed to retrieve clinic users',
-        error: error.message,
-      });
+    return res.status(500).json({
+      message: 'Failed to retrieve clinic users',
+      error: error.message,
+    });
   }
 };
 
@@ -286,11 +282,11 @@ export const updateUserData = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { name, phone } = req.body; // Hanya mengambil nama dan telepon dari request body
-    const email = req.email; // Ambil email dari JWT token atau sumber lainnya (seperti session atau cookies)
+    const { name, phone, email } = req.body; // Add email to destructuring
+    const userEmail = req.email; // Email from JWT token
 
     const user = await Users.findOne({
-      where: { email: email },
+      where: { email: userEmail },
     });
 
     if (!user) {
@@ -301,18 +297,17 @@ export const updateProfile = async (req, res) => {
     let updateData = {
       name,
       phone,
+      email, // Include email in update data
     };
 
     // Menangani upload gambar jika ada
     if (req.files && req.files.images) {
-      // Hapus gambar lama jika ada
       if (user.images) {
         const oldImagePath = path.join('uploads', user.images);
         if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath); // Menghapus file gambar lama
+          fs.unlinkSync(oldImagePath);
         }
       }
-      // Menambahkan gambar baru
       updateData.images = req.files.images[0].filename;
     }
 
@@ -336,4 +331,3 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
-
