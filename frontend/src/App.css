@@ -38,6 +38,10 @@ nav ul li {
   border: 0px;
 }
 
+.table.table-striped.table-bordered .btn-info{
+  margin-left: 0px;
+  border-radius: 5px;
+}
 .fas {
   display: none;
 }

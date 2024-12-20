@@ -112,7 +112,7 @@ function BuatRujukan() {
 
   return (
     <SidebarKlinik>
-      <div className="h-100" style={{ minWidth: '1200px' }}>
+      <div className="h-100 ">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <h3>Buat Rujukan</h3>
