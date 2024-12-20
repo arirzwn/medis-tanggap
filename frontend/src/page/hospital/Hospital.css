@@ -18,8 +18,24 @@
 .province-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 20px; /* Jarak antar elemen */
+  justify-content: center; /* Elemen rata tengah */
+}
+
+.province-card {
+  flex: 0 0 calc(25% - 20px); /* Tiga kolom */
+  max-width: calc(25% - 20px); /* Hindari kartu meluas */
+  box-sizing: border-box;
+  padding: 15px; /* Tambahkan ruang dalam */
+  border: 1px solid #ccc; /* Opsional: gaya border */
+  border-radius: 8px; /* Opsional: sudut melengkung */
+}
+
+@media (max-width: 768px) {
+  .province-card {
+    flex: 0 0 100%; /* Satu kolom di layar kecil */
+    max-width: 100%;
+  }
 }
 
 .message {
@@ -128,8 +144,6 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
   padding: 15px;
-  flex: 1 1 calc(25% - 20px); /* Menyesuaikan lebar agar 4 kartu muat dalam satu baris */
-  max-width: calc(25% - 20px); /* Maksimal lebar kartu */
 }
 
 .province-card:hover {
@@ -468,18 +482,24 @@
 }
 
 /* Responsif */
-@media (max-width: 768px) {
-  .province-cards {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 850px) {
+  .province-card{
+    flex: 0 0 calc(100% - 20px); /* Tiga kolom */
+    max-width: 290px; /* Hindari kartu meluas */
+    max-height: auto;
   }
-
+  .province-image{
+    width: 100%;
+  }
   .province-card h3 {
     font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .province-cards {
-    grid-template-columns: 1fr;
+  .province-card{
+    flex: 0 0 calc(100% - 20px); /* Tiga kolom */
+    max-width: 290px; /* Hindari kartu meluas */
+    max-height: auto;
   }
 }
