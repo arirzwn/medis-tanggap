@@ -71,7 +71,49 @@ function Home() {
     cardsContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  return (
+  const [cards, setCards] = useState([
+    { id: 1, title: 'Card 1', text: 'Some quick example text to build on the card.' },
+    { id: 2, title: 'Card 2', text: 'Some quick example text to build on the card.' },
+    { id: 3, title: 'Card 3', text: 'Some quick example text to build on the card.' },
+    { id: 4, title: 'Card 4', text: 'Some quick example text to build on the card.' },
+  ]);
+
+  // Perbaikan handleScroll untuk scroll horizontal
+  const handleScroll = () => {
+    const scrollPosition = cardsContainerRef.current.scrollLeft;
+    const maxScrollLeft = cardsContainerRef.current.scrollWidth - cardsContainerRef.current.clientWidth;
+  
+    // Jika scroll sudah mencapai ujung kanan
+    if (scrollPosition >= maxScrollLeft) {
+      resetCards();
+    }
+  };
+  
+
+  const resetCards = () => {
+    setCards((prevCards) => {
+      const totalCards = prevCards.length;
+      const newCards = [];
+  
+      for (let i = 0; i < 1000; i++) {
+        newCards.push(prevCards[(i + totalCards) % totalCards]);
+      }
+  
+      return [...prevCards, ...newCards];
+    });
+  };
+
+  useEffect(() => {
+    // Menambahkan event listener untuk scroll horizontal pada container
+    const container = cardsContainerRef.current;
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return(
     <>
       <Navbar />
       <div className="w-100">
@@ -218,80 +260,55 @@ function Home() {
         </section>
 
         <section id="sec5" className="section-5">
-          <h2 className="text-center mb-5 fw-bold">
-            Artikel <span style={{ color: "#174AB5" }}>Medis Tanggap</span>
-          </h2>
-          <div className="wrapper">
-            <div
-              ref={cardsContainerRef}
-              className="cards-container m-5 overflow-hidden"
-              style={{
-                cursor: isDragging ? "grabbing" : "grab",
-                userSelect: "none",
-                overflowX: "auto",
-                scrollBehavior: "smooth",
-                display: "flex",
-                gap: "1rem",
-              }}
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onMouseMove={handleMouseMove}
-            >
-              {loading ? (
-                <div className="d-flex justify-content-center w-100">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              ) : error ? (
-                <div className="alert alert-danger" role="alert">
-                  {error}
-                </div>
-              ) : articles.length === 0 ? (
-                <div className="text-center">Tidak ada artikel tersedia</div>
-              ) : (
-                articles.map((article) => (
-                  <div key={article.id} className="card border-0">
-                    <img
-                      src={article.previewImage || Artikel}
-                      className="card-img-top"
-                      alt={article.title}
-                      onError={(e) => {
-                        e.target.src = Artikel; // Fallback image
-                      }}
-                      style={{
-                        height: "200px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        {article.title.length > 30
-                          ? article.title.substring(0, 30) + "..."
-                          : article.title}
-                      </h5>
-                      <p className="card-text">
-                        {article.description
-                          ? article.description.substring(0, 100) + "..."
-                          : ""}
-                      </p>
-                      <button
-                        className="btn text-light"
-                        style={{ background: "#0a192f" }}
-                        onClick={() =>
-                          navigate(`/artikel-detail/${article.id}`)
-                        }
-                      >
-                        Baca Selengkapnya
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </section>
+  <h2 className="text-center mb-5 fw-bold">
+    Artikel <span style={{ color: "#174AB5" }}>Medis Tanggap</span>
+  </h2>
+  <div
+    className="d-flex align-items-center flex-column flex-md-row mb-4"
+    ref={cardsContainerRef}
+    onMouseDown={handleMouseDown}
+    onMouseUp={handleMouseUp}
+    onMouseMove={handleMouseMove}
+    style={{
+      overflowX: "auto",  /* Aktifkan scroll horizontal */
+      cursor: "grab",
+      whiteSpace: "nowrap",  /* Pastikan card tetap berada dalam satu baris */
+    }}
+  >
+    {cards.map((card) => (
+      <div
+        key={card.id}
+        className="card mx-2 my-3"
+        style={{
+          width: "18rem",
+          borderRadius: "8px",
+          backgroundColor: "#fff",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <img
+          src={Artikel}
+          className="card-img-top"
+          alt="Card image"
+          style={{
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            height: "200px",
+            objectFit: "cover",
+          }}
+        />
+        <div className="card-body">
+          <h5 className="card-title">{card.title}</h5>
+          <p className="card-text">{card.text}</p>
+          <a href="/" className="btn btn-primary">
+            Baca Selengkapnya
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
       </div>
       <Footer />
     </>
