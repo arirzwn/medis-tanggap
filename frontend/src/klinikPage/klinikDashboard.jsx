@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SidebarKlinik from "../components/sidebarKlinik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SidebarKlinik from '../components/sidebarKlinik';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faNewspaper,
   faFileLines,
   faHospital,
-} from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import Logo from "../images/logo.png";
-import "./klinikDashboard.css";
+} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Logo from '../images/logo.png';
+import './klinikDashboard.css';
 
 const KlinikDashboard = () => {
   const [userData, setUserData] = useState({});
-  const userId = JSON.parse(localStorage.getItem("userData"))?.id;
+  const userId = JSON.parse(localStorage.getItem('userData'))?.id;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,7 +22,7 @@ const KlinikDashboard = () => {
         console.log(response.data); // Periksa data yang diterima dari server
         setUserData(response.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -38,7 +38,7 @@ const KlinikDashboard = () => {
           <div className="mb-4">
             <h3 className="text-primary fw-bold">Selamat Datang</h3>
             <h5 className="text-muted">{userData.name}</h5>
-            <div className="h-100" style={{ minWidth: "1200px" }}>
+            <div className="h-100" style={{ minWidth: '1200px' }}>
               {/* Header */}
               <div className="bg-light row align-items-center shadow-sm mb-5 p-3 w-100">
                 <div className="col-md-3 img-profile-dashboard">
@@ -69,7 +69,7 @@ const KlinikDashboard = () => {
             <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
               <FontAwesomeIcon
                 className="icon mb-3"
-                style={{ width: "30px", height: "30px" }}
+                style={{ width: '30px', height: '30px' }}
                 icon={faFileLines}
               />
               <h5 className="card1-title">10</h5>
@@ -79,7 +79,7 @@ const KlinikDashboard = () => {
             <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
               <FontAwesomeIcon
                 className="icon mb-3"
-                style={{ width: "30px", height: "30px" }}
+                style={{ width: '30px', height: '30px' }}
                 icon={faHospital}
               />
               <h5 className="card1-title">15</h5>

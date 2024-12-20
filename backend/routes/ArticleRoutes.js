@@ -3,14 +3,21 @@ import {
   getArticles,
   getArticleById,
   createArticle,
-  getUserImagesByRole
+  getUserImagesByRole,
+  deleteArticle,
+  updateArticle,
 } from '../controllers/ArticleController.js';
 
 const router = express.Router();
 
-router.get('/articles', getArticles);
-router.get('/articles/:id', getArticleById);
-router.post('/articles', createArticle);
+// Specific route must come first
 router.get('/articles/user-images', getUserImagesByRole);
+
+// Generic CRUD routes
+router.get('/articles', getArticles);
+router.post('/articles', createArticle);
+router.get('/articles/:id', getArticleById);
+router.put('/articles/:id', updateArticle);
+router.delete('/articles/:id', deleteArticle);
 
 export default router;
