@@ -34,5 +34,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
     linkColor.forEach(l=> l.addEventListener('click', colorLink))
     
-     // Your code to run since DOM is loaded and ready
     });
+    
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const container1 = document.getElementById('cards-container-1');
+        const container2 = document.getElementById('cards-container-2');
+    
+        // Menyembunyikan container kedua
+        container2.style.display = 'none';
+    
+        // Fungsi untuk menangani scroll
+        const handleScroll = () => {
+            if (container1.scrollLeft + container1.clientWidth >= container1.scrollWidth) {
+                // Jika sudah sampai ujung, tampilkan container 2 dan reset scroll ke awal
+                container1.style.display = 'none';
+                container2.style.display = 'flex';
+                container2.scrollLeft = 0; // Mulai scroll dari awal container 2
+    
+                // Setelah 0.5 detik (untuk transisi) pindahkan scroll kembali ke container 1
+                setTimeout(() => {
+                    container2.style.display = 'none';
+                    container1.style.display = 'flex';
+                    container1.scrollLeft = 0; // Mulai scroll dari awal container 1
+                }, 500); // Waktu delay sebelum kembali ke container 1
+            }
+        };
+    
+        // Menambahkan event listener untuk scroll
+        container1.addEventListener('scroll', handleScroll);
+    });
+    

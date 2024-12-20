@@ -9,7 +9,7 @@ const Users = db.define(
       type: DataTypes.STRING,
     },
     phone: {
-      type: DataTypes.STRING, // Ensure this matches the database schema
+      type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
@@ -19,6 +19,11 @@ const Users = db.define(
     },
     refresh_token: {
       type: DataTypes.TEXT,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'user', // 'user' or 'admin'
+      allowNull: false,
     },
   },
   {

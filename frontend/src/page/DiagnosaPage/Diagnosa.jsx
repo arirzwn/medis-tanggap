@@ -65,7 +65,7 @@ const Diagnosa = () => {
     <div>
       <Navbar />
       <div className="wrap-diagnosa">
-        <div className="bg-image"></div>
+        <div className="bg-image">
         <div className="container">
           <div className="container d-flex justify-content-center align-items-center ">
             <div className="wrap-output bg-white shadow p-4">
@@ -81,7 +81,7 @@ const Diagnosa = () => {
                           type="checkbox"
                           onChange={() => handleCheckboxChange(symptom.id)}
                         />
-                        <span>{symptom.name}</span>
+                        <span className="text-center">{symptom.name}</span>
                       </label>
                     </div>
                   ))
@@ -99,6 +99,7 @@ const Diagnosa = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       <Footer />

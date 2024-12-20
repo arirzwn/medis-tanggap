@@ -53,20 +53,21 @@ export const Login = async (req, res) => {
     const name = user[0].name;
     const phone = user[0].phone;
     const email = user[0].email;
+    const role = user[0].role;
 
     const accessToken = jwt.sign(
-      { userId, name, phone, email },
+      { userId, name, phone, email, role },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: '20s',
+        expiresIn: '24h',
       }
     );
 
     const refreshToken = jwt.sign(
-      { userId, name, phone, email },
+      { userId, name, phone, email, role },
       process.env.REFRESH_TOKEN_SECRET,
       {
-        expiresIn: '1d',
+        expiresIn: '7d',
       }
     );
 
@@ -85,7 +86,17 @@ export const Login = async (req, res) => {
       secure: true,
     });
 
-    res.json({ accessToken });
+    // Include user data in response
+    res.json({
+      accessToken,
+      user: {
+        id: userId,
+        name,
+        email,
+        phone,
+        role,
+      },
+    });
   } catch (error) {
     res.status(404).json({ msg: 'Email tidak ditemukan' });
   }
@@ -115,4 +126,78 @@ export const Logout = async (req, res) => {
 
   res.clearCookie('refreshToken');
   return res.sendStatus(200);
+};
+
+export const getUsersByRoleClinic = async (req, res) => {
+  try {
+      // Query untuk mendapatkan user dengan role "clinic"
+      const clinicUsers = await Users.findAll({
+          where: { role: 'clinic' }, // Filter berdasarkan role
+          attributes: ['id', 'name', 'email', 'phone', 'createdAt', 'updatedAt'] // Pilih kolom yang ingin ditampilkan
+      });
+
+      // Cek jika tidak ada data
+      if (clinicUsers.length === 0) {
+          return res.status(404).json({ message: 'No users with the role "clinic" found.' });
+      }
+
+      // Kembalikan data
+      return res.status(200).json({
+          message: 'Clinic users retrieved successfully',
+          data: clinicUsers,
+      });
+  } catch (error) {
+      console.error('Error fetching clinic users:', error);
+      return res.status(500).json({ message: 'Failed to retrieve clinic users', error: error.message });
+  }
+};
+
+
+export const deleteClinic = async (req, res) => {
+  const { id } = req.params; // Ambil ID dari parameter URL
+
+  try {
+    // Cek apakah data dengan ID tersebut ada di UsersData
+    const clinic = await Users.findOne({ where: { id } });
+    if (!clinic) {
+      return res.status(404).json({ message: 'Data tidak ditemukan' });
+    }
+
+    // Hapus data dari tabel UsersData
+    await Users.destroy({ where: { id } });
+
+    return res.status(200).json({ message: 'Data berhasil dihapus' });
+  } catch (error) {
+    console.error('Error deleting data:', error);
+    return res.status(500).json({ 
+      message: 'Gagal menghapus data', 
+      error: error.message 
+    });
+  }
+};
+
+export const getClinicDetail = async (req, res) => {
+  const { id } = req.params; // Ambil ID dari parameter URL
+
+  try {
+    // Cek apakah data dengan ID tersebut ada di UsersData (model Users)
+    const clinic = await Users.findOne({ where: { id } });
+
+    // Jika data klinik ditemukan
+    if (!clinic) {
+      return res.status(404).json({ message: 'Klinik tidak ditemukan' });
+    }
+
+    // Mengembalikan data klinik yang ditemukan
+    return res.status(200).json({
+      message: 'Data klinik ditemukan',
+      data: clinic, // Menampilkan data klinik
+    });
+  } catch (error) {
+    console.error('Error fetching clinic data:', error);
+    return res.status(500).json({
+      message: 'Gagal mengambil data klinik',
+      error: error.message,
+    });
+  }
 };

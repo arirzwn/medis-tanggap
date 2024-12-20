@@ -3,9 +3,54 @@
     padding: 0;
 }
 .wrap-result-diagnosa{
-
     width: 100%;
     height: auto;
-
-
 }
+
+.wrap-output1 {
+    margin-top: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 2rem;
+  }
+
+.bg-image1 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../images/bg-diagnosa.jpg');
+    height: 155vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+@media (max-width: 576px) { /* Bootstrap breakpoint untuk layar kecil */
+    .wrap-output1 {
+      margin-top: -10;
+      border-radius: 1rem;
+      width: 100%;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      padding: 2rem;
+    }
+    .bg-image1 {
+      height: 310vh !important;
+    }
+  }
+
+  @media (max-width: 950px){
+    .bg-image1 {
+      height: 337vh;
+    }
+  }
+
+  @media (min-width: 650px) and (min-height: 800px) {
+    .bg-image1 {
+      height: 132vh;
+    }
+  }
+  @media (min-width: 800px) and (min-height: 950px) {
+    .bg-image1 {
+      height: 117vh;
+    }
+  }
