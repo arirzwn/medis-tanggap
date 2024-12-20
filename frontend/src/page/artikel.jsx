@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import Footer from '../components/footer';
-import Navbar from '../components/navbar';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './artikel.css';
-
-const DEFAULT_AVATAR =
-  'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-const DEFAULT_ARTICLE_IMAGE =
-  'https://via.placeholder.com/800x400?text=No+Image+Available';
+import React, { useEffect, useState } from "react";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./artikel.css";
 
 // Add custom styles at the top of the file
 const imgStyles = {
   articleImg: {
-    width: '550px',
-    height: '400px',
-    objectFit: 'cover',
-    borderRadius: '8px',
+    width: "550px",
+    height: "400px",
+    objectFit: "cover",
+    borderRadius: "8px",
   },
   miniImg: {
-    width: '300px',
-    height: '200px',
-    objectFit: 'cover',
-    borderRadius: '8px',
+    width: "300px",
+    height: "200px",
+    objectFit: "cover",
+    borderRadius: "8px",
   },
 };
 
@@ -38,17 +33,17 @@ function Artikel() {
 
   const extractFirstImage = (content) => {
     if (!content) return null;
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.innerHTML = content;
-    const img = div.querySelector('img');
+    const img = div.querySelector("img");
     return img ? img.src : null;
   };
 
   const fetchArticles = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/articles');
-      console.log('API Response:', response.data);
+      const response = await axios.get("http://localhost:5000/api/articles");
+      console.log("API Response:", response.data);
 
       if (response.data) {
         const processedArticles = response.data.map((article) => ({
@@ -62,24 +57,44 @@ function Artikel() {
         setArticles(sortedArticles);
       }
     } catch (error) {
-      console.error('Error details:', error.response || error);
-      setError('Failed to fetch articles');
+      console.error("Error details:", error.response || error);
+      setError("Failed to fetch articles");
     } finally {
       setLoading(false);
     }
   };
 
-  const LoadingSpinner = () => (
-    <div className="d-flex justify-content-center py-5">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
-
   const truncateText = (text, maxLength) => {
-    if (!text) return '';
-    return text.length <= maxLength ? text : text.substr(0, maxLength) + '...';
+    if (!text) return "";
+    return text.length <= maxLength ? text : text.substr(0, maxLength) + "...";
+  };
+
+  const renderAuthorImage = (article) => {
+    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      article.author
+    )}`;
+
+    if (article.authorImage) {
+      return (
+        <img
+          className="artikel-profil"
+          src={`http://localhost:5000/uploads/${article.authorImage}`}
+          alt={article.author}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = fallbackImage;
+          }}
+        />
+      );
+    }
+
+    return (
+      <img
+        className="artikel-profil"
+        src={fallbackImage}
+        alt={article.author}
+      />
+    );
   };
 
   const latestArticle = articles.length > 0 ? articles[0] : null;
@@ -104,9 +119,7 @@ function Artikel() {
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
-        ) : // <LoadingSpinner />
-
-        error ? (
+        ) : error ? (
           <div className="alert alert-danger m-4" role="alert">
             {error}
           </div>
@@ -141,11 +154,7 @@ function Artikel() {
                   <div className="col">
                     <div className="row align-items-center">
                       <div className="col-1">
-                        <img
-                          className="artikel-profil"
-                          src={DEFAULT_AVATAR}
-                          alt="Author"
-                        />
+                        {renderAuthorImage(latestArticle)}
                       </div>
                       <div className="col">
                         <h3 className="fw-costum artikel-username mb-0">
@@ -166,7 +175,7 @@ function Artikel() {
                         </Link>
                       </h2>
                       <h2 className="fs-6 costum-font-size1">
-                        {truncateText(latestArticle.description || '', 200)}
+                        {truncateText(latestArticle.description || "", 200)}
                       </h2>
                       <button
                         className="btn btn-brand1 text-light mt-3 fw-semibold ms-0"
@@ -182,7 +191,7 @@ function Artikel() {
               )}
             </section>
 
-            <section style={{ margin: '18px' }}>
+            <section style={{ margin: "18px" }}>
               <h2 className="fw-bolder fs-4 mb-3 mt-5">Artikel Lainnya</h2>
               <div className="row">
                 {otherArticles.map((article) => (
@@ -210,11 +219,7 @@ function Artikel() {
                         )}
                         <div className="row align-items-center">
                           <div className="col-1">
-                            <img
-                              className="artikel-mini-profil"
-                              src={DEFAULT_AVATAR}
-                              alt="Author"
-                            />
+                            {renderAuthorImage(article)}
                           </div>
                           <div className="col">
                             <h3 className="fw-bold artikel-mini-username mb-0">
@@ -228,8 +233,8 @@ function Artikel() {
                         <h2 className="fw-costum fs-6 mb-3 mt-2">
                           {article.title}
                         </h2>
-                        <h2 className="fw-costum1 fs-6">
-                          {truncateText(article.description || '', 100)}
+                        <h2 className="fw-costum1 fs-6 mb-3">
+                          {truncateText(article.description, 100)}
                         </h2>
                       </Link>
                     </div>

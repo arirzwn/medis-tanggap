@@ -10,15 +10,31 @@ import Swal from "sweetalert2"; // Import SweetAlert
 const EditorComponent = () => {
   const [value, setValue] = useState("");
   const [author, setAuthor] = useState("");
+  const [userId, setUserId] = useState(null); // Store userId
+
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditMode = !!id;
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("userData");
+    const userData = storedUser ? JSON.parse(storedUser) : null;
+
+    console.log("Stored user data:", userData);
+
+    if (userData) {
+      setUserId(userData.id); // Set the userId from localStorage
+      setAuthor(userData.name); // Set nama pengguna sebagai nama penulis
+      console.log("User ID set to:", userData.id); // Log for debugging
+    } else {
+      Swal.fire("Error", "Pengguna tidak ditemukan. Silakan login.", "error");
+      navigate("/login");
+    }
+
     if (isEditMode) {
       fetchArticle();
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const fetchArticle = async () => {
     try {
@@ -38,21 +54,15 @@ const EditorComponent = () => {
 
   const extractTitle = (content) => {
     console.log("Raw content:", content);
-
-    // Create a temporary div to parse HTML content
     const div = document.createElement("div");
     div.innerHTML = content;
 
-    // Find all heading elements
     const headings = Array.from(
       div.querySelectorAll("h1, h2, h3, h4, h5, h6")
     ).filter((heading) => {
-      // Get only the text content, removing any nested elements
       const text = heading.textContent.trim();
       return text.length > 0;
     });
-
-    console.log("Found valid headings:", headings);
 
     if (!headings.length) {
       throw new Error(
@@ -60,7 +70,6 @@ const EditorComponent = () => {
       );
     }
 
-    // Get the text content of the first valid heading
     const title = headings[0].textContent.trim();
     console.log("Extracted title:", title);
 
@@ -69,15 +78,18 @@ const EditorComponent = () => {
 
   const handleSubmit = async () => {
     if (!value.trim() || !author.trim()) {
-      alert("Harap lengkapi semua kolom");
+      Swal.fire("Error", "Harap lengkapi semua kolom", "error");
+      return;
+    }
+
+    if (!userId) {
+      Swal.fire("Error", "Pengguna tidak ditemukan. Silakan login.", "error");
       return;
     }
 
     try {
       const title = extractTitle(value);
-      const url = isEditMode
-        ? `http://localhost:5000/api/articles/${id}`
-        : "http://localhost:5000/api/articles";
+      const url = `http://localhost:5000/api/articles/${isEditMode ? id : ""}`;
       const method = isEditMode ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -89,16 +101,25 @@ const EditorComponent = () => {
           title,
           content: value,
           author: author.trim(),
+          userId, // Include the userId in the request body
         }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || "Gagal menyimpan artikel");
+        const errorText = await response.text();
+        let errorMessage;
+        try {
+          const errorJson = JSON.parse(errorText);
+          errorMessage = errorJson.message || "Gagal menyimpan artikel";
+        } catch (e) {
+          errorMessage = "Terjadi kesalahan pada server";
+        }
+        throw new Error(errorMessage);
       }
 
-      Swal.fire({
+      const data = await response.json();
+
+      await Swal.fire({
         title: isEditMode ? "Artikel Diperbarui" : "Artikel Diterbitkan",
         text: isEditMode
           ? "Artikel Anda berhasil diperbarui."
@@ -110,20 +131,17 @@ const EditorComponent = () => {
       navigate("/dashboard/artikel");
     } catch (error) {
       console.error("Submission error:", error);
-      alert(
-        error.message ||
-          "Terjadi kesalahan saat menyimpan artikel. Pastikan Anda menambahkan judul untuk artikel."
-      );
+      Swal.fire("Error", error.message, "error");
     }
   };
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline"], // toggled buttons
+    ["bold", "italic", "underline"],
     ["link", "image"],
     [{ list: "ordered" }, { list: "bullet" }],
     [{ indent: "-1" }, { indent: "+1" }],
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ color: [] }, { background: [] }],
     [{ align: [] }],
   ];
 
@@ -138,16 +156,22 @@ const EditorComponent = () => {
         <h2 className="mb-4">
           {isEditMode ? "Edit Artikel" : "Buat Artikel Baru"}
         </h2>
+        <label htmlFor="" className="mb-2">
+          Nama Author
+        </label>
         <input
           type="text"
           className="form-control mb-3"
           placeholder="Nama Penulis"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          disabled
+          value={author} // Akan terisi dengan nama pengguna dari localStorage
+          onChange={(e) => setAuthor(e.target.value)} // Jika pengguna ingin mengubahnya
         />
+
         <div className="mb-2 text-muted">
           Gunakan format judul (H1-H6) untuk judul artikel Anda
         </div>
+
         <ReactQuill
           modules={module}
           theme="snow"
