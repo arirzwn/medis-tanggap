@@ -1,45 +1,39 @@
 import { Sequelize } from 'sequelize';
 import db from '../config/Database.js';
+import Users from './UserModel.js';
 
-const { DataTypes } = Sequelize;
-
-const Article = db.define(
-  'articles',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: DataTypes.TEXT('long'),
-      allowNull: false,
-    },
-    author: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    date: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    image_url: {
-      type: DataTypes.STRING,
-      allowNull: true,
+const Article = db.define('articles', {
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  content: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.TEXT,
+  },
+  author: {
+    type: Sequelize.STRING,
+  },
+  date: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW,
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Users,
+      key: 'id',
     },
   },
-  {
-    freezeTableName: true,
-    timestamps: false,
-  }
-);
+});
+
+// Define the association
+Article.belongsTo(Users, {
+  foreignKey: 'userId',
+  as: 'user',
+});
 
 export default Article;

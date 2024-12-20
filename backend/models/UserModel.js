@@ -25,6 +25,10 @@ const Users = db.define(
       defaultValue: 'user', // 'user' or 'admin'
       allowNull: false,
     },
+    images: {
+      type: DataTypes.STRING, // Kolom untuk menyimpan URL atau nama file gambar
+      allowNull: true, // Kolom ini opsional, bisa kosong
+    },
   },
   {
     freezeTableName: true,

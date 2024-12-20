@@ -35,7 +35,7 @@ function KlinikArtikel() {
 
   const handleDelete = async (id) => {
     try {
-      Swal.fire({
+      const result = await Swal.fire({
         title: 'Apakah anda yakin?',
         text: 'Data yang dihapus tidak dapat dikembalikan!',
         icon: 'warning',
@@ -44,13 +44,13 @@ function KlinikArtikel() {
         cancelButtonColor: '#3085d6',
         confirmButtonText: 'Ya, hapus!',
         cancelButtonText: 'Batal',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await axios.delete(`http://localhost:5000/api/articles/${id}`);
-          getArticles();
-          Swal.fire('Terhapus!', 'Data artikel berhasil dihapus.', 'success');
-        }
       });
+
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:5000/api/articles/${id}`);
+        await getArticles(); // Refresh the articles list
+        Swal.fire('Terhapus!', 'Data artikel berhasil dihapus.', 'success');
+      }
     } catch (error) {
       console.error('Error deleting article:', error);
       Swal.fire('Error!', 'Terjadi kesalahan saat menghapus artikel.', 'error');

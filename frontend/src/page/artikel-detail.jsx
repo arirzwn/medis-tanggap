@@ -10,6 +10,7 @@ import profile from "../images/laki.jpg"; // Path relatif ke gambar
 const DEFAULT_ARTICLE_IMAGE =
   "https://via.placeholder.com/800x400?text=No+Image+Available";
 
+// Frontend (React)
 const Detail = () => {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
@@ -59,6 +60,34 @@ const Detail = () => {
     } catch (error) {
       console.error("Error fetching related articles!", error);
     }
+  };
+
+  const renderAuthorImage = (article) => {
+    const fallbackImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      article.author
+    )}`;
+
+    if (article.authorImage) {
+      return (
+        <img
+          className="artikel-profil"
+          src={`http://localhost:5000/uploads/${article.authorImage}`}
+          alt={article.author}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = fallbackImage;
+          }}
+        />
+      );
+    }
+
+    return (
+      <img
+        className="artikel-profil"
+        src={fallbackImage}
+        alt={article.author}
+      />
+    );
   };
 
   if (loading) {
@@ -115,10 +144,11 @@ const Detail = () => {
               <header className="mb-4">
                 <div className="d-flex align-items-center mb-3">
                   <div>
+                    {/* Gambar profil sesuai dengan data yang diterima dari API */}
                     <span className="img-profile">
-                      <img src={profile} alt="" />
+                      {renderAuthorImage(article)} {/* Gambar penulis */}
                     </span>
-                    <span className="">{article.author}</span>
+                    <span>{article.author}</span>
                     <span className="text-muted ms-2">•</span>
                     <span className="text-muted ms-2">
                       {new Date(article.date).toLocaleDateString()}
@@ -144,50 +174,38 @@ const Detail = () => {
               <h5 className="side-artikel">Artikel Lainnya..</h5>
             </Link>
 
-            {relatedArticles.slice(0, 3).map(
-              (
-                related // Mengambil hanya 3 artikel pertama
-              ) => (
-                <div className="wrap-card mb-4" key={related.id}>
-                  <Link
-                    to={`/artikel-detail/${related.id}`}
-                    className="text-decoration-none text-dark"
-                  >
-                    <div className="row g-0">
-                      <div className="col-md-12 img-list">
-                        <img
-                          src={related.previewImage}
-                          className="img-fluid"
-                          alt={related.title}
-                          style={{ objectFit: "cover", height: "100%" }}
-                        />
-                      </div>
-                      <div className="col-md-12">
-                        <div className="card-body">
-                          <p className="card-text mt-1">
-                            <img src={profile} alt="" />
-                            <span className="detail-username">{related.author}</span>
-                            <p className="text-muted">
-                              {new Date(related.date).toLocaleDateString(
-                                "id-ID"
-                              )}
-                            </p>
-                          </p>
-                          <h6 className="card-title">
-                            <Link
-                              to={`/artikel-detail/${related.id}`}
-                              className="text-decoration-none text-dark"
-                            >
-                              {related.title}
-                            </Link>
-                          </h6>
-                        </div>
+            {relatedArticles.slice(0, 3).map((related) => (
+              <div className="wrap-card mb-4" key={related.id}>
+                <Link
+                  to={`/artikel-detail/${related.id}`}
+                  className="text-decoration-none text-dark"
+                >
+                  <div className="row g-0">
+                    <div className="col-md-12 img-list">
+                      <img
+                        src={related.previewImage}
+                        className="img-fluid"
+                        alt={related.title}
+                        style={{ objectFit: "cover", height: "100%" }}
+                      />
+                    </div>
+                    <div className="col-md-12">
+                      <div className="card-body">
+                        <p className="card-text mt-1">
+                          {/* Render the author's profile image */}
+                          {renderAuthorImage(related)}
+                          {related.author}
+                        </p>
+                        <p className="card-text">{related.title}</p>
+                        <span className="text-muted">
+                          {new Date(related.date).toLocaleDateString()}
+                        </span>
                       </div>
                     </div>
-                  </Link>
-                </div>
-              )
-            )}
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>
