@@ -176,3 +176,44 @@ export const getArticles = async (req, res) => {
     });
   }
 };
+
+
+const getUserImagesByRole = async (req, res) => {
+  try {
+    const { roleId } = req.query; // Assuming roleId is passed as a query parameter
+
+    if (!roleId) {
+      return res.status(400).json({ message: "roleId is required" });
+    }
+
+    // Find articles and include the associated user data based on userId
+    const articlesWithUsers = await Article.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["id", "name", "images", "roleId"], // Include necessary fields
+          where: { roleId },
+        },
+      ],
+    });
+
+    if (articlesWithUsers.length === 0) {
+      return res.status(404).json({ message: "No users found for the given roleId" });
+    }
+
+    // Extract user images from the articles
+    const userImages = articlesWithUsers.map((article) => {
+      return {
+        articleId: article.id,
+        userId: article.User.id,
+        userName: article.User.name,
+        userImage: article.User.images,
+      };
+    });
+
+    return res.status(200).json(userImages);
+  } catch (error) {
+    console.error("Error fetching user images by roleId:", error);
+    return res.status(500).json({ message: "Internal server error", error });
+  }
+};

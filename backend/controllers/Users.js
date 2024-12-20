@@ -16,6 +16,32 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  try {
+    // Ambil ID pengguna dari request, misalnya dari `req.params.id`
+    const { id } = req.params;
+
+    // Query database untuk mendapatkan pengguna berdasarkan ID
+    const user = await Users.findOne({
+      where: { id }, // Kondisi pencarian berdasarkan ID
+      attributes: ['id', 'name', 'phone', 'email', 'role','images'], // Atribut yang ingin diambil
+    });
+
+    // Periksa apakah pengguna ditemukan
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Kembalikan data pengguna
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
 export const Register = async (req, res) => {
   const { name, email, phone, password, confirmPassword } = req.body;
   if (password !== confirmPassword)
@@ -260,8 +286,8 @@ export const updateUserData = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { name, phone } = req.body;
-    const email = req.email; // Get email from JWT token
+    const { name, phone } = req.body; // Hanya mengambil nama dan telepon dari request body
+    const email = req.email; // Ambil email dari JWT token atau sumber lainnya (seperti session atau cookies)
 
     const user = await Users.findOne({
       where: { email: email },
@@ -271,24 +297,26 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    // Data yang akan diperbarui
     let updateData = {
       name,
       phone,
     };
 
-    // Handle image upload if present
+    // Menangani upload gambar jika ada
     if (req.files && req.files.images) {
-      // Delete old image if exists
+      // Hapus gambar lama jika ada
       if (user.images) {
         const oldImagePath = path.join('uploads', user.images);
         if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath);
+          fs.unlinkSync(oldImagePath); // Menghapus file gambar lama
         }
       }
+      // Menambahkan gambar baru
       updateData.images = req.files.images[0].filename;
     }
 
-    // Update user data
+    // Update data pengguna
     await user.update(updateData);
 
     res.status(200).json({
@@ -308,3 +336,4 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+

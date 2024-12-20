@@ -15,6 +15,7 @@ const initializeDatabase = async () => {
     // Hapus sync() atau gunakan { force: false } untuk mencegah kehilangan data
     await db.sync({
       force: false, // Make sure this is false
+      alter:true,
       logging: false,
     });
 

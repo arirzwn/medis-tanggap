@@ -8,7 +8,7 @@ import {
   deleteClinic,
   getClinicDetail,
   updateUserData,
-  updateProfile, // Add this import
+  updateProfile, getUser // Add this import
 } from '../controllers/Users.js';
 import { verifyToken } from '../middleware/verifyToken.js';
 import { refreshToken } from '../controllers/RefreshToken.js';
@@ -34,6 +34,7 @@ router.delete('/users/clinic/:id', deleteClinic);
 router.get('/users/clinic/:id', getClinicDetail);
 router.put('/user/:id', upload, updateUserData);
 router.put('/profile/update', verifyToken, upload, updateProfile);
+router.get('/users/:id', getUser);
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await Users.findOne({
