@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SidebarKlinik from '../components/sidebarKlinik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faNewspaper,
-  faFileLines,
-  faHospital,
-} from '@fortawesome/free-solid-svg-icons';
+import { faFileLines, faHospital } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import Logo from '../images/logo.png';
 import './klinikDashboard.css';
 
 const KlinikDashboard = () => {

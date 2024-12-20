@@ -1,9 +1,8 @@
-import Swal from "sweetalert2";
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Sidebar from "../components/sidebarAdmin";
-import "./responsive.css";
-import axios from "axios";
+import Swal from 'sweetalert2';
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../components/sidebarAdmin';
+import './responsive.css';
+import axios from 'axios';
 
 function DaftarKlinik() {
   // State untuk menyimpan data klinik
@@ -13,13 +12,13 @@ function DaftarKlinik() {
   // Fungsi untuk mengambil data dari API
   const fetchClinics = async () => {
     try {
-      const response = await fetch("http://localhost:5000/users/clinic");
+      const response = await fetch('http://localhost:5000/users/clinic');
       const data = await response.json();
-      console.log("Response API:", data); // Debug respons
+      console.log('Response API:', data); // Debug respons
       setClinics(data.data); // Akses properti data yang berisi array
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
       setLoading(false);
     }
   };
@@ -29,14 +28,14 @@ function DaftarKlinik() {
   const handleDelete = async (id) => {
     // Konfirmasi dengan SweetAlert2
     Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Data yang dihapus tidak dapat dikembalikan!",
-      icon: "warning",
+      title: 'Apakah Anda yakin?',
+      text: 'Data yang dihapus tidak dapat dikembalikan!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Ya, Hapus!",
-      cancelButtonText: "Batal",
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -47,10 +46,10 @@ function DaftarKlinik() {
 
           // Jika berhasil
           Swal.fire({
-            title: "Berhasil!",
+            title: 'Berhasil!',
             text: response.data.message,
-            icon: "success",
-            confirmButtonText: "OK",
+            icon: 'success',
+            confirmButtonText: 'OK',
           });
 
           // Reload data
@@ -58,12 +57,12 @@ function DaftarKlinik() {
         } catch (error) {
           // Jika gagal
           Swal.fire({
-            title: "Gagal!",
-            text: "Data gagal dihapus. Silakan coba lagi.",
-            icon: "error",
-            confirmButtonText: "OK",
+            title: 'Gagal!',
+            text: 'Data gagal dihapus. Silakan coba lagi.',
+            icon: 'error',
+            confirmButtonText: 'OK',
           });
-          console.error("Error deleting clinic:", error);
+          console.error('Error deleting clinic:', error);
         }
       }
     });
@@ -105,8 +104,8 @@ function DaftarKlinik() {
                       <td>{clinic.phone}</td>
                       <td>{clinic.email}</td>
                       <td>
-                        {new Date(clinic.createdAt).toLocaleString("id-ID", {
-                          timeZone: "Asia/Jakarta",
+                        {new Date(clinic.createdAt).toLocaleString('id-ID', {
+                          timeZone: 'Asia/Jakarta',
                           hour12: false,
                         })}
                       </td>

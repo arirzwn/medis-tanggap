@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Sidebar from "../components/sidebarAdmin";
-import "./pengajuan-klinik.css";
-import axios from "axios";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/sidebarAdmin';
+import './pengajuan-klinik.css';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function PengajuanKlinik() {
   const [clinics, setClinics] = useState([]);
@@ -12,10 +11,10 @@ function PengajuanKlinik() {
   useEffect(() => {
     const fetchClinics = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clinics");
+        const response = await axios.get('http://localhost:5000/api/clinics');
         setClinics(response.data.data);
       } catch (error) {
-        console.error("Error fetching clinics:", error);
+        console.error('Error fetching clinics:', error);
       }
     };
 
@@ -25,12 +24,12 @@ function PengajuanKlinik() {
   // Fungsi untuk menangani Accept klinik
   const handleAccept = async (id) => {
     const result = await Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Menerima klinik ini menjadi clinic!",
-      icon: "question",
+      title: 'Apakah Anda yakin?',
+      text: 'Menerima klinik ini menjadi clinic!',
+      icon: 'question',
       showCancelButton: true,
-      confirmButtonText: "Ya, terima!",
-      cancelButtonText: "Batal",
+      confirmButtonText: 'Ya, terima!',
+      cancelButtonText: 'Batal',
     });
 
     if (result.isConfirmed) {
@@ -39,12 +38,12 @@ function PengajuanKlinik() {
           `http://localhost:5000/api/clinics/accept/${id}`
         );
         if (response.status >= 200 && response.status < 300) {
-          Swal.fire("Berhasil!", "Klinik berhasil diterima.", "success");
+          Swal.fire('Berhasil!', 'Klinik berhasil diterima.', 'success');
           setClinics(clinics.filter((clinic) => clinic.id !== id)); // Hapus klinik yang diterima
         }
       } catch (error) {
-        console.error("Error accepting clinic:", error);
-        Swal.fire("Gagal!", "Terjadi kesalahan saat menerima klinik.", "error");
+        console.error('Error accepting clinic:', error);
+        Swal.fire('Gagal!', 'Terjadi kesalahan saat menerima klinik.', 'error');
       }
     }
   };
@@ -52,12 +51,12 @@ function PengajuanKlinik() {
   // Fungsi untuk menangani Delete klinik
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Klinik ini akan dihapus tanpa dikembalikan!",
-      icon: "warning",
+      title: 'Apakah Anda yakin?',
+      text: 'Klinik ini akan dihapus tanpa dikembalikan!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Ya, hapus!",
-      cancelButtonText: "Batal",
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal',
     });
 
     if (result.isConfirmed) {
@@ -67,18 +66,18 @@ function PengajuanKlinik() {
         );
         if (response.status >= 200 && response.status < 300) {
           Swal.fire(
-            "Dihapus!",
-            "Klinik berhasil ditolak dan dihapus.",
-            "success"
+            'Dihapus!',
+            'Klinik berhasil ditolak dan dihapus.',
+            'success'
           );
           setClinics(clinics.filter((clinic) => clinic.id !== id)); // Hapus klinik yang dihapus
         }
       } catch (error) {
-        console.error("Error deleting clinic:", error);
+        console.error('Error deleting clinic:', error);
         Swal.fire(
-          "Gagal!",
-          "Terjadi kesalahan saat menghapus klinik.",
-          "error"
+          'Gagal!',
+          'Terjadi kesalahan saat menghapus klinik.',
+          'error'
         );
       }
     }
@@ -130,8 +129,8 @@ function PengajuanKlinik() {
                     </a>
                   </td>
                   <td>
-                    {new Date(clinic.createdAt).toLocaleString("id-ID", {
-                      timeZone: "Asia/Jakarta",
+                    {new Date(clinic.createdAt).toLocaleString('id-ID', {
+                      timeZone: 'Asia/Jakarta',
                       hour12: false,
                     })}
                   </td>

@@ -5,9 +5,7 @@ import {
   faHouse,
   faNewspaper,
   faFileLines,
-  faEnvelopesBulk,
   faUser,
-  faHospital,
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
@@ -26,18 +24,18 @@ function Sidebar({ children }) {
   const isActive = (path) => location.pathname === path;
 
   useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth <= 950);
-        if (window.innerWidth > 950) {
-          setSidebarOpen(true); // Pastikan sidebar terbuka di layar besar
-        }
-      };
-  
-      handleResize();
-      window.addEventListener('resize', handleResize);
-  
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 950);
+      if (window.innerWidth > 950) {
+        setSidebarOpen(true); // Pastikan sidebar terbuka di layar besar
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -104,10 +102,10 @@ function Sidebar({ children }) {
   };
 
   const mainStyle = {
-    marginLeft: '250px', 
+    marginLeft: '250px',
     padding: '20px',
     backgroundColor: '#f8f9fa',
-    minHeight: '100vh', 
+    minHeight: '100vh',
   };
 
   const buttonStyle = (active) => ({

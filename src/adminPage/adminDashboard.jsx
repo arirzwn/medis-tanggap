@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SidebarAdmin from "../components/sidebarAdmin";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faNewspaper,
-  faFileLines,
-  faHospital,
-} from "@fortawesome/free-solid-svg-icons";
-import "./adminDashboard.css";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SidebarAdmin from '../components/sidebarAdmin';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileLines, faHospital } from '@fortawesome/free-solid-svg-icons';
+import './adminDashboard.css';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -15,18 +11,18 @@ function AdminDashboard() {
 
   useEffect(() => {
     const verifyAdmin = () => {
-      const storedUserData = localStorage.getItem("userData");
-      const accessToken = localStorage.getItem("accessToken");
+      const storedUserData = localStorage.getItem('userData');
+      const accessToken = localStorage.getItem('accessToken');
 
       if (!accessToken) {
-        navigate("/login");
+        navigate('/login');
         return;
       }
 
       if (storedUserData) {
         const userData = JSON.parse(storedUserData);
-        if (userData.role !== "admin") {
-          navigate("/dashboard");
+        if (userData.role !== 'admin') {
+          navigate('/dashboard');
           return;
         }
         setUserData(userData);
@@ -53,7 +49,7 @@ function AdminDashboard() {
             <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
               <FontAwesomeIcon
                 className="icon mb-3"
-                style={{ width: "30px", height: "30px" }}
+                style={{ width: '30px', height: '30px' }}
                 icon={faFileLines}
               />
               <h5 className="card1-title">10</h5>
@@ -63,7 +59,7 @@ function AdminDashboard() {
             <div className="card1 p-4 text-start d-flex flex-column shadow-sm hover-card1">
               <FontAwesomeIcon
                 className="icon mb-3"
-                style={{ width: "30px", height: "30px" }}
+                style={{ width: '30px', height: '30px' }}
                 icon={faHospital}
               />
               <h5 className="card1-title">15</h5>
