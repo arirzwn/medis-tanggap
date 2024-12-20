@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import Footer from '../components/footer';
-import Navbar from '../components/navbar';
-import { useNavigate } from 'react-router-dom';
-import Section1 from '../images/dashboard.png';
-import Section2 from '../images/section2.png';
-import Section3 from '../images/section3.png';
-import Map from '../images/map.png';
-import Artikel from '../images/artikel.png';
-import Arrow from '../images/arrow.png';
-import axios from 'axios';
+import { useState, useEffect, useRef } from "react";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
+import Section1 from "../images/dashboard.png";
+import Section2 from "../images/section2.png";
+import Section3 from "../images/section3.png";
+import Map from "../images/map.png";
+import Artikel from "../images/artikel.png";
+import Arrow from "../images/arrow.png";
+import axios from "axios";
 
 function Home() {
   const [articles, setArticles] = useState([]);
@@ -22,16 +22,16 @@ function Home() {
 
   const extractFirstImage = (content) => {
     if (!content) return null;
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.innerHTML = content;
-    const img = div.querySelector('img');
+    const img = div.querySelector("img");
     return img ? img.src : null;
   };
 
   const fetchArticles = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/articles');
+      const response = await axios.get("http://localhost:5000/api/articles");
       if (response.data) {
         const processedArticles = response.data
           .map((article) => ({
@@ -42,8 +42,8 @@ function Home() {
         setArticles(processedArticles);
       }
     } catch (error) {
-      console.error('Error fetching articles:', error);
-      setError('Failed to fetch articles');
+      console.error("Error fetching articles:", error);
+      setError("Failed to fetch articles");
     } finally {
       setLoading(false);
     }
@@ -77,16 +77,16 @@ function Home() {
       <div className="w-100">
         <section
           id="sec1"
-          className="h-100 p-5"
-          style={{ backgroundColor: '#EDF2F6' }}
+          className="h-100 section-1"
+          style={{ backgroundColor: "#EDF2F6" }}
         >
           <div className="container d-flex align-items-center flex-column flex-md-row">
             <div className="col-md-6 col-12 text-center text-md-start">
               <h1 className="fw-bold">
-                Selamat Datang <br /> Di{' '}
-                <span style={{ color: '#174AB5' }}>Medis Tanggap</span>
+                Selamat Datang <br /> Di{" "}
+                <span style={{ color: "#174AB5" }}>Medis Tanggap</span>
               </h1>
-              <p style={{ textAlign: 'justify' }}>
+              <p style={{ textAlign: "justify" }}>
                 Medis Tanggap memberikan solusi inovatif untuk meningkatkan
                 akses layanan kesehatan bagi ibu hamil. Dengan teknologi modern,
                 kami menyediakan diagnosis, informasi kesehatan, dan fitur
@@ -95,52 +95,44 @@ function Home() {
                 dan di mana saja.
               </p>
               <div>
-                <h5 className="mb-3 fw-bold" style={{ color: '#0a192f' }}>
+                <h5 className="mb-3 fw-bold" style={{ color: "#0a192f" }}>
                   Mengapa Memilih Kami?
                 </h5>
                 <ul className="list-unstyled">
                   <li className="mb-2 d-flex align-items-center">
-                    <span style={{ color: '#0a192f' }} className="me-2 fs-4">
+                    <span style={{ color: "#0a192f" }} className="me-2 fs-4">
                       ✓
                     </span>
-                    <span style={{ color: '#0a192f' }}>100+</span>&nbsp;pengguna
-                    telah bergabung.
+                    Akses Mudah dan Fleksibel
                   </li>
                   <li className="mb-2 d-flex align-items-center">
-                    <span style={{ color: '#0a192f' }} className="me-2 fs-4">
+                    <span style={{ color: "#0a192f" }} className="me-2 fs-4">
                       ✓
                     </span>
-                    <span style={{ color: '#0a192f' }}>95%</span>&nbsp;tingkat
-                    kepuasan pengguna.
+                    Sistem Rujukan Terintegrasi Real-time
                   </li>
                   <li className="d-flex align-items-center">
-                    <span style={{ color: '#0a192f' }} className="me-2 fs-4">
+                    <span style={{ color: "#0a192f" }} className="me-2 fs-4">
                       ✓
                     </span>
-                    <span style={{ color: '#0a192f' }}>24/7</span>&nbsp;akses
-                    tanpa batas.
+                    Informasi Kesehatan yang Komprehensif
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="col-md-6 col-12">
-              <img
-                src={Section1}
-                alt=""
-                className="img-fluid"
-                style={{ marginLeft: '70px' }}
-              />
+            <div className="col-md-6 col-12 image-home">
+              <img src={Section1} alt="" className="img-fluid" />
             </div>
           </div>
         </section>
 
         <section
           id="sec2"
-          className="h-100 p-5 text-light"
-          style={{ backgroundColor: '#0a192f' }}
+          className="h-100 section-2 text-light"
+          style={{ backgroundColor: "#0a192f" }}
         >
           <div className="container d-flex align-items-center flex-column flex-md-row">
-            <div className="col-md-6 col-12 mb-4 mb-md-0">
+            <div className="col-md-6 col-12 mb-4 mb-md-0 section-image-1">
               <img src={Section2} alt="" className="img-fluid" />
             </div>
             <div className="col-md-6 col-12">
@@ -151,17 +143,17 @@ function Home() {
                 sakit, serta akses artikel kesehatan untuk mendukung ibu hamil
                 menjalani kehamilan dengan sehat dan aman.
               </p>
-              <ul className="navbar-nav">
+              <ul className="navbar-nav-fitur">
                 <li>
-                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{' '}
+                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{" "}
                   Fitur Diagnosa Penyakit Selama Kehamilan
                 </li>
                 <li>
-                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{' '}
+                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{" "}
                   Fitur Cari Rumah Sakit
                 </li>
                 <li>
-                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{' '}
+                  <img id="li" src={Arrow} className="img-arrow1" alt="" />{" "}
                   Artikel Kesehatan
                 </li>
               </ul>
@@ -169,7 +161,7 @@ function Home() {
           </div>
         </section>
 
-        <section id="sec3" className="p-5">
+        <section id="sec3" className="section-3">
           <div className="container d-flex align-items-center flex-column flex-md-row">
             <div className="col-md-5 col-12 mb-4 mb-md-0">
               <img src={Section3} alt="" className="img-fluid" />
@@ -186,9 +178,9 @@ function Home() {
               </p>
               <button
                 className="btn btn-sec3 text-light"
-                style={{ background: '#0a192f' }}
+                style={{ background: "#0a192f" }}
                 onClick={() => {
-                  navigate('/diagnosa');
+                  navigate("/diagnosa");
                 }}
               >
                 Diagnosa
@@ -197,7 +189,7 @@ function Home() {
           </div>
         </section>
 
-        <section id="sec4" className="p-5">
+        <section id="sec4" className="section-4">
           <div className="container d-flex align-items-center flex-column flex-md-row">
             <div className="col-md-7 col-12 mb-4 mb-md-0">
               <h1 className="fw-bold">
@@ -211,10 +203,10 @@ function Home() {
               </p>
               <button
                 onClick={() => {
-                  navigate('/rumah-sakit');
+                  navigate("/rumah-sakit");
                 }}
                 className="btn btn-sec3 text-light"
-                style={{ background: '#0a192f' }}
+                style={{ background: "#0a192f" }}
               >
                 Cari Sekarang
               </button>
@@ -225,21 +217,21 @@ function Home() {
           </div>
         </section>
 
-        <section id="sec5" className="p-5">
+        <section id="sec5" className="section-5">
           <h2 className="text-center mb-5 fw-bold">
-            Artikel <span style={{ color: '#174AB5' }}>Medis Tanggap</span>
+            Artikel <span style={{ color: "#174AB5" }}>Medis Tanggap</span>
           </h2>
           <div className="wrapper">
             <div
               ref={cardsContainerRef}
               className="cards-container m-5 overflow-hidden"
               style={{
-                cursor: isDragging ? 'grabbing' : 'grab',
-                userSelect: 'none',
-                overflowX: 'auto',
-                scrollBehavior: 'smooth',
-                display: 'flex',
-                gap: '1rem',
+                cursor: isDragging ? "grabbing" : "grab",
+                userSelect: "none",
+                overflowX: "auto",
+                scrollBehavior: "smooth",
+                display: "flex",
+                gap: "1rem",
               }}
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
@@ -269,20 +261,24 @@ function Home() {
                         e.target.src = Artikel; // Fallback image
                       }}
                       style={{
-                        height: '200px',
-                        objectFit: 'cover',
+                        height: "200px",
+                        objectFit: "cover",
                       }}
                     />
                     <div className="card-body">
-                      <h5 className="card-title">{article.title}</h5>
+                      <h5 className="card-title">
+                        {article.title.length > 30
+                          ? article.title.substring(0, 30) + "..."
+                          : article.title}
+                      </h5>
                       <p className="card-text">
                         {article.description
-                          ? article.description.substring(0, 100) + '...'
-                          : ''}
+                          ? article.description.substring(0, 100) + "..."
+                          : ""}
                       </p>
                       <button
                         className="btn text-light"
-                        style={{ background: '#0a192f' }}
+                        style={{ background: "#0a192f" }}
                         onClick={() =>
                           navigate(`/artikel-detail/${article.id}`)
                         }

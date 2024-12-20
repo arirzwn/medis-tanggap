@@ -188,8 +188,12 @@ function Navbar() {
           {isAuthenticated ? (
             userRole === 'clinic' ? (
               <Link to="/dashboard" className="btn btn-login text-light">
-                <i className="fas fa-user "></i>
+                <i className="fas fa-user"></i>
                 {/* Dashboard */}
+              </Link>
+            ) : userRole === 'admin' ? (
+              <Link to="/admin/dashboard" className="btn btn-login text-light">
+                <i className="fas fa-user"></i>
               </Link>
             ) : (
               <button

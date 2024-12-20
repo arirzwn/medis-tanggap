@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import SidebarKlinik from '../components/sidebarKlinik';
 import Artikel1 from '../images/artikel.png';
+import './detailartikel.css';
 
 function DetailArtikel() {
   const { id } = useParams();
@@ -69,7 +70,7 @@ function DetailArtikel() {
 
   return (
     <SidebarKlinik>
-      <div className="h-100" style={{ minWidth: '1200px' }}>
+      <div className="h-100">
         <div className="container">
           {/* <section className="bg-light shadow-md p-4 mb-4">
             <h1 className="fw-bolder fs-3 text-center mt-4">{article.title}</h1>
@@ -82,7 +83,7 @@ function DetailArtikel() {
           </section> */}
           <section className="bg-light shadow-md p-4">
             <div className="row align-items-center mb-4">
-              <div className="col-auto">
+              <div className="col-1">
                 <img
                   className="artikel-detail-profil rounded-circle"
                   src={article.authorImage || Artikel1}
@@ -91,7 +92,7 @@ function DetailArtikel() {
                   style={{ width: '50px', height: '50px', objectFit: 'cover' }}
                 />
               </div>
-              <div className="col-auto">
+              <div className="col-4">
                 <h3 className="fw-bolder artikel-detail-username mb-0">
                   {article.author || 'Anonymous'}
                 </h3>

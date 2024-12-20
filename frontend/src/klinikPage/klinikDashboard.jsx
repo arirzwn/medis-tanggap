@@ -38,6 +38,7 @@ const KlinikDashboard = () => {
           <div className="mb-4">
             <h3 className="text-primary fw-bold">Selamat Datang</h3>
             <h5 className="text-muted">{userData.name}</h5>
+
             <div className="h-100" style={{ minWidth: '1200px' }}>
               {/* Header */}
               <div className="bg-light row align-items-center shadow-sm mb-5 p-3 w-100">
@@ -63,6 +64,7 @@ const KlinikDashboard = () => {
                 </div>
               </div>
             </div>
+
             <h2 className="fw-bold">Statistik</h2>
           </div>
           <div className="d-flex gap-5">

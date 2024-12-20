@@ -75,7 +75,7 @@ const Diagnosa = () => {
               <div className="row">
                 {symptoms.length > 0 ? (
                   symptoms.map((symptom) => (
-                    <div className="col-md-4" key={symptom.id}>
+                    <div className="col-md-4-1" key={symptom.id}>
                       <label className="checkbox-btn w-100 mb-3">
                         <input
                           type="checkbox"

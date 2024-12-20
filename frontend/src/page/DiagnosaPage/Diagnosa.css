@@ -109,6 +109,10 @@
   position: relative;
   z-index: 1; /* Pastikan konten di bawah spinner */
 }
+.col-md-4-1 {
+  flex: 0 0 33%; /* Setel lebar kolom menjadi 33% */
+  max-width: 33%; /* Pastikan ukuran maksimal juga 50% */
+}
   
   /* Untuk layar kecil (ponsel) */
 @media (max-width: 576px) { /* Bootstrap breakpoint untuk layar kecil */
@@ -124,30 +128,48 @@
       padding: 2rem;
     }
     .bg-image {
-      height: 257vh;
+      height: 255vh !important;
+    }
+    .col-md-4-1 {
+      flex: 0 0 100% !important; /* Setel lebar kolom menjadi 50% */
+      max-width: 100% !important; /* Pastikan ukuran maksimal juga 50% */
     }
     .checkbox-btn span{
       font-size: 0.9rem;
     }
   }
 
-  @media (max-width: 950px){
+  @media (max-width: 950px) and (max-height: 650px) {
     .checkbox-btn span{
       font-size: 0.8rem;
     }
 
     .bg-image {
-      height: 255vh;
+      height: 330vh !important;
+    }
+    .col-md-4-1 {
+      flex: 0 0 50% !important; /* Setel lebar kolom menjadi 50% */
+      max-width: 50% !important; /* Pastikan ukuran maksimal juga 50% */
     }
   }
 
-  @media (min-height: 800px) and (min-width: 650px) {
+  @media (max-width: 900px) and (max-height: 1200px) {
     .bg-image {
-      height: 117vh;
+      height: 115vh;
+    }
+    .col-md-4-1 {
+      flex: 0 0 50%; /* Setel lebar kolom menjadi 50% */
+      max-width: 50%; /* Pastikan ukuran maksimal juga 50% */
+    }
+    .checkbox-btn span{
+      font-size: 0.8rem;
     }
   }
-  @media (min-height: 950px) and (min-width: 800px){
+  @media (max-width: 1200px) and (max-height: 900px){
     .bg-image {
-      height: 87vh;
+      height: 120vh;
+    }
+    .checkbox-btn span{
+      font-size: 0.9rem;
     }
   }

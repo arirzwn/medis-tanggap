@@ -24,5 +24,12 @@
   .card1:hover .card1-title, .card1:hover .card1-text{
     color: white !important;
   }
-  
+  .w-100.h-100 .mb-4 .text-muted{
+    margin-left: 0px !important;
+  }
+  @media (max-width: 650px){
+    .card1{
+      width: 300px;
+    }
+  }
  

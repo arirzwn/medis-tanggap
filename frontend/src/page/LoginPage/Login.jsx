@@ -36,8 +36,8 @@ const LoginForm = () => {
       window.dispatchEvent(new Event('authChange'));
 
       Swal.fire({
-        title: 'Login Success!',
-        text: `Welcome, ${response.data.user.name}!`,
+        title: 'Login Sukses!',
+        text: `Selamat Datang, ${response.data.user.name}!`,
         icon: 'success',
         confirmButtonText: 'OK',
       }).then((result) => {
@@ -71,7 +71,7 @@ const LoginForm = () => {
         </h1>
         <h1 className="mb-4 fw-bold">Medis Tanggap</h1>
         <Button
-          className="btn btn-info text-white fw-bold px-4 py-2"
+          className="btn btn-info2 text-white fw-bold px-4 py-2"
           onClick={navigateToRegister}
         >
           Buat Akun
