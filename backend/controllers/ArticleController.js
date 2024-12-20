@@ -3,50 +3,41 @@ import { JSDOM } from 'jsdom';
 import Users from '../models/UserModel.js';
 
 // Create a new article
+
+
 export const createArticle = async (req, res) => {
+  const { title, content, author, userId } = req.body;
+
+  if (!title || !content || !author || !userId) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
   try {
-    const { title, content, author } = req.body;
-
-    // Validate required fields
-    if (!title || !content || !author) {
-      return res.status(400).json({
-        message: 'Title, content, and author are required',
+    let article;
+    if (req.params.id) {
+      // Edit existing article
+      article = await Article.findByIdAndUpdate(
+        req.params.id,
+        { title, content, author, userId },
+        { new: true }
+      );
+    } else {
+      // Create a new article
+      article = new Article({
+        title,
+        content,
+        author,
+        userId,
       });
+      await article.save();
     }
 
-    // Content size check
-    if (content.length > 16777215) {
-      return res.status(413).json({
-        message: 'Content too large. Maximum size is 16MB',
-      });
-    }
-
-    // Create virtual DOM to extract description
-    const dom = new JSDOM(content);
-    const plainText = dom.window.document.body.textContent || '';
-    const description = plainText.substring(0, 200).trim();
-
-    const article = await Article.create({
-      title,
-      content,
-      author,
-      description,
-      date: new Date(),
-    });
-
-    res.status(201).json({
-      message: 'Article created successfully',
-      article,
-    });
+    return res.status(200).json(article);
   } catch (error) {
-    console.error('Create article error:', error);
-    res.status(500).json({
-      message: 'Server error while processing article',
-      error: error.message,
-    });
+    console.error("Error creating/updating article:", error);
+    return res.status(500).json({ message: "Server error." });
   }
 };
-
 // Get all articles
 export const getAllArticles = async (req, res) => {
   try {
