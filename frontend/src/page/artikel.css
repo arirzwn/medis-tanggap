@@ -4,7 +4,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   width: 325px;
-  height: 350px;
+  height: 370px;
   padding: 15px 11px;
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
@@ -28,6 +28,8 @@
   -webkit-box-orient: vertical; /* Orientasi vertikal */
   overflow: hidden; /* Sembunyikan teks yang melebihi batas */
   text-overflow: ellipsis; /* Tambahkan tiga titik (...) di akhir */
+  line-height: 1.5; /* Mengatur jarak antar baris */
+  max-height: 4.5em; /* Batas tinggi untuk 3 baris dengan line-height 1.5em */
 }
 
 .fw-costum1 {
@@ -36,6 +38,11 @@
   font-size: 14px !important;
   max-width: 100%;
   white-space: normal;
+  display: -webkit-box; /* Untuk mendukung browser berbasis WebKit */
+  -webkit-line-clamp: 2; /* Maksimal 3 baris */
+  -webkit-box-orient: vertical; /* Orientasi vertikal */
+  overflow: hidden; /* Sembunyikan teks yang melebihi batas */
+  text-overflow: ellipsis; /* Tambahkan tiga titik (...) di akhir */
 }
 
 .artikel-mini-profil {
@@ -78,7 +85,7 @@
 }
 
 .col .bg-light.d-flex.align-items-center.justify-content-center, .col .artikel-terbaru{
-  width: 470px !important;
+  width: 530px !important;
   height: 350px !important;
 }
 }
@@ -98,7 +105,7 @@
     padding: 15px 12px;
     margin-bottom: 0px;
     width: 290px !important;
-    height: 360px;
+    height: 380px;
   }
   .text-muted,
   .artikel-username {
@@ -139,7 +146,7 @@
     padding: 15px 10px;
     margin-bottom: 0px;
     width: 320px !important;
-    height: 340px;
+    height: 360px;
   }
   .card-artikel img,
   .bg-light {
@@ -216,7 +223,7 @@
     height: 90px;
   }
   .card-artikel {
-    height: 330px !important;
+    height: 350px !important;
   }
   .col .artikel-mini-username{
     margin-top: 13px !important;

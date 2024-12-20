@@ -148,11 +148,10 @@ const Detail = () => {
                     <span className="img-profile">
                       {renderAuthorImage(article)} {/* Gambar penulis */}
                     </span>
-                    <span>{article.author}</span>
-                    <span className="text-muted ms-2">•</span>
-                    <span className="text-muted ms-2">
+                    <span className="text-muted nama">{article.author}</span>
+                    <p className="text-muted hari">
                       {new Date(article.date).toLocaleDateString()}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </header>
@@ -194,12 +193,14 @@ const Detail = () => {
                         <p className="card-text mt-1">
                           {/* Render the author's profile image */}
                           {renderAuthorImage(related)}
+                        </p>
+                        <p className="text-muted1">
                           {related.author}
                         </p>
-                        <p className="card-text">{related.title}</p>
                         <span className="text-muted">
                           {new Date(related.date).toLocaleDateString()}
                         </span>
+                        <p className="card-text title">{related.title}</p>
                       </div>
                     </div>
                   </div>
