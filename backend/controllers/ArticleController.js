@@ -147,11 +147,11 @@ export const getArticles = async (req, res) => {
       include: [
         {
           model: Users,
-          as: 'user', // Pastikan relasi antara Article dan Users sudah benar
-          attributes: ['images', 'name'], // Menambahkan field images dan name dari Users
+          as: 'user',
+          attributes: ['images', 'name'],
         },
       ],
-      order: [['date', 'DESC']], // Mengurutkan artikel berdasarkan tanggal
+      order: [['date', 'DESC']],
     });
 
     if (!articles) {
@@ -163,11 +163,11 @@ export const getArticles = async (req, res) => {
       return {
         ...plainArticle,
         author: plainArticle.user?.name || plainArticle.author,
-        authorImage: plainArticle.user?.images || null, // Menambahkan gambar pengguna
+        authorImage: plainArticle.user?.images || null,
       };
     });
 
-    res.json(processedArticles); // Mengirimkan data artikel yang sudah diproses
+    res.json(processedArticles);
   } catch (error) {
     console.error('Error in getArticles:', error);
     res.status(500).json({
@@ -176,7 +176,6 @@ export const getArticles = async (req, res) => {
     });
   }
 };
-
 
 export const getUserImagesByRole = async (req, res) => {
   try {
