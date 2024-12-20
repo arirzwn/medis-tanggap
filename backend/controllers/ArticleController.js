@@ -117,54 +117,14 @@ export const getArticleById = async (req, res) => {
 // Update an article by ID
 export const updateArticle = async (req, res) => {
   try {
-    const { title, content, author } = req.body;
-    const { id } = req.params;
-
-    // Check if article exists
-    const article = await Article.findByPk(id);
-    if (!article) {
-      return res.status(404).json({
-        message: 'Article not found',
-      });
-    }
-
-    // Validate required fields
-    if (!title || !content || !author) {
-      return res.status(400).json({
-        message: 'Title, content, and author are required',
-      });
-    }
-
-    // Content size check
-    if (content.length > 16777215) {
-      return res.status(413).json({
-        message: 'Content too large. Maximum size is 16MB',
-      });
-    }
-
-    // Create virtual DOM to extract description
-    const dom = new JSDOM(content);
-    const plainText = dom.window.document.body.textContent || '';
-    const description = plainText.substring(0, 200).trim();
-
-    // Update the article
-    const updatedArticle = await article.update({
-      title,
-      content,
-      author,
-      description,
+    const article = await Article.findByPk(req.params.id);
+    if (!article) return res.status(404).json({ msg: 'Article not found' });
+    await Article.update(req.body, {
+      where: { id: req.params.id },
     });
-
-    return res.json({
-      message: 'Article updated successfully',
-      article: updatedArticle,
-    });
+    res.json({ msg: 'Article updated successfully' });
   } catch (error) {
-    console.error('Update article error:', error);
-    return res.status(500).json({
-      message: 'Error updating article',
-      error: error.message,
-    });
+    res.status(400).json({ msg: error.message });
   }
 };
 
@@ -217,6 +177,7 @@ export const getArticles = async (req, res) => {
     });
   }
 };
+
 
 export const getUserImagesByRole = async (req, res) => {
   try {
