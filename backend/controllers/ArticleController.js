@@ -80,6 +80,7 @@ export const getAllArticles = async (req, res) => {
 };
 
 // Get a single article by ID
+// Backend (API)
 export const getArticleById = async (req, res) => {
   try {
     const article = await Article.findOne({
@@ -87,8 +88,8 @@ export const getArticleById = async (req, res) => {
       include: [
         {
           model: Users,
-          as: 'user',
-          attributes: ['images', 'name'],
+          as: 'user', // Pastikan relasi sudah benar
+          attributes: ['images', 'name'], // Menambahkan gambar profil dan nama pengguna
         },
       ],
     });
@@ -100,7 +101,7 @@ export const getArticleById = async (req, res) => {
     const processedArticle = {
       ...article.get({ plain: true }),
       author: article.user?.name || article.author,
-      authorImage: article.user?.images || null,
+      authorImage: article.user?.images || null, // Gambar profil pengguna
     };
 
     res.json(processedArticle);
