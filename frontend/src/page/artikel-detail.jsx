@@ -141,7 +141,7 @@ const Detail = () => {
           {/* Right column for related articles */}
           <div className="col-lg-3">
             <Link to="/artikel" className="article-all">
-              <h5 className="mb-4">Artikel Lainnya..</h5>
+              <h5 className="side-artikel">Artikel Lainnya..</h5>
             </Link>
 
             {relatedArticles.slice(0, 3).map(
@@ -166,12 +166,12 @@ const Detail = () => {
                         <div className="card-body">
                           <p className="card-text mt-1">
                             <img src={profile} alt="" />
-                            <span className="">{related.author} • </span>
-                            <small className="text-muted">
+                            <span className="detail-username">{related.author}</span>
+                            <p className="text-muted">
                               {new Date(related.date).toLocaleDateString(
                                 "id-ID"
                               )}
-                            </small>
+                            </p>
                           </p>
                           <h6 className="card-title">
                             <Link

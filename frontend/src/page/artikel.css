@@ -62,6 +62,11 @@
 .btn-brand1:hover {
   background-color: #153564;
 }
+@media (min-width: 1200px){
+.row.align-items-center{
+  margin-top: -10px !important;
+}
+}
 
 @media (max-width: 1100px) and (max-height: 950px) {
   .card-artikel img,
