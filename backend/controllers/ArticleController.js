@@ -147,11 +147,11 @@ export const getArticles = async (req, res) => {
       include: [
         {
           model: Users,
-          as: 'user',
-          attributes: ['images', 'name'],
+          as: 'user', // Pastikan relasi antara Article dan Users sudah benar
+          attributes: ['images', 'name'], // Menambahkan field images dan name dari Users
         },
       ],
-      order: [['date', 'DESC']],
+      order: [['date', 'DESC']], // Mengurutkan artikel berdasarkan tanggal
     });
 
     if (!articles) {
@@ -163,11 +163,11 @@ export const getArticles = async (req, res) => {
       return {
         ...plainArticle,
         author: plainArticle.user?.name || plainArticle.author,
-        authorImage: plainArticle.user?.images || null,
+        authorImage: plainArticle.user?.images || null, // Menambahkan gambar pengguna
       };
     });
 
-    res.json(processedArticles);
+    res.json(processedArticles); // Mengirimkan data artikel yang sudah diproses
   } catch (error) {
     console.error('Error in getArticles:', error);
     res.status(500).json({
@@ -178,7 +178,7 @@ export const getArticles = async (req, res) => {
 };
 
 
-const getUserImagesByRole = async (req, res) => {
+export const getUserImagesByRole = async (req, res) => {
   try {
     const { roleId } = req.query; // Assuming roleId is passed as a query parameter
 
