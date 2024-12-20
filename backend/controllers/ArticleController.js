@@ -184,7 +184,7 @@ export const getUserImagesByRole = async (req, res) => {
     const { roleId } = req.query; // Assuming roleId is passed as a query parameter
 
     if (!roleId) {
-      return res.status(400).json({ message: "roleId is required" });
+      return res.status(400).json({ message: 'roleId is required' });
     }
 
     // Find articles and include the associated user data based on userId
@@ -192,14 +192,16 @@ export const getUserImagesByRole = async (req, res) => {
       include: [
         {
           model: Users,
-          attributes: ["id", "name", "images", "roleId"], // Include necessary fields
+          attributes: ['id', 'name', 'images', 'roleId'], // Include necessary fields
           where: { roleId },
         },
       ],
     });
 
     if (articlesWithUsers.length === 0) {
-      return res.status(404).json({ message: "No users found for the given roleId" });
+      return res
+        .status(404)
+        .json({ message: 'No users found for the given roleId' });
     }
 
     // Extract user images from the articles
@@ -214,7 +216,7 @@ export const getUserImagesByRole = async (req, res) => {
 
     return res.status(200).json(userImages);
   } catch (error) {
-    console.error("Error fetching user images by roleId:", error);
-    return res.status(500).json({ message: "Internal server error", error });
+    console.error('Error fetching user images by roleId:', error);
+    return res.status(500).json({ message: 'Internal server error', error });
   }
 };
