@@ -440,3 +440,84 @@ section button #btn {
     font-size: 16px; /* Ukuran font paragraf lebih kecil */
   }
 }
+
+.image-home{
+margin-left: 75px;
+}
+.section-1{
+padding: 3rem;
+}
+.section-2{
+padding: 3rem;
+}
+.section-3{
+padding: 3rem;
+}
+.section-4{
+padding: 3rem;
+}
+
+.section-5{
+  padding: 3rem;
+}
+.navbar-nav-fitur{
+  /* background-color: #52bfd7; */
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* Untuk tablet dengan orientasi apa pun */
+@media  (max-width: 1024px) {
+  
+  .img-arrow1{
+    width: 20px !important;
+  }
+  
+
+}
+@media  (max-width: 724px) {
+  
+  .navbar-nav-fitur{
+    /* background-color: #52bfd7; */
+    width: 100%;
+
+    margin-top: 2rem;
+  }
+  .navbar-nav-fitur li{
+    font-size: 12px;
+  }
+  .image-home{
+  text-align: center;
+/* background-color: #52bfd7;   */
+margin: auto;
+margin-left: 0;
+}
+.img-arrow1{
+  width: 20px !important;
+}
+.section-1{
+  padding: 2rem 1rem !important;
+  }
+.section-2{
+  padding: 2rem 0 !important;
+  }
+.section-3{
+  padding: 2rem 1rem !important;
+  }
+.section-4{
+  padding: 2rem 1rem !important ;
+  }
+.section-5{
+  padding: 0 !important ;
+  }
+  .list-unstyled{
+    font-size: 14px;
+  }
+  .navbar-nav-fitur{
+
+padding-left: 2rem;
+  }
+  .section-image-1{
+    padding: 0 2rem;
+  }
+}
