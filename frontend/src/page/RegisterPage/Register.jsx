@@ -139,7 +139,7 @@ const Register = () => {
         <h1 className="mb-3 fw-bold font-welcome">Selamat Datang di</h1>
         <h1 className="mb-4 fw-bold">Medis Tanggap</h1>
         <button
-          className="btn btn-info text-white fw-bold px-4 py-2"
+          className="btn btn-info2 text-white fw-bold px-4 py-2"
           onClick={navigateToLogin}
         >
          Masuk
