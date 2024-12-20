@@ -74,11 +74,12 @@ function Artikel() {
       article.author
     )}`;
 
-    if (article.authorImage) {
+    // If the article has images field, use it
+    if (article.images) {
       return (
         <img
           className="artikel-profil"
-          src={`http://localhost:5000/uploads/${article.authorImage}`}
+          src={`http://localhost:5000/uploads/${article.images}`}
           alt={article.author}
           onError={(e) => {
             e.target.onerror = null;
@@ -88,6 +89,7 @@ function Artikel() {
       );
     }
 
+    // If no image is available, use the fallback
     return (
       <img
         className="artikel-profil"
@@ -119,7 +121,9 @@ function Artikel() {
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
-        ) : error ? (
+        ) : // <LoadingSpinner />
+
+        error ? (
           <div className="alert alert-danger m-4" role="alert">
             {error}
           </div>
@@ -233,8 +237,8 @@ function Artikel() {
                         <h2 className="fw-costum fs-6 mb-3 mt-2">
                           {article.title}
                         </h2>
-                        <h2 className="fw-costum1 fs-6 mb-3">
-                          {truncateText(article.description, 100)}
+                        <h2 className="fw-costum1 fs-6">
+                          {truncateText(article.description || "", 100)}
                         </h2>
                       </Link>
                     </div>
