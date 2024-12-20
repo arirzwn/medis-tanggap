@@ -13,6 +13,7 @@ import {
 import Logo from '../images/logo.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import '../klinikPage/detailartikel.css';
 
 function Sidebar({ children }) {
   const navigate = useNavigate();

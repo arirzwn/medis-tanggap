@@ -36,8 +36,8 @@ const LoginForm = () => {
       window.dispatchEvent(new Event('authChange'));
 
       Swal.fire({
-        title: 'Login Success!',
-        text: `Welcome, ${response.data.user.name}!`,
+        title: 'Login Sukses!',
+        text: `Selamat Datang, ${response.data.user.name}!`,
         icon: 'success',
         confirmButtonText: 'OK',
       }).then((result) => {

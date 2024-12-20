@@ -79,14 +79,14 @@ function SidebarAdmin({ children }) {
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will be logged out of your account',
+      title: 'Anda Yakin?',
+      text: 'Apakah Anda yakin ingin keluar?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, logout!',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Ya, Keluar!',
+      cancelButtonText: 'Batal',
     });
 
     if (result.isConfirmed) {
@@ -100,8 +100,8 @@ function SidebarAdmin({ children }) {
         window.dispatchEvent(new Event('authChange'));
 
         Swal.fire(
-          'Logged Out!',
-          'You have been successfully logged out.',
+          'Telah Keluar!',
+          'Logout Berhasil.',
           'success'
         ).then(() => {
           navigate('/login');
@@ -110,8 +110,8 @@ function SidebarAdmin({ children }) {
         console.error('Logout error:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Logout Failed',
-          text: 'An error occurred during logout',
+          title: 'Oops...',
+          text: 'Terjadi kesalahan saat logout',
         });
       }
     }
