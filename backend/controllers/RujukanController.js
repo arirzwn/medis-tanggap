@@ -10,6 +10,19 @@ export const getRujukan = async (req, res) => {
   }
 };
 
+export const getTotalRujukan = async (req, res) => {
+  try {
+    // Menghitung total rujukan
+    const totalRujukan = await Rujukan.count();
+    // Mengembalikan jumlah total rujukan sebagai JSON
+    res.json({ total: totalRujukan });
+  } catch (error) {
+    // Menangani error dan mengembalikan pesan kesalahan
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 export const getRujukanById = async (req, res) => {
   try {
     const rujukan = await Rujukan.findOne({

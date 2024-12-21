@@ -6,6 +6,7 @@ import {
   updateRujukan,
   deleteRujukan,
   getTodayRujukanCount,
+  getTotalRujukan
 } from '../controllers/RujukanController.js';
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.get('/rujukan/:id', getRujukanById);
 router.post('/rujukan', createRujukan);
 router.patch('/rujukan/:id', updateRujukan);
 router.delete('/rujukan/:id', deleteRujukan);
+router.get("/total-rujukan", getTotalRujukan);
 
 export default router;
