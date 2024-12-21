@@ -83,27 +83,6 @@ function Profil() {
   return (
     <SidebarKlinik>
       <div className="h-100">
-        <div className="bg-light row align-items-center shadow-sm mb-5 p-3 w-100">
-          <div className="col-md-3">
-            <img src={Logo} alt="Logo" />
-          </div>
-          <div className="col-md-9">
-            <h3 className="fw-bold">Medis Tanggap</h3>
-            <div className="row">
-              <div className="col-md-2">
-                <h6>Alamat</h6>
-                <h6>Telepon</h6>
-                <h6>Email</h6>
-              </div>
-              <div className="col-md-10">
-                <h6>Jl. Seth Adji</h6>
-                <h6>+62 12345678</h6>
-                <h6>noreply@gmail.com</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="container bg-white p-4 shadow-sm rounded">
           <h4 className="mb-4 fw-bold">Form Data Pengguna</h4>
           <form onSubmit={handleSubmit}>
