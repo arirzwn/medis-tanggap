@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { getSymptoms } from '../controllers/SymptomsController.js';
+
 const router = express.Router();
-const symptomController = require('../controllers/SymptomsController');
 
-// Mendefinisikan route untuk mengambil gejala
-router.get('/symptoms', symptomController.getSymptoms);
+router.get('/symptoms', getSymptoms);
 
-module.exports = router;
+export default router;

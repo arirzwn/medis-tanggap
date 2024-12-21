@@ -1,23 +1,39 @@
 import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 
-const db = new Sequelize('medis_tanggap', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false,
-});
+dotenv.config();
 
-// Function to initialize database
+const db = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: process.env.DB_DIALECT,
+    logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  }
+);
+
 const initializeDatabase = async () => {
   try {
     await db.authenticate();
     console.log('Database connection established.');
 
-    // Hapus sync() atau gunakan { force: false } untuk mencegah kehilangan data
-    await db.sync({
-      force: false, // Make sure this is false
-      alter: true,
-      logging: false,
-    });
+    // Hindari sync di production
+    if (process.env.NODE_ENV !== 'production') {
+      await db.sync({
+        force: false,
+        alter: true,
+        logging: false,
+      });
+    }
 
     console.log('Database connection verified successfully!');
   } catch (error) {
@@ -26,7 +42,6 @@ const initializeDatabase = async () => {
   }
 };
 
-// Initialize database
 initializeDatabase().catch((error) => {
   console.error('Failed to initialize database:', error);
 });
