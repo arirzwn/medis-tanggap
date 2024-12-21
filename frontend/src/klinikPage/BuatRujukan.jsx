@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SidebarKlinik from '../components/sidebarKlinik';
+import './rujukan.css';
 
 // Configure axios defaults globally
 axios.defaults.baseURL = 'http://localhost:5000';
