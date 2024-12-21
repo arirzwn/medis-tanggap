@@ -148,11 +148,10 @@ const Detail = () => {
                     <span className="img-profile">
                       {renderAuthorImage(article)} {/* Gambar penulis */}
                     </span>
-                    <span>{article.author}</span>
-                    <span className="text-muted ms-2">•</span>
-                    <span className="text-muted ms-2">
+                    <span className="text-muted nama">{article.author}</span>
+                    <p className="text-muted hari">
                       {new Date(article.date).toLocaleDateString()}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </header>
@@ -171,7 +170,7 @@ const Detail = () => {
           {/* Right column for related articles */}
           <div className="col-lg-3">
             <Link to="/artikel" className="article-all">
-              <h5 className="mb-4">Artikel Lainnya..</h5>
+              <h5 className="side-artikel">Artikel Lainnya..</h5>
             </Link>
 
             {relatedArticles.slice(0, 3).map((related) => (
@@ -194,12 +193,14 @@ const Detail = () => {
                         <p className="card-text mt-1">
                           {/* Render the author's profile image */}
                           {renderAuthorImage(related)}
+                        </p>
+                        <p className="text-muted1">
                           {related.author}
                         </p>
-                        <p className="card-text">{related.title}</p>
                         <span className="text-muted">
                           {new Date(related.date).toLocaleDateString()}
                         </span>
+                        <p className="card-text title">{related.title}</p>
                       </div>
                     </div>
                   </div>

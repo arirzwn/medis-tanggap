@@ -140,6 +140,7 @@ function Artikel() {
                           style={imgStyles.articleImg}
                           src={latestArticle.previewImage}
                           alt={latestArticle.title}
+                          className="artikel-terbaru"
                         />
                       ) : (
                         <div
@@ -206,6 +207,7 @@ function Artikel() {
                             style={imgStyles.miniImg}
                             src={article.previewImage}
                             alt={article.title}
+                            className="mini-img-artikel"
                           />
                         ) : (
                           <div
