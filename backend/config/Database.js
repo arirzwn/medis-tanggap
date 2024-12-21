@@ -1,19 +1,10 @@
 import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-const db = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT,
-    logging: false,
-  }
-);
+const db = new Sequelize('medis_tanggap', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
+  logging: false,
+});
 
 // Function to initialize database
 const initializeDatabase = async () => {
