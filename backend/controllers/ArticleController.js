@@ -119,6 +119,19 @@ export const updateArticle = async (req, res) => {
   }
 };
 
+export const getArticleCount = async (req, res) => {
+  try {
+    // Menghitung total artikel
+    const totalArticles = await Article.count();
+    // Mengembalikan jumlah total artikel sebagai JSON
+    res.json({ total: totalArticles });
+  } catch (error) {
+    // Menangani error dan mengembalikan pesan kesalahan
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+
 // Delete an article by ID
 export const deleteArticle = async (req, res) => {
   try {
